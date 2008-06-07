@@ -1,36 +1,54 @@
 from django.db import models
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 from datetime import datetime, timedelta
+from django.contrib.auth.models import User
 
 class Face(models.Model):
     content = models.TextField(default="")
-    image = ImageWithThumbnailsField(upload_to="faces")
+    image = ImageWithThumbnailsField(upload_to="faces",
+                                     thumbnail = {
+        'size' : (200,200)
+        })
     tex = models.TextField(default="")
 
+    class Admin: pass
+
 class Card(models.Model):
-    front = models.ForeignKey(Face)
-    back  = models.ForeignKey(Face)
+    front = models.ForeignKey(Face,related_name="front")
+    back  = models.ForeignKey(Face,related_name="back")
     added = models.DateTimeField(auto_now=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Admin: pass    
+
 class Deck(models.Model):
     name = models.CharField(max_length=256)
+
+    class Admin: pass    
 
 class DeckCard(models.Model):
     deck = models.ForeignKey(Deck)
     card = models.ForeignKey(Card)
 
+    class Admin: pass    
+
 class UserCard(models.Model):
     user = models.ForeignKey(User)
     card = models.ForeignKey(Card)
     priority = models.PositiveSmallIntegerField(default=1)
-    due = models.DateTimeField()
-    rung = models.PositiveSmallIntegerField(default=0)        
+    due = models.DateTimeField(blank=True)
+    rung = models.SmallIntegerField(default=-1)        # -1 means never presented to the user
     ease = models.PositiveSmallIntegerField(default=10) # number right out of the last 10 tests
+
+    class Admin: pass    
 
     def update_due(self):
         """ figure out the next due date for this card based on rung, difficulty, and current
         datetime """
+
+        # if rung == -1, the user has never been presented with this card, so we should never be here
+        if self.rung == -1:
+            return
 
         # Leitner's intervals
         intervals = [
@@ -73,4 +91,6 @@ class UserCardTest(models.Model):
     usercard = models.ForeignKey(UserCard)
     timestamp = models.DateTimeField(auto_now=True)
     correct = models.BooleanField(default=True)
+
+    class Admin: pass    
         
