@@ -4,6 +4,6 @@ urlpatterns = patterns('',
     # Example:
     # (r'^sebastian/', include('sebastian.foo.urls')),
 
-    # Uncomment this for admin:
+     (r'^$', 'sebastian.leitner.views.index'),
      (r'^admin/', include('django.contrib.admin.urls')),
 )
