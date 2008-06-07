@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+Testing card {{ card.id }}  {{ card.card.front.content|markdown }} 
+{{ card.card.back.content|markdown }}
+
+{% for deck in card.decks %}
+{{ deck.name }}
+{% endfor %}
+
+{% endblock %}

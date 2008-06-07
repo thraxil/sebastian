@@ -2,13 +2,14 @@ from django.db import models
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
+from random import randint
 
 class Face(models.Model):
     content = models.TextField(default="")
     image = ImageWithThumbnailsField(upload_to="faces",
                                      thumbnail = {
         'size' : (200,200)
-        })
+        }, blank=True)
     tex = models.TextField(default="")
 
     class Admin: pass
@@ -19,10 +20,17 @@ class Card(models.Model):
     added = models.DateTimeField(auto_now=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def decks(self):
+        return [dc.deck for dc in DeckCard.objects.filter(card=self)]
+
+
     class Admin: pass    
 
 class Deck(models.Model):
     name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.name
 
     class Admin: pass    
 
@@ -31,6 +39,27 @@ class DeckCard(models.Model):
     card = models.ForeignKey(Card)
 
     class Admin: pass    
+
+def first_due_card(user):
+    r = UserCard.objects.filter(user=user,due__lte=datetime.now(),rung__gte=0).order_by('due')
+    if r.count() > 0:
+        return r[0]
+    else:
+        return None
+
+def random_untested_card(user):
+    r = UserCard.objects.filter(user=user,rung=-1)
+    c = r.count()
+    if c > 0:
+        return r[randint(0,c - 1)]
+    else:
+        return None # no untested cards
+        
+def next_card(user):
+    card = first_due_card(user)
+    if card is None:
+        card = random_untested_card(user)
+    return card
 
 class UserCard(models.Model):
     user = models.ForeignKey(User)
