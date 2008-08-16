@@ -1,5 +1,10 @@
 from django.conf.urls.defaults import *
 
+from django.contrib import admin
+
+admin.autodiscover()
+
+
 urlpatterns = patterns('',
      (r'^login/$', 'django.contrib.auth.views.login'),
      (r'^accounts/login/$', 'django.contrib.auth.views.login'),
@@ -14,6 +19,6 @@ urlpatterns = patterns('',
      (r'^decks/(?P<id>\d+)/$', 'sebastian.leitner.views.deck'),                                              
      (r'^cards/(?P<id>\d+)/$', 'sebastian.leitner.views.card'),                                              
      (r'^stats/$', 'sebastian.leitner.views.stats'),
-     (r'^admin/', include('django.contrib.admin.urls')),
+     (r'^admin/(.*)', admin.site.root),
      (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/anders/code/python/sebastian/media/'}),                       
 )
