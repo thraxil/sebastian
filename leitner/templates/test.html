@@ -2,13 +2,44 @@
 {% load markup %}
 {% load thumbnail %}
 
+{% block js %}
+<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+<script type="text/javascript" src="/site_media/js/test.js"></script>
+{% endblock %}
+
 {% block content %}
 
-Testing card {{ card.id }}  {{ card.card.front.content|markdown }} 
-{{ card.card.back.content|markdown }}
+<p id="totaldue">{{ total_due }}</p>
 
-{% for deck in card.decks %}
-{{ deck.name }}
+{% if card %}
+<div id="decks">
+{% for deck in card.card.decks %}
+<div style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</div>
 {% endfor %}
+</div>
+
+<div id="front">{{ card.card.front.content }}</div>
+
+
+
+<p><a href="#back" onclick="flip();return false">flip</a></p>
+
+<div id="back" class="invisible">{{ card.card.back.content }}
+<hr />
+<form action="/test/" method="post" id="testform">
+<input type="hidden" name="card" value="{{ card.id }}" />
+<input type="hidden" name="right" value="" id="right" />
+<input type="button" name="rightbutton" value="yes" id="rightbutton"
+       onclick="submitForm('yes')" />
+<input type="button" name="wrongbutton" value="no" id="wrongbutton"
+       onclick="submitForm('no')" />
+</form>
+</div>
+{% else %}
+<p>no due cards and none in your unlearned pool. 
+Your next card is due at {{ first_due.due|date:"D, F j G:i:s" }}. Go read something and
+  come back then.
+</p>
+{% endif %}
 
 {% endblock %}
