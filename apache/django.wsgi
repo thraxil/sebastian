@@ -3,7 +3,8 @@ import site
 from os.path import *
 
 #site.addsitedir(join(dirname(__file__), "../ve/lib/python2.5/site-packages"))
-#sys.path.append(join(dirname(__file__),"../"))
+sys.path.append(join(dirname(__file__),"../"))
+sys.path.append('/var/www/')
 sys.path.append('/var/www/sebastian/')
 sys.path.append('/var/www/sebastian/leitner/')
 
