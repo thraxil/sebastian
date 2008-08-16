@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+<h2>Stats</h2>
+
+<table>
+<tr><th>due</th><th>hour</th><th>6h</th><th>day</th><th>week</th><th>month</th></tr>
+<tr>
+<td>{{ total_due }}
+{% ifequal total_due 0 %} next due at {{ first_due.due|date:"D, F j G:i:s" }}{% endifequal %}</td>
+<td>{{ next_hour_due }}</td>
+<td>{{ next_six_hours_due }}</td>
+<td>{{ next_day_due }}</td>
+<td>{{ next_week_due }}</td>
+<td>{{ next_month_due }}</td>
+</tr>
+
+</table>
+
+<p>tested: {{ total_tested }}</p>
+<p>untested: {{ total_untested }}</p>
+<p>percent correct: {{ percent_right }}</p>
+<div id="timeline">{% for d in overdue_dates %}<span style="color: #ff{{ d }}{{ d}}; background-color: #ff{{ d }}{{ d }};">#</span>{% endfor %}{% for d in due_dates %}<span style="color: #{{ d }}{{ d }}{{ d }}; background-color: #{{ d }}{{ d }}{{ d }};">#</span>{% endfor %}</div>
+
+
+
+<table border="1">
+<tr><th colspan="2">rungs</th><th>priority</th><th>ease</th></tr>
+
+
+<tr>
+<td>
+<img src="http://chart.apis.google.com/chart?cht=bvg&amp;chs=300x200&chds=0,{{max_rung}}&chbh=10&chxt=x,y&chxr=0,0,10|1,0,{{max_rung}}&amp;chd=t:{% for rung in rungs %}{{ rung.cards}}{% if not forloop.last %},{% endif %}{% endfor %}" />
+</td>
+<td>
+<table>
+{% for r in rungs %}<tr class="{% cycle 'even' 'odd' %}"><td>{{ r.cards }}</td></tr>{% endfor %}
+</table>
+</td>
+<td>
+<table>
+ {% for p in priorities %}
+ <tr class="{% cycle 'even' 'odd'  %}"><th>{{ p.priority }}</th>
+ <td>{{ p.tested }}</td>
+ <td>{{ p.untested }}</td>
+ </tr>
+ {% endfor %}
+</table>
+</td>
+<td>
+<img src="http://chart.apis.google.com/chart?cht=bvg&amp;chs=300x200&chds=0,{{max_ease}}&chbh=10&chxt=x,y&chxr=0,0,10|1,0,{{max_ease}}&amp;chd=t:{% for ease in ease %}{{ ease.cards}}{% if not forloop.last %},{% endif %}{% endfor %}" />
+</td>
+</tr>
+</table>
+
+
+{% endblock %}

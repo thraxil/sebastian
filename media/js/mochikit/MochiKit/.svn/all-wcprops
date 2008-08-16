@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/!svn/ver/1368/mochikit/trunk/MochiKit
+END
+Position.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1319/mochikit/trunk/MochiKit/Position.js
+END
+MochiKit.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1348/mochikit/trunk/MochiKit/MochiKit.js
+END
+Base.js
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1365/mochikit/trunk/MochiKit/Base.js
+END
+Sortable.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1319/mochikit/trunk/MochiKit/Sortable.js
+END
+Async.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1319/mochikit/trunk/MochiKit/Async.js
+END
+Signal.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1319/mochikit/trunk/MochiKit/Signal.js
+END
+Color.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1345/mochikit/trunk/MochiKit/Color.js
+END
+Test.js
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1319/mochikit/trunk/MochiKit/Test.js
+END
+DOM.js
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/1368/mochikit/trunk/MochiKit/DOM.js
+END
+Selector.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1319/mochikit/trunk/MochiKit/Selector.js
+END
+DragAndDrop.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1319/mochikit/trunk/MochiKit/DragAndDrop.js
+END
+Logging.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1319/mochikit/trunk/MochiKit/Logging.js
+END
+__package__.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1187/mochikit/trunk/MochiKit/__package__.js
+END
+Format.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1362/mochikit/trunk/MochiKit/Format.js
+END
+MockDOM.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1210/mochikit/trunk/MochiKit/MockDOM.js
+END
+LoggingPane.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1319/mochikit/trunk/MochiKit/LoggingPane.js
+END
+DateTime.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1363/mochikit/trunk/MochiKit/DateTime.js
+END
+Style.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1355/mochikit/trunk/MochiKit/Style.js
+END
+Iter.js
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1321/mochikit/trunk/MochiKit/Iter.js
+END
+Visual.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1360/mochikit/trunk/MochiKit/Visual.js
+END

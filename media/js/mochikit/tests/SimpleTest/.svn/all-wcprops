@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1220/mochikit/trunk/tests/SimpleTest
+END
+SimpleTest.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1220/mochikit/trunk/tests/SimpleTest/SimpleTest.js
+END
+TestRunner.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1173/mochikit/trunk/tests/SimpleTest/TestRunner.js
+END
+test.css
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/609/mochikit/trunk/tests/SimpleTest/test.css
+END

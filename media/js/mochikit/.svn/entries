@@ -1,0 +1,62 @@
+8
+
+dir
+1368
+http://svn.mochikit.com/mochikit/trunk
+http://svn.mochikit.com
+
+
+
+2008-04-25T10:41:56.618986Z
+1368
+cederberg@gmail.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+14cb8549-11fe-0310-83a5-45f3e82da484
+
+LICENSE.txt
+file
+
+
+
+
+2008-04-26T20:05:10.000000Z
+fcdb924401c350ec8250f7370d63519f
+2005-07-27T03:13:06.244930Z
+173
+bob
+has-props
+
+tests
+dir
+
+include
+dir
+
+doc
+dir
+
+MochiKit
+dir
+
+packed
+dir
+
+scripts
+dir
+
+examples
+dir
+

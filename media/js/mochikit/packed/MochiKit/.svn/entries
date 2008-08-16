@@ -1,0 +1,54 @@
+8
+
+dir
+1368
+http://svn.mochikit.com/mochikit/trunk/packed/MochiKit
+http://svn.mochikit.com
+
+
+
+2008-04-25T10:41:56.618986Z
+1368
+cederberg@gmail.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+14cb8549-11fe-0310-83a5-45f3e82da484
+
+MochiKit.js
+file
+
+
+
+
+2008-04-26T20:05:05.000000Z
+a943d78551b6ae339b99f2f3560a503a
+2008-04-25T10:41:56.618986Z
+1368
+cederberg@gmail.com
+has-props
+
+__package__.js
+file
+
+
+
+
+2008-04-26T20:05:05.000000Z
+3404a07833365e4fb6ed8b6523905ece
+2008-03-16T20:48:26.700032Z
+1332
+cederberg@gmail.com
+has-props
+

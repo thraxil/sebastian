@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+{% for deck in card.card.decks %}
+<h2><a href="{{ deck.get_absolute_url }}" style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a></h2>
+{% endfor %}
+
+<div id="front">{{ card.card.front.content }}</div>
+<hr />
+<div id="back">{{ card.card.back.content }}</div>
+<hr />
+<table>
+<tr><th>rung</th><td>{{ card.rung }}</td></tr>
+<tr><th>ease</th><td>{{ card.ease }}</td></tr>
+<tr><th>priority</th><td>{{ card.priority }}</td></tr>
+<tr><th>due</th><td>{{ card.due|date:"D, F j G:i:s" }}</td></tr>
+</table>
+
+<ul>history</ul>
+{% for test in card.usercardtest_set.all %}
+<li class="correct-{{test.correct}}">{{ test.timestamp|date:"D, F j G:i:s" }}: {{ test.correct }}</li>
+{% endfor %}
+</ul>
+
+<form action="/card/{{ card.id }}/edit/" method="post">
+<fieldset><legend>edit card</legend>
+<table>
+<tr><th>front</th><td><textarea name="front">{{ card.card.front.content }}</textarea></td></tr>
+<tr><th>back</th><td><textarea name="back">{{ card.card.back.content }}</textarea></td></tr>
+<tr><th>priority</th><td><select name="priority">
+
+<option value="10" {% ifequal card.priority 10 %}selected="selected"{% endifequal %}>10</option>
+<option value="9" {% ifequal card.priority 9 %}selected="selected"{% endifequal %}>9</option>
+<option value="8" {% ifequal card.priority 8 %}selected="selected"{% endifequal %}>8</option>
+<option value="7" {% ifequal card.priority 7 %}selected="selected"{% endifequal %}>7</option>
+<option value="6" {% ifequal card.priority 6 %}selected="selected"{% endifequal %}>6</option>
+<option value="5" {% ifequal card.priority 5 %}selected="selected"{% endifequal %}>5</option>
+<option value="4" {% ifequal card.priority 4 %}selected="selected"{% endifequal %}>4</option>
+<option value="3" {% ifequal card.priority 3 %}selected="selected"{% endifequal %}>3</option>
+<option value="2" {% ifequal card.priority 2 %}selected="selected"{% endifequal %}>2</option>
+<option value="1" {% ifequal card.priority 1 %}selected="selected"{% endifequal %}>1</option>
+</select>
+
+</td></tr>
+</table>
+
+<input type="submit" value="save" />
+
+</fieldset>
+</form>
+
+<form action="/card/{{ card.id }}/delete/" method="post">
+<fieldset><legend>delete card</legend>
+<input type="submit" value="delete" />
+</fieldset></form>
+
+{% endblock %}

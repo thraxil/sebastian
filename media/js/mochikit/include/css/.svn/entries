@@ -1,0 +1,54 @@
+8
+
+dir
+1368
+http://svn.mochikit.com/mochikit/trunk/include/css
+http://svn.mochikit.com
+
+
+
+2007-03-18T07:18:06.679762Z
+1276
+bob@redivi.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+14cb8549-11fe-0310-83a5-45f3e82da484
+
+documentation.css
+file
+
+
+
+
+2008-04-26T20:05:04.000000Z
+7c19ce9403824c5ec330a359cf33982a
+2007-03-18T07:18:06.679762Z
+1276
+bob@redivi.com
+has-props
+
+general.css
+file
+
+
+
+
+2008-04-26T20:05:04.000000Z
+4f92d0943eee180a5ee020f9c983e0df
+2006-01-22T01:54:32.663988Z
+546
+bob@redivi.com
+has-props
+

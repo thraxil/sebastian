@@ -1,0 +1,50 @@
+body {background-color: #fff;}
+
+#front {
+  font-size: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.correct-True { background-color: #0f6; color: #000;}
+.correct-False {background-color: #f00; color: #fff;}
+.invisible { display: none;}
+
+#nav {
+	position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 20px;
+  background-color: #000;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  margin: 0 auto 0 auto;
+}
+
+#nav ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+#nav li {
+      display: inline;
+}
+#nav a {
+color: #fff;
+
+text-decoration: none;
+}
+
+#nav a:hover {
+color: #369;
+background: #fff;
+}
+
+#content { padding: 10px; margin-left: auto; margin-right: auto;}
+
+#timeline { border: #000 solid 1px; font-size: .8em;}
+#decks {width: 100%; }
+#totaldue {position: absolute; bottom: 0px; right: 0px; font-size: 2em; border: #000 solid 1px; }
+
+tr.even td { background-color: #eee; }

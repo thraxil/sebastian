@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+<h2 style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</h2>
+
+<table>
+{% for card in usercards %}
+<tr class="{% cycle 'even' 'odd'  %}">
+<td><a href="{{ card.card.get_absolute_url }}">{{ card.card.front.content }}</a></td>
+<td>{{ card.card.back.content }}</td>
+<td>{{ card.rung }}</td>
+<td>{{ card.ease }}</td>
+<td>{% ifnotequal card.rung -1 %}{{ card.due|date:"D, F j G:i:s" }}{% endifnotequal %}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

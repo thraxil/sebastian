@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/1320/mochikit/trunk/scripts
+END
+spidermochi.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/890/mochikit/trunk/scripts/spidermochi.js
+END
+custom_rhino.jar
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1320/mochikit/trunk/scripts/custom_rhino.jar
+END
+pack.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/!svn/ver/476/mochikit/trunk/scripts/pack.py
+END
+build.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/289/mochikit/trunk/scripts/build.py
+END
+js.jar
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/884/mochikit/trunk/scripts/js.jar
+END
+jscriptmochi.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/890/mochikit/trunk/scripts/jscriptmochi.js
+END
+gotapi.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1293/mochikit/trunk/scripts/gotapi.py
+END
+rhinomochi.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/890/mochikit/trunk/scripts/rhinomochi.js
+END
+make_docs.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1276/mochikit/trunk/scripts/make_docs.py
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1179/mochikit/trunk/examples/interpreter
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/761/mochikit/trunk/examples/interpreter/index.html
+END
+interpreter.css
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/677/mochikit/trunk/examples/interpreter/interpreter.css
+END
+interpreter.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/1179/mochikit/trunk/examples/interpreter/interpreter.js
+END

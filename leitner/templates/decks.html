@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+<ul>decks
+{% for deck in decks %}
+<li><a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a> ({{ deck.num_cards }})</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

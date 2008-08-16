@@ -1,0 +1,70 @@
+8
+
+dir
+1368
+http://svn.mochikit.com/mochikit/trunk/examples/view-source
+http://svn.mochikit.com
+
+
+
+2006-10-28T17:54:51.588606Z
+1179
+bob@redivi.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+14cb8549-11fe-0310-83a5-45f3e82da484
+
+view-source.css
+file
+
+
+
+
+2008-04-26T20:05:09.000000Z
+38095ee942242b03ebc3cd0978701e6e
+2005-08-12T09:09:22.585197Z
+258
+bob
+has-props
+
+view-source.js
+file
+
+
+
+
+2008-04-26T20:05:09.000000Z
+24f465ed93dd14d3dedb8e1a2df23e98
+2006-10-28T17:54:51.588606Z
+1179
+bob@redivi.com
+has-props
+
+lib
+dir
+
+view-source.html
+file
+
+
+
+
+2008-04-26T20:05:09.000000Z
+adfc84cadbe4e552f77915f8337a84cd
+2006-02-01T00:06:31.196717Z
+595
+bob@redivi.com
+has-props
+

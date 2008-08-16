@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block content %}
+
+<form action="/add_card/" method="post" enctype="multipart/form-data">
+
+
+<table>
+<tr>
+<th>Deck</th>
+<td>
+<select name="deck">
+{% for deck in decks %}
+<option value="{{ deck.name }}">{{ deck.name }}</option>
+{% endfor %}
+<option value="">New Deck</option>
+</select> new deck: <input type="text" name="new_deck" /></td>
+</tr>
+
+<tr>
+<th>Priority</th>
+<td>
+<select name="priority">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</td>
+</tr>
+
+
+
+<tr><th colspan="2">Front</th></tr>
+
+<tr>
+<th>Content</th>
+<td><textarea name="front_content" rows="5" cols="70"></textarea></td>
+</tr>
+
+<tr>
+<th>TeX</th>
+<td><textarea name="front_tex"  rows="5" cols="70"></textarea></td>
+</tr>
+
+<tr>
+<th>Image</th>
+<td><input type="file" name="front_image" /></td>
+</tr>
+
+<tr><th colspan="2">Back</th></tr>
+
+<tr>
+<th>Content</th>
+<td><textarea name="back_content" rows="5" cols="70"></textarea></td>
+</tr>
+
+<tr>
+<th>TeX</th>
+<td><textarea name="back_tex" rows="5" cols="70"></textarea></td>
+</tr>
+
+<tr>
+<th>Image</th>
+<td><input type="file" name="back_image" /></td>
+</tr>
+
+
+
+
+</table>
+
+<input type="submit" value="add card" />
+
+</form>
+
+<form action="/add_multiple_cards/" method="post">
+<fieldset><legend>add multiple simple cards</legend>
+
+<table>
+<tr>
+<th>Deck</th>
+<td>
+<select name="deck">
+{% for deck in decks %}
+<option value="{{ deck.name }}">{{ deck.name }}</option>
+{% endfor %}
+<option value="">New Deck</option>
+</select> new deck: <input type="text" name="new_deck" /></td>
+</td>
+</tr>
+
+<tr>
+<th>Priority</th>
+<td>
+<select name="priority">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</td>
+</tr>
+
+<tr>
+<th>Cards ("|" delimited)</th>
+<td>
+<textarea name="cards" rows="20" cols="70"></textarea>
+</td>
+</tr>
+
+</table>
+
+<input type="submit" value="add cards" />
+
+</fieldset>
+</form>
+
+{% endblock %}

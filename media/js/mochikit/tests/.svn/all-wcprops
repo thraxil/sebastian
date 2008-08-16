@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/!svn/ver/1366/mochikit/trunk/tests
+END
+test_MochiKit-Base.html
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/1057/mochikit/trunk/tests/test_MochiKit-Base.html
+END
+cli.js
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/!svn/ver/890/mochikit/trunk/tests/cli.js
+END
+test_MochiKit-Signal.html
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/1366/mochikit/trunk/tests/test_MochiKit-Signal.html
+END
+test_Base.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1323/mochikit/trunk/tests/test_Base.js
+END
+test_MochiKit-Async.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1087/mochikit/trunk/tests/test_MochiKit-Async.html
+END
+test_MochiKit-Color.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1225/mochikit/trunk/tests/test_MochiKit-Color.html
+END
+test_MochiKit-DOM.html
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/1346/mochikit/trunk/tests/test_MochiKit-DOM.html
+END
+test_Signal.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1287/mochikit/trunk/tests/test_Signal.js
+END
+test_MochiKit-Selector.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/1366/mochikit/trunk/tests/test_MochiKit-Selector.html
+END
+test_Color.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1273/mochikit/trunk/tests/test_Color.js
+END
+test_MochiKit-DOM-Safari.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/1253/mochikit/trunk/tests/test_MochiKit-DOM-Safari.html
+END
+test_MochiKit-Async.json
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/792/mochikit/trunk/tests/test_MochiKit-Async.json
+END
+test_MochiKit-DragAndDrop.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/1254/mochikit/trunk/tests/test_MochiKit-DragAndDrop.html
+END
+test_MochiKit-Logging.html
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1003/mochikit/trunk/tests/test_MochiKit-Logging.html
+END
+FakeJSAN.js
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/888/mochikit/trunk/tests/FakeJSAN.js
+END
+test_DragAndDrop.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/868/mochikit/trunk/tests/test_DragAndDrop.js
+END
+test_MochiKit-Format.html
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/1003/mochikit/trunk/tests/test_MochiKit-Format.html
+END
+test_Logging.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/529/mochikit/trunk/tests/test_Logging.js
+END
+test_Format.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1364/mochikit/trunk/tests/test_Format.js
+END
+test_MochiKit-JSAN.html
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/384/mochikit/trunk/tests/test_MochiKit-JSAN.html
+END
+standalone.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/890/mochikit/trunk/tests/standalone.js
+END
+test_MochiKit-DateTime.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/1003/mochikit/trunk/tests/test_MochiKit-DateTime.html
+END
+test_DateTime.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/1351/mochikit/trunk/tests/test_DateTime.js
+END
+test_MochiKit-Style.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1366/mochikit/trunk/tests/test_MochiKit-Style.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1196/mochikit/trunk/tests/index.html
+END
+test_MochiKit-Iter.html
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/!svn/ver/1003/mochikit/trunk/tests/test_MochiKit-Iter.html
+END
+test_MochiKit-Visual.html
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/1366/mochikit/trunk/tests/test_MochiKit-Visual.html
+END
+test_Iter.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/529/mochikit/trunk/tests/test_Iter.js
+END
+test_MochiKit-MochiKit.html
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/605/mochikit/trunk/tests/test_MochiKit-MochiKit.html
+END

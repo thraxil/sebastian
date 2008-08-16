@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1179/mochikit/trunk/examples/ajax_tables
+END
+domains.json
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/232/mochikit/trunk/examples/ajax_tables/domains.json
+END
+ajax_tables.css
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/229/mochikit/trunk/examples/ajax_tables/ajax_tables.css
+END
+ajax_tables.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/1179/mochikit/trunk/examples/ajax_tables/ajax_tables.js
+END
+domains.xml
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/232/mochikit/trunk/examples/ajax_tables/domains.xml
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/595/mochikit/trunk/examples/ajax_tables/index.html
+END

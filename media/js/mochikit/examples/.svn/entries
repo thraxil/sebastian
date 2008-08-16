@@ -1,0 +1,67 @@
+8
+
+dir
+1368
+http://svn.mochikit.com/mochikit/trunk/examples
+http://svn.mochikit.com
+
+
+
+2007-01-11T19:44:58.689629Z
+1249
+therve@gmail.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+14cb8549-11fe-0310-83a5-45f3e82da484
+
+effects
+dir
+
+dnd_sortable
+dir
+
+color_wheel
+dir
+
+interpreter
+dir
+
+sortable_tables
+dir
+
+draggable
+dir
+
+view-source
+dir
+
+logging_pane
+dir
+
+mochiregexp
+dir
+
+rounded_corners
+dir
+
+key_events
+dir
+
+ajax_tables
+dir
+
+simple_dnd
+dir
+

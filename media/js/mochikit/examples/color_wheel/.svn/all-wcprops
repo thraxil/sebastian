@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/595/mochikit/trunk/examples/color_wheel
+END
+color_wheel.css
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/352/mochikit/trunk/examples/color_wheel/color_wheel.css
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/595/mochikit/trunk/examples/color_wheel/index.html
+END
+color_wheel.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/352/mochikit/trunk/examples/color_wheel/color_wheel.js
+END
