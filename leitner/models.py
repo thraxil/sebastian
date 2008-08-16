@@ -13,8 +13,6 @@ class Face(models.Model):
         }, blank=True)
     tex = models.TextField(default="")
 
-    class Admin: pass
-
 class Card(models.Model):
     front = models.ForeignKey(Face,related_name="front")
     back  = models.ForeignKey(Face,related_name="back")
@@ -29,8 +27,6 @@ class Card(models.Model):
 
     def usercard(self,user):
 	return UserCard.objects.get(card=self,user=user)
-
-    class Admin: pass    
 
 def user_decks(user):
     return Deck.objects.filter(user=user)
@@ -60,13 +56,9 @@ class Deck(models.Model):
     def get_absolute_url(self):
         return "/decks/%d/" % self.id
 
-    class Admin: pass    
-
 class DeckCard(models.Model):
     deck = models.ForeignKey(Deck)
     card = models.ForeignKey(Card)
-
-    class Admin: pass    
 
 def first_due_card(user):
     r = UserCard.objects.filter(user=user,due__lte=datetime.now(),rung__gte=0).order_by('due')
@@ -117,8 +109,6 @@ class UserCard(models.Model):
     due = models.DateTimeField(blank=True)
     rung = models.SmallIntegerField(default=-1)        # -1 means never presented to the user
     ease = models.PositiveSmallIntegerField(default=5) # number right out of the last 10 tests
-
-    class Admin: pass    
 
     def update_due(self):
         """ figure out the next due date for this card based on rung, difficulty, and current
@@ -321,5 +311,4 @@ class UserCardTest(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     correct = models.BooleanField(default=True)
 
-    class Admin: pass    
         
