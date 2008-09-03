@@ -18,13 +18,31 @@
 {% endfor %}
 </div>
 
-<div id="front">{{ card.card.front.content }}</div>
+<div id="front">
+
+{% if card.card.front.content %}
+{{ card.card.front.content }}
+{% endif %}
+
+{% if card.card.front.image %}
+<img src="{% thumbnail card.card.front.image 600x600 %}" />
+{% endif %}
+
+</div>
 
 
 
 <p><a href="#back" onclick="flip();return false">flip</a></p>
 
-<div id="back" class="invisible">{{ card.card.back.content }}
+<div id="back" class="invisible">
+{% if card.card.back.content %}
+{{ card.card.back.content }}
+{% endif %}
+
+{% if card.card.back.image %}
+<img src="{% thumbnail card.card.back.image 600x600 %}" />
+{% endif %}
+
 <hr />
 <form action="/test/" method="post" id="testform">
 <input type="hidden" name="card" value="{{ card.id }}" />

@@ -5,6 +5,7 @@ from models import *
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, timedelta
+from forms import AddFaceForm
 
 @login_required
 def index(request):
@@ -42,6 +43,29 @@ def card(request,id):
     return render_to_response("card.html",dict(card=card))
 
 
+# @login_required
+# def add_image(request):
+#     if request.method == "POST":
+#         if request.POST.get("slug","") == "":
+#             request.POST['slug'] = slugify(request.POST.get("title"))
+#         form = AddImageForm(request.POST,request.FILES)
+#         if form.is_valid():
+#             img = form.save()
+#             for key in request.POST.keys():
+#                 if key.startswith("gallery_"):
+#                     g = get_object_or_404(Gallery,id=key[len("gallery_"):])
+#                     img.add_to_gallery(g)
+#             return HttpResponseRedirect(img.get_absolute_url())
+#         else:
+#             print "not valid"
+#             galleries = Gallery.objects.all()
+#             return render_to_response("add_image.html",dict(galleries=galleries,
+#                                                             form=form))
+#     else:
+#         galleries = Gallery.objects.all()
+#         return render_to_response("add_image.html",dict(galleries=galleries,
+#                                                    form=AddImageForm()))
+
 @login_required
 def add_card(request):
     if request.method == "POST":
@@ -54,20 +78,22 @@ def add_card(request):
         except ObjectDoesNotExist:
             deck = Deck.objects.create(name=deck_name,user=u)
 
-        front = Face.objects.create(content=request.POST.get("front_content",""),
-                                    tex=request.POST.get("front_tex",""))
-        back = Face.objects.create(content=request.POST.get("back_content",""),
-                                    tex=request.POST.get("back_tex",""))
-        card = Card.objects.create(front=front,back=back)
-        dc = DeckCard.objects.create(deck=deck,card=card)
-        uc = UserCard.objects.create(card=card,user=request.user,
-                                     due=datetime.now(),
-                                     priority=int(request.POST.get('priority','1')))
-
-        return HttpResponseRedirect("/add_card/")
-
+        front_form = AddFaceForm(request.POST,request.FILES,prefix="front")
+        back_form = AddFaceForm(request.POST,request.FILES,prefix="back")
+        if front_form.is_valid() and back_form.is_valid():
+            front = front_form.save()
+            back = back_form.save()
+            card = Card.objects.create(front=front,back=back)
+            dc = DeckCard.objects.create(deck=deck,card=card)
+            uc = UserCard.objects.create(card=card,user=request.user,
+                                         due=datetime.now(),
+                                         priority=int(request.POST.get('priority','1')))
+            return HttpResponseRedirect("/add_card/")
     else:
-        return render_to_response("add_card.html",dict(decks=user_decks(request.user)))
+        front_form = AddFaceForm(prefix="front")
+        back_form = AddFaceForm(prefix="back")
+    return render_to_response("add_card.html",dict(decks=user_decks(request.user),
+                                                   front=front_form,back=back_form))
 
 @login_required
 def add_multiple_cards(request):

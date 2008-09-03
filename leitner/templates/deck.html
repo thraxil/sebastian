@@ -9,8 +9,23 @@
 <table>
 {% for card in usercards %}
 <tr class="{% cycle 'even' 'odd'  %}">
-<td><a href="{{ card.card.get_absolute_url }}">{{ card.card.front.content }}</a></td>
-<td>{{ card.card.back.content }}</td>
+<td><a href="{{ card.card.get_absolute_url }}">
+{% if card.card.front.content %}
+{{ card.card.front.content }}
+{% endif %}
+{% if card.card.front.image %}
+<img src="{% thumbnail card.card.front.image 50x50 %}" border="0"/>
+{% endif %}
+</a></td>
+<td>
+{% if card.card.back.content %}
+{{ card.card.back.content }}
+{% endif %}
+
+{% if card.card.back.image %}
+<img src="{% thumbnail card.card.back.image 50x50 %}" />
+{% endif %}
+</td>
 <td>{{ card.rung }}</td>
 <td>{{ card.ease }}</td>
 <td>{% ifnotequal card.rung -1 %}{{ card.due|date:"D, F j G:i:s" }}{% endifnotequal %}</td>

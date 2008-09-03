@@ -6,12 +6,12 @@ from random import randint
 from hashcolor import color, make_contrasting
 
 class Face(models.Model):
-    content = models.TextField(default="")
+    content = models.TextField(default="",blank=True)
     image = ImageWithThumbnailsField(upload_to="faces",
                                      thumbnail = {
         'size' : (200,200)
         }, blank=True)
-    tex = models.TextField(default="")
+    tex = models.TextField(default="",blank=True)
 
 class Card(models.Model):
     front = models.ForeignKey(Face,related_name="front")

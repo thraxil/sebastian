@@ -40,40 +40,11 @@
 
 <tr><th colspan="2">Front</th></tr>
 
-<tr>
-<th>Content</th>
-<td><textarea name="front_content" rows="5" cols="70"></textarea></td>
-</tr>
-
-<tr>
-<th>TeX</th>
-<td><textarea name="front_tex"  rows="5" cols="70"></textarea></td>
-</tr>
-
-<tr>
-<th>Image</th>
-<td><input type="file" name="front_image" /></td>
-</tr>
+{{ front.as_table }}
 
 <tr><th colspan="2">Back</th></tr>
 
-<tr>
-<th>Content</th>
-<td><textarea name="back_content" rows="5" cols="70"></textarea></td>
-</tr>
-
-<tr>
-<th>TeX</th>
-<td><textarea name="back_tex" rows="5" cols="70"></textarea></td>
-</tr>
-
-<tr>
-<th>Image</th>
-<td><input type="file" name="back_image" /></td>
-</tr>
-
-
-
+{{ back.as_table }}
 
 </table>
 

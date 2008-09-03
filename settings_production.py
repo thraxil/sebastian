@@ -11,6 +11,6 @@ TEMPLATE_DIRS = (
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/var/www/sebastian/media/'
+MEDIA_ROOT = '/var/www/tmp/sebastian/media/data/'
 
 SERVER_EMAIL = 'anders@columbia.edu'

@@ -8,9 +8,23 @@
 <h2><a href="{{ deck.get_absolute_url }}" style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a></h2>
 {% endfor %}
 
-<div id="front">{{ card.card.front.content }}</div>
+<div id="front">
+{% if card.card.front.content %}
+{{ card.card.front.content }}
+{% endif %}
+{% if card.card.front.image %}
+<img src="{% thumbnail card.card.front.image 600x600 %}" />
+{% endif %}
+</div>
 <hr />
-<div id="back">{{ card.card.back.content }}</div>
+<div id="back">
+{% if card.card.back.content %}
+{{ card.card.back.content }}
+{% endif %}
+{% if card.card.back.image %}
+<img src="{% thumbnail card.card.back.image 600x600 %}" />
+{% endif %}
+</div>
 <hr />
 <table>
 <tr><th>rung</th><td>{{ card.rung }}</td></tr>

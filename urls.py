@@ -21,4 +21,5 @@ urlpatterns = patterns('',
      (r'^stats/$', 'sebastian.leitner.views.stats'),
      (r'^admin/(.*)', admin.site.root),
      (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/anders/code/python/sebastian/media/'}),                       
+     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/var/tmp/sebastian/'}),                       
 )
