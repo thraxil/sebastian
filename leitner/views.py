@@ -181,6 +181,7 @@ def munin_tested(request):
         return HttpResponse("""graph_title Tested
 graph_vlabel cards
 graph_category Sebastian
+graph_args -l 0
 total_tested.label Total Tested
 total_tested.draw AREA
 total_untested.label Total Untested
