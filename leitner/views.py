@@ -148,6 +148,115 @@ def stats(request):
         next_month_due=next_month_due(request.user),                
         ))
 
+def munin_due(request):
+    # hardcode for now
+    user = get_object_or_404(User,username='anders')
+    if request.GET.get('config',False):
+        return HttpResponse("""graph_title Cards Due
+graph_vlabel cards
+graph_category Sebastian
+total_due.label Cards Due
+""")
+    else:
+        return HttpResponse("total_due.value " + str(total_due(user)))
 
+def munin_percent(request):
+    # hardcode for now
+    user = get_object_or_404(User,username='anders')
+    if request.GET.get('config',False):
+        return HttpResponse("""graph_title Percent Correct
+graph_vlabel %
+graph_category Sebastian
+percent_right.label Percent Right
+""")
+    else:
+        return HttpResponse("percent_right.value " + str(percent_right(user)))
 
+def munin_tested(request):
+    # hardcode for now
+    user = get_object_or_404(User,username='anders')
+    if request.GET.get('config',False):
+        return HttpResponse("""graph_title Tested
+graph_vlabel cards
+graph_category Sebastian
+total_tested.label Total Tested
+total_tested.draw AREA
+total_untested.label Total Untested
+total_untested.draw STACK
+""")
+    else:
+        return HttpResponse("total_tested.value " + str(total_tested(user)) + "\n"\
+                                + "total_untested.value " + str(total_untested(user)))
+
+def munin_rungs(request):
+    # hardcode for now
+    user = get_object_or_404(User,username='anders')
+    rungs = list(rungs_stats(user))
+    rungs.sort(lambda a,b: cmp(b['rung'],a['rung']))
+    if request.GET.get('config',False):
+        return HttpResponse("""graph_title Rungs
+graph_vlabel cards
+graph_category Sebastian
+rung10.label Rung 10
+rung10.draw AREA
+rung9.label Rung 9
+rung9.draw STACK
+rung9.label Rung 8
+rung9.draw STACK
+rung9.label Rung 7
+rung9.draw STACK
+rung9.label Rung 6
+rung9.draw STACK
+rung9.label Rung 5
+rung9.draw STACK
+rung9.label Rung 4
+rung9.draw STACK
+rung9.label Rung 3
+rung9.draw STACK
+rung9.label Rung 2
+rung9.draw STACK
+rung9.label Rung 1
+rung9.draw STACK
+""")
+    else:
+        parts = []
+        for rung in rungs:
+            parts.append("rung%d.value %d" % (rung['rung'],rung['cards']))
+        return HttpResponse("\n".join(parts))
+
+def munin_ease(request):
+    # hardcode for now
+    user = get_object_or_404(User,username='anders')
+    ease = list(ease_stats(user))
+    ease.sort(lambda a,b: cmp(b['ease'],a['ease']))
+    if request.GET.get('config',False):
+        return HttpResponse("""graph_title Ease
+graph_vlabel cards
+graph_category Sebastian
+ease10.label Ease 10
+ease10.draw AREA
+ease9.label Ease 9
+ease9.draw STACK
+ease9.label Ease 8
+ease9.draw STACK
+ease9.label Ease 7
+ease9.draw STACK
+ease9.label Ease 6
+ease9.draw STACK
+ease9.label Ease 5
+ease9.draw STACK
+ease9.label Ease 4
+ease9.draw STACK
+ease9.label Ease 3
+ease9.draw STACK
+ease9.label Ease 2
+ease9.draw STACK
+ease9.label Ease 1
+ease9.draw STACK
+""")
+    else:
+        parts = []
+        for e in ease:
+            parts.append("ease%d.value %d" % (e['ease'],e['cards']))
+        return HttpResponse("\n".join(parts))
 
