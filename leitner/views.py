@@ -167,6 +167,8 @@ def munin_percent(request):
         return HttpResponse("""graph_title Percent Correct
 graph_vlabel %
 graph_category Sebastian
+graph_args --upper-limit 100 -l 0
+graph_scale no
 percent_right.label Percent Right
 """)
     else:
