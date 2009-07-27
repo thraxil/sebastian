@@ -1,12 +1,12 @@
-import os, sys
-import site
-from os.path import *
+import os, sys, site
 
-#site.addsitedir(join(dirname(__file__), "../ve/lib/python2.5/site-packages"))
-sys.path.append(join(dirname(__file__),"../"))
+# enable the virtualenv
+site.addsitedir('/var/www/sebastian/sebastian/ve/lib/python2.5/site-packages')
+
+# paths we might need to pick up the project's settings
 sys.path.append('/var/www/')
 sys.path.append('/var/www/sebastian/')
-sys.path.append('/var/www/sebastian/leitner/')
+sys.path.append('/var/www/sebastian/sebastian/')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'sebastian.settings_production'
 
