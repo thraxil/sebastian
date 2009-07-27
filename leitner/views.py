@@ -201,22 +201,24 @@ rung10.label Rung 10
 rung10.draw AREA
 rung9.label Rung 9
 rung9.draw STACK
-rung9.label Rung 8
-rung9.draw STACK
-rung9.label Rung 7
-rung9.draw STACK
-rung9.label Rung 6
-rung9.draw STACK
-rung9.label Rung 5
-rung9.draw STACK
-rung9.label Rung 4
-rung9.draw STACK
-rung9.label Rung 3
-rung9.draw STACK
-rung9.label Rung 2
-rung9.draw STACK
-rung9.label Rung 1
-rung9.draw STACK
+rung8.label Rung 8
+rung8.draw STACK
+rung7.label Rung 7
+rung7.draw STACK
+rung6.label Rung 6
+rung6.draw STACK
+rung5.label Rung 5
+rung5.draw STACK
+rung4.label Rung 4
+rung4.draw STACK
+rung3.label Rung 3
+rung3.draw STACK
+rung2.label Rung 2
+rung2.draw STACK
+rung1.label Rung 1
+rung1.draw STACK
+rung0.label Rung 0
+rung0.draw STACK
 """)
     else:
         parts = []
@@ -237,22 +239,24 @@ ease10.label Ease 10
 ease10.draw AREA
 ease9.label Ease 9
 ease9.draw STACK
-ease9.label Ease 8
-ease9.draw STACK
-ease9.label Ease 7
-ease9.draw STACK
-ease9.label Ease 6
-ease9.draw STACK
-ease9.label Ease 5
-ease9.draw STACK
-ease9.label Ease 4
-ease9.draw STACK
-ease9.label Ease 3
-ease9.draw STACK
-ease9.label Ease 2
-ease9.draw STACK
-ease9.label Ease 1
-ease9.draw STACK
+ease8.label Ease 8
+ease8.draw STACK
+ease7.label Ease 7
+ease7.draw STACK
+ease6.label Ease 6
+ease6.draw STACK
+ease5.label Ease 5
+ease5.draw STACK
+ease4.label Ease 4
+ease4.draw STACK
+ease3.label Ease 3
+ease3.draw STACK
+ease2.label Ease 2
+ease2.draw STACK
+ease1.label Ease 1
+ease1.draw STACK
+ease0.label Ease 0
+ease0.draw STACK
 """)
     else:
         parts = []
