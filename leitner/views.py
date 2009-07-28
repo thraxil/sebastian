@@ -200,6 +200,7 @@ def munin_rungs(request):
         return HttpResponse("""graph_title Rungs
 graph_vlabel cards
 graph_category Sebastian
+graph_args -l 0
 rung10.label Rung 10
 rung10.draw AREA
 rung9.label Rung 9
@@ -238,6 +239,7 @@ def munin_ease(request):
         return HttpResponse("""graph_title Ease
 graph_vlabel cards
 graph_category Sebastian
+graph_args -l 0
 ease10.label Ease 10
 ease10.draw AREA
 ease9.label Ease 9
