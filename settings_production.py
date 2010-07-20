@@ -6,12 +6,12 @@ TEMPLATE_DEBUG = DEBUG
 DATABASE_NAME = 'sebastian'
 
 TEMPLATE_DIRS = (
-    "/var/www/sebastian/leitner/templates",
+    "/var/www/sebastian/sebastian/leitner/templates",
 )
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/var/www/tmp/sebastian/media/data/'
+MEDIA_ROOT = '/var/www/sebastian/uploads/media/data/'
 
 SERVER_EMAIL = 'anders@columbia.edu'
 
