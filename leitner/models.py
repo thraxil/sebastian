@@ -198,10 +198,7 @@ class UserCard(models.Model):
 
     def test_wrong(self):
         t = UserCardTest.objects.create(usercard=self,correct=False)
-        if self.rung < 1:
-            self.rung = 0
-        else:
-            self.rung -= 1
+        self.rung = 0
         self.ease -= 1
         if self.ease < 0: self.ease = 0
         self.update_due()
