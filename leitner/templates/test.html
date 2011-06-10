@@ -3,7 +3,11 @@
 {% load thumbnail %}
 
 {% block js %}
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+        type="text/javascript" ></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="/site_media/js/test.js"></script>
 {% endblock %}
 
@@ -53,6 +57,12 @@
        onclick="submitForm('no')" />
 </form>
 </div>
+
+<script type="application/javascript">
+jQuery(function() {
+  jQuery(document).keyup(keyup_handler);
+});
+</script>
 {% else %}
 <p>no due cards and none in your unlearned pool. 
 Your next card is due at {{ first_due.due|date:"D, F j G:i:s" }}. Go read something and

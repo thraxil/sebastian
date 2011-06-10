@@ -1,58 +1,41 @@
-
-    function toggleVisible(elem) {
-        toggleElementClass("invisible", elem);
-    }
-
-    function makeVisible(elem) {
-        removeElementClass(elem, "invisible");
-    }
-
-    function makeInvisible(elem) {
-        addElementClass(elem, "invisible");
-    }
-
-    function isVisible(elem) {
-        // you may also want to check for
-        // getElement(elem).style.display == "none"
-        return !hasElementClass(elem, "invisible");
-    };
-
+var flipped = false;
 
 function flip() {
-  makeVisible("back");
-  }
+  jQuery("#back").show();
+  flipped = true;
+}
 
-function keyup(ev) {
-  if (isVisible("back")) {
-    if (ev.key().string == "KEY_Y" || ev.key().string == "KEY_SPACEBAR") {
-      right();
-    }
-    if (ev.key().string == "KEY_N") {
-      wrong();
-    }
+var Y = 89;
+var N = 78;
+var SPACE = 32;
 
-  } else {
-    if (ev.key().string == "KEY_F" || ev.key().string == "KEY_SPACEBAR") {
-      flip();
-    }
-  }
+function keyup_handler(ev) {
+  if (flipped) {
+     if (ev.keyCode == Y || ev.keyCode == SPACE) {
+       right();
+     }
+     if (ev.keyCode == N) {
+       wrong();
+     }
+
+   } else {
+     if (ev.keyCode == SPACE) {
+       flip();
+     }
+   }
 }
 
 function  right() {
-  submitForm("yes");
-  }
-
-function wrong() {
-  submitForm("no");
-  }
-
-function submitForm(right) {
-  $("right").value = right;
-  $("testform").submit();
+   submitForm("yes");
 }
 
-function testInit() {
-  connect(document,"onkeyup",keyup);
-  }
+function wrong() {
+   submitForm("no");
+}
 
-addLoadEvent(testInit);
+function submitForm(right) {
+  jQuery("#right").value = right;
+  jQuery("#testform").submit();
+}
+
+
