@@ -56,5 +56,13 @@
 </tr>
 </table>
 
+<table>
+<tr><th>correct</th><th>rung</th></tr>
+{% for test in recent_tests %}
+<tr><td>{{test.correct}}</td>
+<td>{{test.usercard.rung}}</td>
+</tr>
+{% endfor %}
+</table>
 
 {% endblock %}

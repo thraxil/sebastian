@@ -34,7 +34,7 @@ function wrong() {
 }
 
 function submitForm(right) {
-  jQuery("#right").value = right;
+  jQuery("#right").val(right);
   jQuery("#testform").submit();
 }
 
