@@ -19,7 +19,6 @@ def test(request):
             # got it right
             uc.test_correct()
         else:
-            print request.POST["right"]
             # got it wrong
             uc.test_wrong()
         return HttpResponseRedirect("/test/")
