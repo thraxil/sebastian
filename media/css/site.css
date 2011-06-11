@@ -48,3 +48,8 @@ background: #fff;
 #totaldue {position: absolute; bottom: 0px; right: 0px; font-size: 2em; border: #000 solid 1px; }
 
 tr.even td { background-color: #eee; }
+
+#tests { height: 100px; }
+#tests td {border: 0px; padding: 0px; vertical-align: bottom;}
+#tests td.True div.spacer {background-color: #0f0;}
+#tests td.False {background-color: #f00;}

@@ -23,6 +23,18 @@
 <p>tested: {{ total_tested }}</p>
 <p>untested: {{ total_untested }}</p>
 <p>percent correct: {{ percent_right }}</p>
+
+<table id="tests">
+<tr>
+{% for test in recent_tests %}
+<td class="{{test.correct}}">
+<div class="spacer" style="height: {{test.usercard.rung}}0px; width: 5px;"></div>
+</td>
+{% endfor %}
+</table>
+
+
+
 <div id="timeline">{% for d in overdue_dates %}<span style="color: #ff{{ d }}{{ d}}; background-color: #ff{{ d }}{{ d }};">#</span>{% endfor %}{% for d in due_dates %}<span style="color: #{{ d }}{{ d }}{{ d }}; background-color: #{{ d }}{{ d }}{{ d }};">#</span>{% endfor %}</div>
 
 
@@ -56,13 +68,5 @@
 </tr>
 </table>
 
-<table>
-<tr><th>correct</th><th>rung</th></tr>
-{% for test in recent_tests %}
-<tr><td>{{test.correct}}</td>
-<td>{{test.usercard.rung}}</td>
-</tr>
-{% endfor %}
-</table>
 
 {% endblock %}
