@@ -146,7 +146,7 @@ def stats(request):
         next_day_due=next_day_due(request.user),
         next_week_due=next_week_due(request.user),
         next_month_due=next_month_due(request.user),                
-        recent_tests=UserCardTest.objects.filter(usercard__user=request.user).order_by("-timestamp")[:100],
+        recent_tests=UserCardTest.objects.filter(usercard__user=request.user).order_by("-timestamp")[:1000],
         ))
 
 def munin_due(request):

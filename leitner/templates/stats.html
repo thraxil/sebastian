@@ -24,11 +24,11 @@
 <p>untested: {{ total_untested }}</p>
 <p>percent correct: {{ percent_right }}</p>
 
-<table id="tests">
+<table id="tests" cellpadding="0" cellspacing="0">
 <tr>
 {% for test in recent_tests %}
 <td class="{{test.correct}}">
-<div class="spacer" style="height: {{test.usercard.rung}}0px; width: 5px;"></div>
+<div class="spacer" style="height: {{test.usercard.rung}}0px; width: 1px;"></div>
 </td>
 {% endfor %}
 </table>
