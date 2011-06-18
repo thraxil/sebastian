@@ -51,7 +51,6 @@ tr.even td { background-color: #eee; }
 
 #tests { height: 100px; }
 #tests td {border: 0px; padding: 0px; vertical-align: bottom;}
-#tests td.True div.spacer {background-color: #090;}
 #tests td.False div.spacer {background-color: #900;}
 
 div.old {background-color: #090;}
