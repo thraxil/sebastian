@@ -42,30 +42,6 @@ def card(request,id):
     card = get_object_or_404(UserCard,id=id)
     return render_to_response("card.html",dict(card=card))
 
-
-# @login_required
-# def add_image(request):
-#     if request.method == "POST":
-#         if request.POST.get("slug","") == "":
-#             request.POST['slug'] = slugify(request.POST.get("title"))
-#         form = AddImageForm(request.POST,request.FILES)
-#         if form.is_valid():
-#             img = form.save()
-#             for key in request.POST.keys():
-#                 if key.startswith("gallery_"):
-#                     g = get_object_or_404(Gallery,id=key[len("gallery_"):])
-#                     img.add_to_gallery(g)
-#             return HttpResponseRedirect(img.get_absolute_url())
-#         else:
-#             print "not valid"
-#             galleries = Gallery.objects.all()
-#             return render_to_response("add_image.html",dict(galleries=galleries,
-#                                                             form=form))
-#     else:
-#         galleries = Gallery.objects.all()
-#         return render_to_response("add_image.html",dict(galleries=galleries,
-#                                                    form=AddImageForm()))
-
 @login_required
 def add_card(request):
     if request.method == "POST":

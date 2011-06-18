@@ -138,7 +138,7 @@ class UserCard(models.Model):
 
     def test_correct(self):
         """ user got it right, so we update accordingly """
-        
+        old_rung = self.rung
         q = self.usercardtest_set.all().order_by("-timestamp")
         if self.ease < 10:
             self.ease += 1
@@ -193,11 +193,13 @@ class UserCard(models.Model):
             else:
                 # somehow, it was tested less than 5 seconds ago
                 print "tested less than 5 seconds ago!"
-        t = UserCardTest.objects.create(usercard=self,correct=True)
+        t = UserCardTest.objects.create(usercard=self,correct=True,
+                                        old_rung=old_rung,new_rung=self.rung)
         self.update_due()
 
     def test_wrong(self):
-        t = UserCardTest.objects.create(usercard=self,correct=False)
+        t = UserCardTest.objects.create(usercard=self,correct=False,
+                                        old_rung=self.rung,new_rung=0)
         self.rung = 0
         self.ease -= 1
         if self.ease < 0: self.ease = 0
@@ -307,5 +309,8 @@ class UserCardTest(models.Model):
     usercard = models.ForeignKey(UserCard)
     timestamp = models.DateTimeField(auto_now=True)
     correct = models.BooleanField(default=True)
+    old_rung = models.SmallIntegerField(default=0)
+    new_rung = models.SmallIntegerField(default=0)
 
-        
+    def rung_diff(self):
+        return self.new_rung - self.old_rung
