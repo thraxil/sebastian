@@ -111,8 +111,6 @@ def stats(request):
         max_ease=max_ease,
         percent_right=percent_right(request.user),
         priorities=priority_stats(request.user),
-	due_dates=clumped_due_dates(request.user),
-	overdue_dates=clumped_overdue_dates(request.user),
         total_tested=total_tested(request.user),
         total_untested=total_untested(request.user),
         total_due=total_due(request.user),
