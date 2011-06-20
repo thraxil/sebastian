@@ -25,7 +25,8 @@ def test(request):
     else:
         return render_to_response("test.html",dict(card=next_card(request.user),
                                                    total_due=total_due(request.user),
-                                                   first_due=first_due(request.user)))
+                                                   first_due=first_due(request.user),
+                                                   recent_tests=UserCardTest.objects.filter(usercard__user=request.user).order_by("-timestamp")[:100],))
 
 @login_required
 def decks(request):

@@ -46,6 +46,7 @@ background: #fff;
 #timeline { border: #000 solid 1px; font-size: .8em;}
 #decks {width: 100%; }
 #totaldue {position: absolute; bottom: 0px; right: 0px; font-size: 2em; border: #000 solid 1px; }
+#recenttests {position: absolute; bottom: 0px; left: 0px; font-size: 2em; border: #000 solid 1px; }
 
 tr.even td { background-color: #eee; }
 
