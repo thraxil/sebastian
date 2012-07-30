@@ -1,24 +1,35 @@
 <html>
 <head><title>sebastian</title>
 
-<style media="screen" type="text/css">
-@import "/site_media/css/site.css";
-</style>
+    <link href="/site_media/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/site_media/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/site_media/bootstrap/css/docs.css" rel="stylesheet">
 
+		<link href="/site_media/css/site.css" rel="stylesheet">
 {% block js %}{% endblock %}
 
 </head>
 <body>
-<div id="nav">
-<ul>
-<li><a href="/test/">[test]</a></li>
-<li><a href="/add_card/">[add]</a></li>
-<li><a href="/stats/">[stats]</a></li>
-<li><a href="/decks/">[decks]</a></li>
-</ul>
-</div>
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+							<li><a href="/test/">test</a></li>
+							<li><a href="/add_card/">add</a></li>
+							<li><a href="/stats/">stats</a></li>
+							<li><a href="/decks/">decks</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="container">
 <div id="content">
 {% block content %}{% endblock %}
+</div>
 </div>
 </body>
 </html>

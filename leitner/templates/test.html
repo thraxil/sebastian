@@ -13,56 +13,41 @@
 
 {% block content %}
 
-<div id="recenttests">
-<table id="tests" cellpadding="0" cellspacing="0">
-<tr>
-{% for test in recent_tests %}
-{% if test.correct %}
-<td class="True">
-<table cellpadding="0" cellspacing="0">
-<tr>
-<td><div class="spacer new" style="height: {{test.rung_diff}}0px; width: 1px;"></div></td>
-</tr>
-<tr>
-<td><div class="spacer old" style="height: {{test.old_rung}}0px; width: 1px;"></div></td>
-</tr>
-</table>
-</td>
-{% else %}
-<td class="False">
-<div class="spacer" style="height: {{test.old_rung}}0px; width: 1px;"></div>
-</td>
-{% endif %}
-{% endfor %}
-</table>
-</div>
-
-<p id="totaldue">{{ total_due }}</p>
-
 {% if card %}
-<div id="decks">
-{% for deck in card.card.decks %}
-<div style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</div>
-{% endfor %}
+<header class="jumbotron subhead">
+		{% for deck in card.card.decks %}
+		<div class="row">
+			<div class="span12">
+				<h1 style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</h1>
+			</div>
+		</div>
+		{% endfor %}
+</header>
+
+
+<div class="hero-unit">
+	<div class="row" id="card">
+	<div class="span12">
+		{% if card.card.front.content %}
+		{{ card.card.front.content }}
+		{% endif %}
+
+		{% if card.card.front.image %}
+		<img src="{% thumbnail card.card.front.image 600x600 %}" />
+		{% endif %}
+	</div>
+	</div>
 </div>
 
-<div id="front">
 
-{% if card.card.front.content %}
-{{ card.card.front.content }}
-{% endif %}
-
-{% if card.card.front.image %}
-<img src="{% thumbnail card.card.front.image 600x600 %}" />
-{% endif %}
-
+<div class="row">
+	<div class="span12 btn-group">
+		<a href="#back" class="btn" onclick="flip();return false">flip</a>
+	</div>
 </div>
-
-
-
-<p><a href="#back" onclick="flip();return false">flip</a></p>
 
 <div id="back" class="invisible">
+
 {% if card.card.back.content %}
 {{ card.card.back.content }}
 {% endif %}
@@ -93,5 +78,31 @@ Your next card is due at {{ first_due.due|date:"D, F j G:i:s" }}. Go read someth
   come back then.
 </p>
 {% endif %}
+<p id="totaldue">{{ total_due }}</p>
+
+<div id="recenttests">
+<table id="tests" cellpadding="0" cellspacing="0">
+<tr>
+{% for test in recent_tests %}
+{% if test.correct %}
+<td class="True">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><div class="spacer new" style="height: {{test.rung_diff}}0px; width: 1px;"></div></td>
+</tr>
+<tr>
+<td><div class="spacer old" style="height: {{test.old_rung}}0px; width: 1px;"></div></td>
+</tr>
+</table>
+</td>
+{% else %}
+<td class="False">
+<div class="spacer" style="height: {{test.old_rung}}0px; width: 1px;"></div>
+</td>
+{% endif %}
+{% endfor %}
+</table>
+</div>
+
 
 {% endblock %}
