@@ -82,3 +82,7 @@ INSTALLED_APPS = (
 )
 
 THUMBNAIL_SUBDIR="thumbs"
+try:
+    from local_settings import *
+except ImportError:
+    pass
