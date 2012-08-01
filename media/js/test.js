@@ -6,7 +6,7 @@ function flip() {
   jQuery("#form").show();
 	jQuery("#form").removeClass("invisible");
 
-	jQuery("#flip-btn").hide();
+	jQuery("#flip-btn").addClass("disabled");
 
   flipped = true;
 }
