@@ -30,3 +30,16 @@ div.new {background-color: #0f0;}
 #card {
 		font-size: 30px;
 }
+#back {
+		font-size: 30px;
+}
+
+#form input {
+		width: 100%;
+		font-size: 300%;
+}
+
+#flip-btn {
+		font-size: 300%;
+		width: 100%;
+}

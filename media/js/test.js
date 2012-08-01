@@ -2,6 +2,12 @@ var flipped = false;
 
 function flip() {
   jQuery("#back").show();
+	jQuery("#back").removeClass("invisible");
+  jQuery("#form").show();
+	jQuery("#form").removeClass("invisible");
+
+	jQuery("#flip-btn").hide();
+
   flipped = true;
 }
 
