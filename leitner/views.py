@@ -1,10 +1,15 @@
 # Create your views here.
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from models import *
+from models import Deck, UserCard, UserCardTest, Card, DeckCard, Face, User
+from models import next_card, total_due, first_due, user_decks
+from models import rungs_stats, ease_stats, percent_right, priority_stats
+from models import total_tested, total_untested
+from models import next_hour_due, next_six_hours_due, next_day_due
+from models import next_week_due, next_month_due
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime, timedelta
+from datetime import datetime
 from forms import AddFaceForm
 
 @login_required
@@ -61,10 +66,10 @@ def add_card(request):
             front = front_form.save()
             back = back_form.save()
             card = Card.objects.create(front=front,back=back)
-            dc = DeckCard.objects.create(deck=deck,card=card)
-            uc = UserCard.objects.create(card=card,user=request.user,
-                                         due=datetime.now(),
-                                         priority=int(request.POST.get('priority','1')))
+            DeckCard.objects.create(deck=deck,card=card)
+            UserCard.objects.create(card=card,user=request.user,
+                                    due=datetime.now(),
+                                    priority=int(request.POST.get('priority','1')))
             return HttpResponseRedirect("/add_card/")
     else:
         front_form = AddFaceForm(prefix="front")
@@ -92,10 +97,10 @@ def add_multiple_cards(request):
         front = Face.objects.create(content=front_content,tex="")
         back = Face.objects.create(content=back_content,tex="")
         card = Card.objects.create(front=front,back=back)
-        dc = DeckCard.objects.create(deck=deck,card=card)
-        uc = UserCard.objects.create(card=card,user=request.user,
-                                     due=datetime.now(),
-                                     priority=int(request.POST.get('priority','1')))
+        DeckCard.objects.create(deck=deck,card=card)
+        UserCard.objects.create(card=card,user=request.user,
+                                due=datetime.now(),
+                                priority=int(request.POST.get('priority','1')))
 
     return HttpResponseRedirect("/add_card/")
 
