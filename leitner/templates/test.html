@@ -25,11 +25,10 @@
 </header>
 
 
-<div class="hero-unit">
 	<div class="row" id="card">
 	<div class="span12">
 		{% if card.card.front.content %}
-		{{ card.card.front.content }}
+		<span style="margin: 10px; font-size: {{card.card.front.size}}px">{{ card.card.front.content }}</span>
 		{% endif %}
 
 		{% if card.card.front.image %}
@@ -37,7 +36,7 @@
 		{% endif %}
 	</div>
 	</div>
-</div>
+
 
 
 <div class="row">

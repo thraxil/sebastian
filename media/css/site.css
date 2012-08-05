@@ -29,6 +29,7 @@ div.new {background-color: #0f0;}
 
 #card {
 		font-size: 30px;
+		margin-top: 90px;
 }
 #back {
 		font-size: 30px;
@@ -42,4 +43,5 @@ div.new {background-color: #0f0;}
 #flip-btn {
 		font-size: 300%;
 		width: 100%;
+		margin-top: 50px;
 }

@@ -14,6 +14,14 @@ class Face(models.Model):
         }, blank=True)
     tex = models.TextField(default="", blank=True)
 
+    def size(self):
+        s = 800 / len(self.content)
+        if s < 16:
+            s = 16
+        if s > 200:
+            s = 200
+        return s
+
 
 class Card(models.Model):
     front = models.ForeignKey(Face, related_name="front")
