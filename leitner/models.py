@@ -57,14 +57,15 @@ class Deck(models.Model):
         return self.deckcard_set.all().count()
 
     def num_cards_due(self, user):
+        # TODO: broken, inefficient
         due = 0
-        for uc in UserCard.objects.filter(
+#        cards = set([dc.card.id for dc in self.deckcard_set.all()])
+        all_due = UserCard.objects.filter(
             user=user,
             rung__gte=0,
-            due__lte=datetime.now()):
-            if uc.card.in_deck(self):
-                due += 1
-        return due
+            due__lte=datetime.now())
+#        d = [uc.card for uc in all_due]
+        return all_due.count()
 
     def usercards(self, user):
         return [dc.card.usercard(user) for dc in self.deckcard_set.all()]
