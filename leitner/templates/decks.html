@@ -12,7 +12,7 @@
 <a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
 </td>
 <td>{{ deck.num_cards }}</td>
-<td>{{ deck.due }}</td>
+<td><a href="/decks/{{deck.id}}/test/">{{ deck.due }}</a></td>
 </tr>
 {% endfor %}
 </table>

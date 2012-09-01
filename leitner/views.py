@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from models import Deck, UserCard, UserCardTest, Card, DeckCard, Face, User
 from models import next_card, total_due, first_due, user_decks
+from models import first_deck_due, next_deck_card, total_deck_due
 from models import rungs_stats, ease_stats, percent_right, priority_stats
 from models import total_tested, total_untested
 from models import next_hour_due, next_six_hours_due, next_day_due
@@ -12,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 from forms import AddFaceForm
 from annoying.decorators import render_to
+
 
 @login_required
 def index(request):
@@ -35,6 +37,29 @@ def test(request):
             dict(card=next_card(request.user),
                  total_due=total_due(request.user),
                  first_due=first_due(request.user),
+                 recent_tests=UserCardTest.objects.filter(
+                    usercard__user=request.user
+                    ).order_by("-timestamp")[:100],))
+
+
+@login_required
+def deck_test(request, id):
+    deck = get_object_or_404(Deck, id=id)
+    if request.method == "POST":
+        uc = get_object_or_404(UserCard, id=request.POST.get('card'))
+        if request.POST.get("right", "no") == "yes":
+            # got it right
+            uc.test_correct()
+        else:
+            # got it wrong
+            uc.test_wrong()
+        return HttpResponseRedirect("/decks/%d/test/" % deck.id)
+    else:
+        return render_to_response(
+            "test.html",
+            dict(card=next_deck_card(request.user, deck),
+                 total_due=total_deck_due(request.user, deck),
+                 first_due=first_deck_due(request.user, deck),
                  recent_tests=UserCardTest.objects.filter(
                     usercard__user=request.user
                     ).order_by("-timestamp")[:100],))

@@ -97,9 +97,36 @@ def first_due_card(user):
     else:
         return None
 
+def first_due_deck_card(user, deck):
+    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
+    r = UserCard.objects.filter(user=user,
+                                card__id__in=deckcards,
+                                due__lte=datetime.now(),
+                                rung__gte=0).order_by('due')
+    if r.count() > 0:
+        return r[0]
+    else:
+        return None
+
 
 def random_untested_card(user):
     r = UserCard.objects.filter(user=user, rung=-1)
+    c = r.count()
+    if c > 0:
+        # do a stupid loop to work down by priority
+        # TODO: replace with better query that finds the highest priority
+        # available and just does that
+        for p in range(10, 0, -1):
+            res = random_untested_from_priority(user, p)
+            if res is not None:
+                return res
+    else:
+        # no untested cards
+        return None
+
+def random_untested_deck_card(user, deck):
+    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
+    r = UserCard.objects.filter(user=user, rung=-1, card__id__in=deckcards)
     c = r.count()
     if c > 0:
         # do a stupid loop to work down by priority
@@ -130,9 +157,21 @@ def next_card(user):
         card = random_untested_card(user)
     return card
 
+def next_deck_card(user, deck):
+    card = first_due_deck_card(user, deck)
+    if card is None:
+        card = random_untested_deck_card(user, deck)
+    return card
+
 
 def first_due(user):
     r = UserCard.objects.filter(user=user, rung__gte=0).order_by("due")
+    if r.count() > 0:
+        return r[0]
+
+def first_deck_due(user, deck):
+    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
+    r = UserCard.objects.filter(user=user, rung__gte=0, card__id__in=deckcards).order_by("due")
     if r.count() > 0:
         return r[0]
 
@@ -304,6 +343,13 @@ def total_untested(user):
 
 def total_due(user):
     return UserCard.objects.filter(user=user, rung__gte=0,
+                                   due__lte=datetime.now()).count()
+
+
+def total_deck_due(user, deck):
+    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
+    return UserCard.objects.filter(user=user, rung__gte=0,
+                                   card__id__in=deckcards,
                                    due__lte=datetime.now()).count()
 
 
