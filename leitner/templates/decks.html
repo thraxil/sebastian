@@ -4,10 +4,16 @@
 
 {% block content %}
 
-<ul>decks
+<h2>decks</h2>
+<table>
 {% for deck in decks %}
-<li><a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a> ({{ deck.num_cards }})</li>
+<tr>
+<td>
+<a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
+</td>
+<td>{{ deck.num_cards }}</td>
+</tr>
 {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
