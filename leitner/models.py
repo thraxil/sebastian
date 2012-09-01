@@ -38,6 +38,9 @@ class Card(models.Model):
     def usercard(self, user):
         return UserCard.objects.get(card=self, user=user)
 
+    def in_deck(self, deck):
+        return DeckCard.objects.filter(card=self, deck=deck).count() > 0
+
 
 def user_decks(user):
     return Deck.objects.filter(user=user)
@@ -52,6 +55,16 @@ class Deck(models.Model):
 
     def num_cards(self):
         return self.deckcard_set.all().count()
+
+    def num_cards_due(self, user):
+        due = 0
+        for uc in UserCard.objects.filter(
+            user=user,
+            rung__gte=0,
+            due__lte=datetime.now()):
+            if uc.card.in_deck(self):
+                due += 1
+        return due
 
     def usercards(self, user):
         return [dc.card.usercard(user) for dc in self.deckcard_set.all()]

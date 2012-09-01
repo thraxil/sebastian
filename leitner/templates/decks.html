@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load markup %}
-{% load thumbnail %}
+{% load deck_due %}
 
 {% block content %}
 
@@ -12,6 +12,7 @@
 <a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
 </td>
 <td>{{ deck.num_cards }}</td>
+<td>{% num_deck_cards_due deck user %}</td>
 </tr>
 {% endfor %}
 </table>

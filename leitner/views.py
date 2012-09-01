@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 from forms import AddFaceForm
-
+from annoying.decorators import render_to
 
 @login_required
 def index(request):
@@ -41,9 +41,10 @@ def test(request):
 
 
 @login_required
+@render_to("decks.html")
 def decks(request):
-    return render_to_response("decks.html",
-                              dict(decks=user_decks(request.user)))
+    return dict(decks=user_decks(request.user),
+                user=request.user)
 
 
 @login_required
