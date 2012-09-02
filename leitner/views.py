@@ -1,6 +1,6 @@
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404
 from models import Deck, UserCard, UserCardTest, Card, Face, User
 from models import next_card, total_due, first_due, user_decks
 from models import first_deck_due, next_deck_card, total_deck_due
@@ -16,11 +16,13 @@ from annoying.decorators import render_to
 
 
 @login_required
+@render_to("index.html")
 def index(request):
-    return render_to_response("index.html", dict(user=request.user))
+    return dict(user=request.user)
 
 
 @login_required
+@render_to("test.html")
 def test(request):
     if request.method == "POST":
         uc = get_object_or_404(UserCard, id=request.POST.get('card'))
@@ -32,17 +34,16 @@ def test(request):
             uc.test_wrong()
         return HttpResponseRedirect("/test/")
     else:
-        return render_to_response(
-            "test.html",
-            dict(card=next_card(request.user),
-                 total_due=total_due(request.user),
-                 first_due=first_due(request.user),
-                 recent_tests=UserCardTest.objects.filter(
-                    usercard__user=request.user
-                    ).order_by("-timestamp")[:100],))
+        return dict(card=next_card(request.user),
+                    total_due=total_due(request.user),
+                    first_due=first_due(request.user),
+                    recent_tests=UserCardTest.objects.filter(
+                usercard__user=request.user
+                ).order_by("-timestamp")[:100],)
 
 
 @login_required
+@render_to("test.html")
 def deck_test(request, id):
     deck = get_object_or_404(Deck, id=id)
     if request.method == "POST":
@@ -55,14 +56,12 @@ def deck_test(request, id):
             uc.test_wrong()
         return HttpResponseRedirect("/decks/%d/test/" % deck.id)
     else:
-        return render_to_response(
-            "test.html",
-            dict(card=next_deck_card(request.user, deck),
-                 total_due=total_deck_due(request.user, deck),
-                 first_due=first_deck_due(request.user, deck),
-                 recent_tests=UserCardTest.objects.filter(
-                    usercard__user=request.user
-                    ).order_by("-timestamp")[:100],))
+        return dict(card=next_deck_card(request.user, deck),
+                    total_due=total_deck_due(request.user, deck),
+                    first_due=first_deck_due(request.user, deck),
+                    recent_tests=UserCardTest.objects.filter(
+                usercard__user=request.user
+                ).order_by("-timestamp")[:100],)
 
 
 @login_required
@@ -87,20 +86,22 @@ def decks(request):
 
 
 @login_required
+@render_to("deck.html")
 def deck(request, id):
     deck = get_object_or_404(Deck, id=id)
-    return render_to_response("deck.html",
-                              dict(deck=deck,
-                                   usercards=deck.usercards(request.user)))
+    return dict(deck=deck,
+                usercards=deck.usercards(request.user))
 
 
 @login_required
+@render_to("card.html")
 def card(request, id):
     card = get_object_or_404(UserCard, id=id)
-    return render_to_response("card.html", dict(card=card))
+    return dict(card=card)
 
 
 @login_required
+@render_to("add_card.html")
 def add_card(request):
     if request.method == "POST":
         u = request.user
@@ -127,9 +128,8 @@ def add_card(request):
     else:
         front_form = AddFaceForm(prefix="front")
         back_form = AddFaceForm(prefix="back")
-    return render_to_response("add_card.html",
-                              dict(decks=user_decks(request.user),
-                                   front=front_form, back=back_form))
+    return dict(decks=user_decks(request.user),
+                front=front_form, back=back_form)
 
 
 @login_required
@@ -162,12 +162,13 @@ def add_multiple_cards(request):
 
 
 @login_required
+@render_to("stats.html")
 def stats(request):
     rungs = list(rungs_stats(request.user))
     max_rung = max([r['cards'] for r in rungs])
     ease = list(ease_stats(request.user))
     max_ease = max([r['cards'] for r in ease])
-    return render_to_response("stats.html", dict(
+    return dict(
         rungs=rungs,
         max_rung=max_rung,
         ease=ease,
@@ -185,7 +186,7 @@ def stats(request):
         next_month_due=next_month_due(request.user),
         recent_tests=UserCardTest.objects.filter(
                 usercard__user=request.user).order_by("-timestamp")[:1000],
-        ))
+        )
 
 
 def munin_due(request):
