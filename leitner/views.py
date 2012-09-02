@@ -23,7 +23,10 @@ def index(request):
 
 @login_required
 @render_to("test.html")
-def test(request):
+def test(request, id=None):
+    deck = None
+    if id:
+        deck = get_object_or_404(Deck, id=id)
     if request.method == "POST":
         uc = get_object_or_404(UserCard, id=request.POST.get('card'))
         if request.POST.get("right", "no") == "yes":
@@ -32,36 +35,25 @@ def test(request):
         else:
             # got it wrong
             uc.test_wrong()
-        return HttpResponseRedirect("/test/")
-    else:
-        return dict(
-            card=next_card(request.user),
-            total_due=total_due(request.user),
-            first_due=first_due(request.user),
-            recent_tests=recent_tests(request.user, 100),
-            )
-
-
-@login_required
-@render_to("test.html")
-def deck_test(request, id):
-    deck = get_object_or_404(Deck, id=id)
-    if request.method == "POST":
-        uc = get_object_or_404(UserCard, id=request.POST.get('card'))
-        if request.POST.get("right", "no") == "yes":
-            # got it right
-            uc.test_correct()
+        if deck:
+            return HttpResponseRedirect("/decks/%d/test/" % deck.id)
         else:
-            # got it wrong
-            uc.test_wrong()
-        return HttpResponseRedirect("/decks/%d/test/" % deck.id)
+            return HttpResponseRedirect("/test/")
     else:
-        return dict(
-            card=next_deck_card(request.user, deck),
-            total_due=total_deck_due(request.user, deck),
-            first_due=first_deck_due(request.user, deck),
-            recent_tests=recent_tests(request.user, 100),
-            )
+        if deck:
+            return dict(
+                card=next_deck_card(request.user, deck),
+                total_due=total_deck_due(request.user, deck),
+                first_due=first_deck_due(request.user, deck),
+                recent_tests=recent_tests(request.user, 100),
+                )
+        else:
+            return dict(
+                card=next_card(request.user),
+                total_due=total_due(request.user),
+                first_due=first_due(request.user),
+                recent_tests=recent_tests(request.user, 100),
+                )
 
 
 @login_required
