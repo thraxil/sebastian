@@ -35,13 +35,13 @@ div.new {background-color: #0f0;}
 		font-size: 30px;
 }
 
-#form input {
-		width: 100%;
-		font-size: 300%;
+#flip-btn {
+margin-top: 50px;
 }
 
-#flip-btn {
-		font-size: 300%;
+#rightbutton {
 		width: 100%;
-		margin-top: 50px;
+}
+#wrongbutton {
+		width: 100%;
 }
