@@ -12,6 +12,15 @@ add_introspection_rules(
      ])
 
 
+# Leitner's intervals
+INTERVALS = [
+    (5, "seconds"), (25, "seconds"), (2 * 60, "seconds"),
+    (10 * 60, "seconds"), (1, "hours"), (5, "hours"),
+    (1, "days"), (5, "days"), (25, "days"),
+    (4 * 4, "weeks"), (2 * 52, "weeks")]
+
+
+
 class Face(models.Model):
     content = models.TextField(default="", blank=True)
     image = ImageWithThumbnailsField(upload_to="faces",
@@ -204,14 +213,7 @@ class UserCard(models.Model):
         if self.rung == -1:
             return
 
-        # Leitner's intervals
-        intervals = [
-            (5, "seconds"), (25, "seconds"), (2 * 60, "seconds"),
-            (10 * 60, "seconds"), (1, "hours"), (5, "hours"),
-            (1, "days"), (5, "days"), (25, "days"),
-            (4 * 4, "weeks"), (2 * 52, "weeks")]
-
-        (n, u) = intervals[self.rung]
+        (n, u) = INTERVALS[self.rung]
 
         # extend interval based on ease. Ie, if they've gotten it right
         # 10 times out of 10, the interval gets doubled. 0 out of the last 10,
@@ -238,11 +240,7 @@ class UserCard(models.Model):
             now = datetime.now()
             interval = now - self.due
             # Leitner's intervals
-            intervals = [
-                (5, "seconds"), (25, "seconds"), (2 * 60, "seconds"),
-                (10 * 60, "seconds"), (1, "hours"), (5, "hours"),
-                (1, "days"), (5, "days"), (25, "days"),
-                (4 * 4, "weeks"), (2 * 52, "weeks")]
+            intervals = INTERVALS
             intervals.reverse()
             rung = 10
             for (n, u) in intervals:
@@ -265,10 +263,7 @@ class UserCard(models.Model):
             interval = now - last_correct
 
             # Leitner's intervals
-            intervals = [
-                (5, "seconds"), (25, "seconds"), (2 * 60, "seconds"),
-                (10 * 60, "seconds"), (1, "hours"), (5, "hours"), (1, "days"),
-                (5, "days"), (25, "days"), (4 * 4, "weeks"), (2 * 52, "weeks")]
+            intervals = INTERVALS
             intervals.reverse()
             rung = 10
             for (n, u) in intervals:
