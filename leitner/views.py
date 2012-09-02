@@ -59,8 +59,7 @@ def test(request, id=None):
 @login_required
 @render_to("decks.html")
 def decks(request):
-    decks = user_decks(request.user)
-    return dict(decks=decks,
+    return dict(decks=user_decks(request.user),
                 user=request.user)
 
 
