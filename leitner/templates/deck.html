@@ -6,9 +6,20 @@
 
 <h2 style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</h2>
 
-<table>
+<table class="table table-striped table-bordered table-condensed
+							table-hover">
+	<thead>
+		<tr>
+			<th>Front</th>
+			<th>Back</th>
+			<th>Rung</th>
+			<th>Ease</th>
+			<th>Due</th>
+		</tr>
+	</thead>
+	<tbody>
 {% for card in usercards %}
-<tr class="{% cycle 'even' 'odd'  %}">
+<tr>
 <td><a href="{{ card.card.get_absolute_url }}">
 {% if card.card.front.content %}
 {{ card.card.front.content }}
@@ -31,6 +42,7 @@
 <td>{% ifnotequal card.rung -1 %}{{ card.due|date:"D, F j G:i:s" }}{% endifnotequal %}</td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
 
 {% endblock %}
