@@ -8,11 +8,10 @@
 <table>
 {% for deck in decks %}
 <tr>
-<td>
-<a href="{{ deck.get_absolute_url }}"  style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
+<td style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">
+<a href="{{ deck.get_absolute_url }}" style="color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
 </td>
-<td>{{ deck.num_cards }}</td>
-<td><a href="/decks/{{deck.id}}/test/">{% num_deck_cards_due deck user %}</a></td>
+<td><a href="/decks/{{deck.id}}/test/">{% num_deck_cards_due deck user %} due </a> (of {{ deck.num_cards }})</td>
 </tr>
 {% endfor %}
 </table>
