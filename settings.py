@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.markup',
     'sorl.thumbnail',
+    'south',
 )
 
 THUMBNAIL_SUBDIR="thumbs"
