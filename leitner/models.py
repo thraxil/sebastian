@@ -55,7 +55,10 @@ class Deck(models.Model):
             due__lte=datetime.now()).count()
 
     def usercards(self, user):
-        return [card.usercard(user) for card in self.card_set.all()]
+        return UserCard.objects.filter(
+            user=user,
+            card__deck=self
+            )
 
     def bgcolor(self):
         return color(self.name)
