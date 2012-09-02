@@ -59,20 +59,7 @@ def test(request, id=None):
 @login_required
 @render_to("decks.html")
 def decks(request):
-    all_due = UserCard.objects.filter(
-        user=request.user,
-        rung__gte=0,
-        due__lte=datetime.now())
-    d = [uc.card for uc in all_due]
-    decks_due = dict()
-    for c in d:
-        if c.deck.id in decks_due:
-            decks_due[c.deck.id] += 1
-        else:
-            decks_due[c.deck.id] = 1
     decks = user_decks(request.user)
-    for d in decks:
-        d.due = decks_due.get(d.id, 0)
     return dict(decks=decks,
                 user=request.user)
 
