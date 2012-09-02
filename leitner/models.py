@@ -232,6 +232,9 @@ class UserCard(models.Model):
         if self.ease < 10:
             self.ease += 1
 
+        intervals = INTERVALS
+        intervals.reverse()
+
         if q.count() == 0:
             # never tested before
             # find the interval between now and when the card was added
@@ -239,9 +242,6 @@ class UserCard(models.Model):
             # and calculate rung based on that
             now = datetime.now()
             interval = now - self.due
-            # Leitner's intervals
-            intervals = INTERVALS
-            intervals.reverse()
             rung = 10
             for (n, u) in intervals:
                 li = timedelta(**{u: n})
@@ -262,9 +262,6 @@ class UserCard(models.Model):
             now = datetime.now()
             interval = now - last_correct
 
-            # Leitner's intervals
-            intervals = INTERVALS
-            intervals.reverse()
             rung = 10
             for (n, u) in intervals:
                 li = timedelta(**{u: n})
