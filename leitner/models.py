@@ -64,13 +64,10 @@ class Deck(models.Model):
 
     def num_cards_due(self, user):
         # TODO: broken, inefficient
-        due = 0
-#        cards = set([dc.card.id for dc in self.deckcard_set.all()])
         all_due = UserCard.objects.filter(
             user=user,
             rung__gte=0,
             due__lte=datetime.now())
-#        d = [uc.card for uc in all_due]
         return all_due.count()
 
     def usercards(self, user):
@@ -103,6 +100,7 @@ def first_due_card(user):
     else:
         return None
 
+
 def first_due_deck_card(user, deck):
     deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
     r = UserCard.objects.filter(user=user,
@@ -129,6 +127,7 @@ def random_untested_card(user):
     else:
         # no untested cards
         return None
+
 
 def random_untested_deck_card(user, deck):
     deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
@@ -163,6 +162,7 @@ def next_card(user):
         card = random_untested_card(user)
     return card
 
+
 def next_deck_card(user, deck):
     card = first_due_deck_card(user, deck)
     if card is None:
@@ -175,9 +175,12 @@ def first_due(user):
     if r.count() > 0:
         return r[0]
 
+
 def first_deck_due(user, deck):
     deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
-    r = UserCard.objects.filter(user=user, rung__gte=0, card__id__in=deckcards).order_by("due")
+    r = UserCard.objects.filter(user=user,
+                                rung__gte=0,
+                                card__id__in=deckcards).order_by("due")
     if r.count() > 0:
         return r[0]
 

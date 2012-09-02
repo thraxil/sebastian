@@ -2,13 +2,14 @@ from django import template
 
 register = template.Library()
 
+
 class GetDeckDue(template.Node):
     def __init__(self, deck, user, var_name=None):
         self.deck = template.Variable(deck)
         self.user = template.Variable(user)
         self.var_name = var_name
 
-    def render(self,context):
+    def render(self, context):
         d = self.deck.resolve(context)
         u = self.user.resolve(context)
         due = d.num_cards_due(u)
@@ -17,6 +18,7 @@ class GetDeckDue(template.Node):
             return ''
         else:
             return due
+
 
 @register.tag('num_deck_cards_due')
 def get_deck_cards_due(parser, token):
