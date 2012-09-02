@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from models import Deck, UserCard, UserCardTest, Card, DeckCard, Face, User
+from models import Deck, UserCard, UserCardTest, Card, Face, User
 from models import next_card, total_due, first_due, user_decks
 from models import first_deck_due, next_deck_card, total_deck_due
 from models import rungs_stats, ease_stats, percent_right, priority_stats
@@ -117,8 +117,8 @@ def add_card(request):
         if front_form.is_valid() and back_form.is_valid():
             front = front_form.save()
             back = back_form.save()
-            card = Card.objects.create(front=front, back=back)
-            DeckCard.objects.create(deck=deck, card=card)
+            card = Card.objects.create(front=front, back=back,
+                                       deck=deck)
             UserCard.objects.create(
                 card=card, user=request.user,
                 due=datetime.now(),
@@ -151,8 +151,8 @@ def add_multiple_cards(request):
         back_content = "|".join(parts[1:])
         front = Face.objects.create(content=front_content, tex="")
         back = Face.objects.create(content=back_content, tex="")
-        card = Card.objects.create(front=front, back=back)
-        DeckCard.objects.create(deck=deck, card=card)
+        card = Card.objects.create(front=front, back=back,
+                                   deck=deck)
         UserCard.objects.create(card=card, user=request.user,
                                 due=datetime.now(),
                                 priority=int(request.POST.get('priority',

@@ -42,10 +42,10 @@ class Deck(models.Model):
     user = models.ForeignKey(User)
 
     def cards(self):
-        return [dc.card for dc in self.deckcard_set.all()]
+        return self.card_set.all()
 
     def num_cards(self):
-        return self.deckcard_set.all().count()
+        return self.card_set.all().count()
 
     def num_cards_due(self, user):
         # TODO: broken, inefficient
@@ -56,7 +56,7 @@ class Deck(models.Model):
         return all_due.count()
 
     def usercards(self, user):
-        return [dc.card.usercard(user) for dc in self.deckcard_set.all()]
+        return [card.usercard(user) for card in self.card_set.all()]
 
     def bgcolor(self):
         return color(self.name)
@@ -100,9 +100,8 @@ def first_due_card(user):
 
 
 def first_due_deck_card(user, deck):
-    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
     r = UserCard.objects.filter(user=user,
-                                card__id__in=deckcards,
+                                card__deck=deck,
                                 due__lte=datetime.now(),
                                 rung__gte=0).order_by('due')
     if r.count() > 0:
@@ -128,8 +127,7 @@ def random_untested_card(user):
 
 
 def random_untested_deck_card(user, deck):
-    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
-    r = UserCard.objects.filter(user=user, rung=-1, card__id__in=deckcards)
+    r = UserCard.objects.filter(user=user, rung=-1, card__deck=deck)
     c = r.count()
     if c > 0:
         # do a stupid loop to work down by priority
@@ -175,10 +173,9 @@ def first_due(user):
 
 
 def first_deck_due(user, deck):
-    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
     r = UserCard.objects.filter(user=user,
                                 rung__gte=0,
-                                card__id__in=deckcards).order_by("due")
+                                card__deck=deck).order_by("due")
     if r.count() > 0:
         return r[0]
 
@@ -328,9 +325,8 @@ def total_due(user):
 
 
 def total_deck_due(user, deck):
-    deckcards = [dc.card.id for dc in deck.deckcard_set.all()]
     return UserCard.objects.filter(user=user, rung__gte=0,
-                                   card__id__in=deckcards,
+                                   card__deck=deck,
                                    due__lte=datetime.now()).count()
 
 

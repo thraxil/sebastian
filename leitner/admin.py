@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Face, Card, Deck, DeckCard, UserCard, UserCardTest
+from models import Face, Card, Deck, UserCard, UserCardTest
 
 
 class FaceAdmin(admin.ModelAdmin):
@@ -15,11 +15,6 @@ admin.site.register(Card, CardAdmin)
 class DeckAdmin(admin.ModelAdmin):
     pass
 admin.site.register(Deck, DeckAdmin)
-
-
-class DeckCardAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(DeckCard, DeckCardAdmin)
 
 
 class UserCardAdmin(admin.ModelAdmin):
