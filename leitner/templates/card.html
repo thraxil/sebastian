@@ -4,9 +4,7 @@
 
 {% block content %}
 
-{% for deck in card.card.decks %}
-<h2><a href="{{ deck.get_absolute_url }}" style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</a></h2>
-{% endfor %}
+<h2><a href="{{ card.card.deck.get_absolute_url }}" style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</a></h2>
 
 <div id="front">
 {% if card.card.front.content %}
@@ -26,7 +24,7 @@
 {% endif %}
 </div>
 <hr />
-<table>
+<table class="table table-bordered">
 <tr><th>rung</th><td>{{ card.rung }}</td></tr>
 <tr><th>ease</th><td>{{ card.ease }}</td></tr>
 <tr><th>priority</th><td>{{ card.priority }}</td></tr>
