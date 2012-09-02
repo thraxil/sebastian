@@ -225,15 +225,29 @@ class UserCard(models.Model):
         self.due = now + d
         self.save()
 
+    def update_rung(self, interval):
+        intervals = INTERVALS
+        intervals.reverse()
+        rung = 10
+        for (n, u) in intervals:
+            li = timedelta(**{u: n})
+            if interval > li:
+                # upgrade to either rung + 1 or the rung
+                # that matches the interval
+                self.rung = max(rung, self.rung + 1)
+                break
+            rung -= 1
+        else:
+            # tested within 5 seconds of the card being added
+            if self.rung < 1:
+                self.rung = 1
+
     def test_correct(self):
         """ user got it right, so we update accordingly """
         old_rung = self.rung
         q = self.usercardtest_set.all().order_by("-timestamp")
         if self.ease < 10:
             self.ease += 1
-
-        intervals = INTERVALS
-        intervals.reverse()
 
         if q.count() == 0:
             # never tested before
@@ -242,18 +256,7 @@ class UserCard(models.Model):
             # and calculate rung based on that
             now = datetime.now()
             interval = now - self.due
-            rung = 10
-            for (n, u) in intervals:
-                li = timedelta(**{u: n})
-                if interval > li:
-                    # upgrade to either rung + 1 or the rung
-                    # that matches the interval
-                    self.rung = max(rung, self.rung + 1)
-                    break
-                rung -= 1
-            else:
-                # tested within 5 seconds of the card being added
-                self.rung = 1
+            self.update_rung(interval)
         else:
             # if the time since the last passed test was greater than one of
             # the intervals, make sure that it gets bumped up to at least
@@ -261,19 +264,7 @@ class UserCard(models.Model):
             last_correct = q[0].timestamp
             now = datetime.now()
             interval = now - last_correct
-
-            rung = 10
-            for (n, u) in intervals:
-                li = timedelta(**{u: n})
-                if interval > li:
-                    # upgrade to either rung + 1 or the rung
-                    # that matches the interval
-                    self.rung = max(rung, self.rung + 1)
-                    break
-                rung -= 1
-            else:
-                # somehow, it was tested less than 5 seconds ago
-                print "tested less than 5 seconds ago!"
+            self.update_rung(interval)
         UserCardTest.objects.create(usercard=self, correct=True,
                                     old_rung=old_rung, new_rung=self.rung)
         self.update_due()
