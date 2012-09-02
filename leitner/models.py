@@ -38,29 +38,6 @@ class Face(models.Model):
         return s
 
 
-class Card(models.Model):
-    front = models.ForeignKey(Face, related_name="front")
-    back = models.ForeignKey(Face, related_name="back")
-    added = models.DateTimeField(auto_now=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    def decks(self):
-        return [dc.deck for dc in DeckCard.objects.filter(card=self)]
-
-    def get_absolute_url(self):
-        return "/cards/%d/" % self.id
-
-    def usercard(self, user):
-        return UserCard.objects.get(card=self, user=user)
-
-    def in_deck(self, deck):
-        return DeckCard.objects.filter(card=self, deck=deck).count() > 0
-
-
-def user_decks(user):
-    return Deck.objects.filter(user=user)
-
-
 class Deck(models.Model):
     name = models.CharField(max_length=256)
     user = models.ForeignKey(User)
@@ -95,9 +72,25 @@ class Deck(models.Model):
         return "/decks/%d/" % self.id
 
 
+class Card(models.Model):
+    front = models.ForeignKey(Face, related_name="front")
+    back = models.ForeignKey(Face, related_name="back")
+    added = models.DateTimeField(auto_now=True)
+    modified = models.DateTimeField(auto_now=True)
+    deck = models.ForeignKey(Deck, null=True)
+
+    def get_absolute_url(self):
+        return "/cards/%d/" % self.id
+
+    def usercard(self, user):
+        return UserCard.objects.get(card=self, user=user)
+
 class DeckCard(models.Model):
     deck = models.ForeignKey(Deck)
     card = models.ForeignKey(Card)
+
+def user_decks(user):
+    return Deck.objects.filter(user=user)
 
 
 def first_due_card(user):

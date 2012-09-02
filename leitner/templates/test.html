@@ -15,13 +15,11 @@
 
 {% if card %}
 <header class="jumbotron subhead">
-		{% for deck in card.card.decks %}
 		<div class="row">
 			<div class="span12">
-				<h1 style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">{{ deck.name }}</h1>
+				<h1 style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</h1>
 			</div>
 		</div>
-		{% endfor %}
 </header>
 
 

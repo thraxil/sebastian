@@ -75,11 +75,10 @@ def decks(request):
     d = [uc.card for uc in all_due]
     decks_due = dict()
     for c in d:
-        for deck in c.decks():
-            if deck.id in decks_due:
-                decks_due[deck.id] += 1
-            else:
-                decks_due[deck.id] = 1
+        if c.deck.id in decks_due:
+            decks_due[c.deck.id] += 1
+        else:
+            decks_due[c.deck.id] = 1
     decks = user_decks(request.user)
     for d in decks:
         d.due = decks_due.get(d.id, 0)
