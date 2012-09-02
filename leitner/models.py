@@ -20,7 +20,6 @@ INTERVALS = [
     (4 * 4, "weeks"), (2 * 52, "weeks")]
 
 
-
 class Face(models.Model):
     content = models.TextField(default="", blank=True)
     image = ImageWithThumbnailsField(upload_to="faces",
@@ -77,7 +76,7 @@ class Card(models.Model):
     back = models.ForeignKey(Face, related_name="back")
     added = models.DateTimeField(auto_now=True)
     modified = models.DateTimeField(auto_now=True)
-    deck = models.ForeignKey(Deck, null=True)
+    deck = models.ForeignKey(Deck)
 
     def get_absolute_url(self):
         return "/cards/%d/" % self.id
@@ -85,9 +84,6 @@ class Card(models.Model):
     def usercard(self, user):
         return UserCard.objects.get(card=self, user=user)
 
-class DeckCard(models.Model):
-    deck = models.ForeignKey(Deck)
-    card = models.ForeignKey(Card)
 
 def user_decks(user):
     return Deck.objects.filter(user=user)
