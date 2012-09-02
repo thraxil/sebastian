@@ -179,6 +179,12 @@ def first_deck_due(user, deck):
         return r[0]
 
 
+def recent_tests(user, n=100):
+    return UserCardTest.objects.filter(
+        usercard__user=user
+        ).order_by("-timestamp")[:n]
+
+
 class UserCard(models.Model):
     user = models.ForeignKey(User)
     card = models.ForeignKey(Card)

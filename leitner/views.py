@@ -7,7 +7,7 @@ from models import first_deck_due, next_deck_card, total_deck_due
 from models import rungs_stats, ease_stats, percent_right, priority_stats
 from models import total_tested, total_untested
 from models import next_hour_due, next_six_hours_due, next_day_due
-from models import next_week_due, next_month_due
+from models import next_week_due, next_month_due, recent_tests
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
@@ -34,12 +34,12 @@ def test(request):
             uc.test_wrong()
         return HttpResponseRedirect("/test/")
     else:
-        return dict(card=next_card(request.user),
-                    total_due=total_due(request.user),
-                    first_due=first_due(request.user),
-                    recent_tests=UserCardTest.objects.filter(
-                usercard__user=request.user
-                ).order_by("-timestamp")[:100],)
+        return dict(
+            card=next_card(request.user),
+            total_due=total_due(request.user),
+            first_due=first_due(request.user),
+            recent_tests=recent_tests(request.user, 100),
+            )
 
 
 @login_required
@@ -56,12 +56,12 @@ def deck_test(request, id):
             uc.test_wrong()
         return HttpResponseRedirect("/decks/%d/test/" % deck.id)
     else:
-        return dict(card=next_deck_card(request.user, deck),
-                    total_due=total_deck_due(request.user, deck),
-                    first_due=first_deck_due(request.user, deck),
-                    recent_tests=UserCardTest.objects.filter(
-                usercard__user=request.user
-                ).order_by("-timestamp")[:100],)
+        return dict(
+            card=next_deck_card(request.user, deck),
+            total_due=total_deck_due(request.user, deck),
+            first_due=first_deck_due(request.user, deck),
+            recent_tests=recent_tests(request.user, 100),
+            )
 
 
 @login_required
