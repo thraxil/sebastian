@@ -206,6 +206,8 @@ class UserCard(models.Model):
         # so we should never be here
         if self.rung == -1:
             return
+        if self.rung > len(INTERVALS) - 1:
+            self.rung = len(INTERVALS) - 1
 
         (n, u) = INTERVALS[self.rung]
 
