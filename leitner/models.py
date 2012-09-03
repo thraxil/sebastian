@@ -220,7 +220,7 @@ class UserCard(models.Model):
         self.save()
 
     def update_rung(self, interval):
-        intervals = INTERVALS
+        intervals = INTERVALS[:]
         intervals.reverse()
         rung = 10
         for (n, u) in intervals:
