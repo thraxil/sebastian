@@ -1,4 +1,4 @@
-# Django settings for sebastian project.
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -27,6 +27,24 @@ DATABASES = {
         'PASSWORD': '',
         }
 }
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+            'HOST': '',
+            'PORT': '',
+            'USER': '',
+            'PASSWORD': '', }}
+
+SOUTH_TESTS_MIGRATE = False
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=sebastian',
+]
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -98,6 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'sorl.thumbnail',
     'south',
+    'django_nose',
 )
 
 THUMBNAIL_SUBDIR="thumbs"
