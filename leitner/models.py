@@ -22,9 +22,10 @@ INTERVALS = [
 
 class Face(models.Model):
     content = models.TextField(default="", blank=True)
-    image = ImageWithThumbnailsField(upload_to="faces",
-                                     thumbnail={
-        'size': (200, 200)
+    image = ImageWithThumbnailsField(
+        upload_to="faces",
+        thumbnail={
+            'size': (200, 200)
         }, blank=True)
     tex = models.TextField(default="", blank=True)
 
@@ -58,7 +59,7 @@ class Deck(models.Model):
         return UserCard.objects.filter(
             user=user,
             card__deck=self
-            )
+        )
 
     def bgcolor(self):
         return color(self.name)
@@ -185,7 +186,7 @@ def first_deck_due(user, deck):
 def recent_tests(user, n=100):
     return UserCardTest.objects.filter(
         usercard__user=user
-        ).order_by("-timestamp")[:n]
+    ).order_by("-timestamp")[:n]
 
 
 class UserCard(models.Model):

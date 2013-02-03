@@ -46,14 +46,14 @@ def test(request, id=None):
                 total_due=total_deck_due(request.user, deck),
                 first_due=first_deck_due(request.user, deck),
                 recent_tests=recent_tests(request.user, 100),
-                )
+            )
         else:
             return dict(
                 card=next_card(request.user),
                 total_due=total_due(request.user),
                 first_due=first_due(request.user),
                 recent_tests=recent_tests(request.user, 100),
-                )
+            )
 
 
 @login_required
@@ -163,8 +163,8 @@ def stats(request):
         next_week_due=next_week_due(request.user),
         next_month_due=next_month_due(request.user),
         recent_tests=UserCardTest.objects.filter(
-                usercard__user=request.user).order_by("-timestamp")[:1000],
-        )
+            usercard__user=request.user).order_by("-timestamp")[:1000],
+    )
 
 
 def munin_due(request):
