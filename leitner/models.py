@@ -102,6 +102,19 @@ def first_due_card(user):
         return None
 
 
+def closest_due_card(user):
+    r = UserCard.objects.filter(user=user,
+                                due__lte=datetime.now(),
+                                rung__gte=0).order_by('due')
+    if r.count() > 0:
+        now = datetime.now()
+        alldue = list(r)
+        alldue.sort(key=lambda x: abs(x.due - now))
+        return alldue[0]
+    else:
+        return None
+
+
 def first_due_deck_card(user, deck):
     r = UserCard.objects.filter(user=user,
                                 card__deck=deck,
@@ -156,7 +169,7 @@ def random_untested_from_priority(user, priority):
 
 
 def next_card(user):
-    card = first_due_card(user)
+    card = closest_due_card(user)
     if card is None:
         card = random_untested_card(user)
     return card
