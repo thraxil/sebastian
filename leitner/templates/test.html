@@ -27,6 +27,8 @@
 	<div class="span12">
 		{% if card.card.front.content %}
 		<span style="margin: 10px; font-size: {{card.card.front.size}}px">{{ card.card.front.content }}</span>
+		{% else %}
+		<span style="margin: 10px; font-size: {{card.card.front.size}}px">$${{ card.card.front.tex }}$$</span>
 		{% endif %}
 
 		{% if card.card.front.image %}
@@ -49,6 +51,8 @@
 
 {% if card.card.back.content %}
 {{ card.card.back.content }}
+{% else %}
+$${{ card.card.back.tex }}$$
 {% endif %}
 
 {% if card.card.back.image %}

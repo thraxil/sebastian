@@ -30,7 +30,7 @@ class Face(models.Model):
     tex = models.TextField(default="", blank=True)
 
     def size(self):
-        s = 800 / len(self.content)
+        s = 800 / max(len(self.content), len(self.tex))
         if s < 16:
             s = 16
         if s > 200:
