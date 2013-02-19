@@ -75,6 +75,14 @@ def deck(request, id):
 @render_to("card.html")
 def card(request, id):
     card = get_object_or_404(UserCard, id=id)
+    if request.method == "POST":
+        card.card.front.content = request.POST.get('front', u'')
+        card.card.front.save()
+        card.card.back.content = request.POST.get('back', u'')
+        card.card.back.save()
+        card.priority = request.POST.get('priority', '5')
+        card.save()
+        return HttpResponseRedirect(card.get_absolute_url())
     return dict(card=card)
 
 

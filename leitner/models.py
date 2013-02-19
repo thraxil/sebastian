@@ -287,6 +287,9 @@ class UserCard(models.Model):
             self.ease = 0
         self.update_due()
 
+    def get_absolute_url(self):
+        return "/cards/%d/" % self.id
+
 
 def percent_right(user):
     """ returns percentage right for user """
