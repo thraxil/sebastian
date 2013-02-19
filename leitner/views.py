@@ -127,8 +127,8 @@ def add_multiple_cards(request):
         parts = line.split("|")
         front_content = parts[0]
         back_content = "|".join(parts[1:])
-        front = Face.objects.create(content=front_content, tex="")
-        back = Face.objects.create(content=back_content, tex="")
+        front = Face.objects.create(content=front_content)
+        back = Face.objects.create(content=back_content)
         card = Card.objects.create(front=front, back=back,
                                    deck=deck)
         UserCard.objects.create(card=card, user=request.user,

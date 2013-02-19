@@ -27,10 +27,9 @@ class Face(models.Model):
         thumbnail={
             'size': (200, 200)
         }, blank=True)
-    tex = models.TextField(default="", blank=True)
 
     def size(self):
-        s = 800 / max(len(self.content), len(self.tex))
+        s = 800 / len(self.content)
         if s < 16:
             s = 16
         if s > 200:

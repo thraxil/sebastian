@@ -9,8 +9,6 @@
 <div id="front">
 {% if card.card.front.content %}
 {{ card.card.front.content }}
-{% else %}
-$${{ card.card.front.tex }}$$
 {% endif %}
 {% if card.card.front.image %}
 <img src="{% thumbnail card.card.front.image 600x600 %}" />
@@ -20,8 +18,6 @@ $${{ card.card.front.tex }}$$
 <div id="back">
 {% if card.card.back.content %}
 {{ card.card.back.content }}
-{% else %}
-$${{ card.card.back.tex }}$$
 {% endif %}
 {% if card.card.back.image %}
 <img src="{% thumbnail card.card.back.image 600x600 %}" />
