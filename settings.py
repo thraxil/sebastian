@@ -119,6 +119,9 @@ INSTALLED_APPS = (
     'django_nose',
 )
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
+
 THUMBNAIL_SUBDIR="thumbs"
 try:
     from local_settings import *
