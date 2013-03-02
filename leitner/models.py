@@ -27,7 +27,6 @@ class Face(models.Model):
         thumbnail={
             'size': (200, 200)
         }, blank=True)
-    tex = models.TextField(default="", blank=True)
 
     def size(self):
         s = 800 / len(self.content)
@@ -102,6 +101,19 @@ def first_due_card(user):
         return None
 
 
+def closest_due_card(user):
+    r = UserCard.objects.filter(user=user,
+                                due__lte=datetime.now(),
+                                rung__gte=0).order_by('due')
+    if r.count() > 0:
+        now = datetime.now()
+        alldue = list(r)
+        alldue.sort(key=lambda x: abs(x.due - now))
+        return alldue[0]
+    else:
+        return None
+
+
 def first_due_deck_card(user, deck):
     r = UserCard.objects.filter(user=user,
                                 card__deck=deck,
@@ -156,7 +168,7 @@ def random_untested_from_priority(user, priority):
 
 
 def next_card(user):
-    card = first_due_card(user)
+    card = closest_due_card(user)
     if card is None:
         card = random_untested_card(user)
     return card
@@ -274,6 +286,9 @@ class UserCard(models.Model):
         if self.ease < 0:
             self.ease = 0
         self.update_due()
+
+    def get_absolute_url(self):
+        return "/cards/%d/" % self.id
 
 
 def percent_right(user):

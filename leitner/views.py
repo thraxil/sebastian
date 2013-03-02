@@ -75,6 +75,14 @@ def deck(request, id):
 @render_to("card.html")
 def card(request, id):
     card = get_object_or_404(UserCard, id=id)
+    if request.method == "POST":
+        card.card.front.content = request.POST.get('front', u'')
+        card.card.front.save()
+        card.card.back.content = request.POST.get('back', u'')
+        card.card.back.save()
+        card.priority = request.POST.get('priority', '5')
+        card.save()
+        return HttpResponseRedirect(card.get_absolute_url())
     return dict(card=card)
 
 
@@ -127,8 +135,8 @@ def add_multiple_cards(request):
         parts = line.split("|")
         front_content = parts[0]
         back_content = "|".join(parts[1:])
-        front = Face.objects.create(content=front_content, tex="")
-        back = Face.objects.create(content=back_content, tex="")
+        front = Face.objects.create(content=front_content)
+        back = Face.objects.create(content=back_content)
         card = Card.objects.create(front=front, back=back,
                                    deck=deck)
         UserCard.objects.create(card=card, user=request.user,
