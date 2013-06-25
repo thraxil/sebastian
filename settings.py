@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'south',
     'django_nose',
     'django_statsd',
+    'gunicorn',
 )
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
