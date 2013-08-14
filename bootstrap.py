@@ -4,8 +4,8 @@ import sys
 import subprocess
 import shutil
 
-pwd = os.path.dirname(__file__)
-vedir = os.path.join(pwd,"ve")
+pwd = os.path.abspath(os.path.dirname(__file__))
+vedir = os.path.abspath(os.path.join(pwd, "ve"))
 
 if os.path.exists(vedir):
     shutil.rmtree(vedir)
@@ -23,9 +23,21 @@ if ret:
 
 ret = subprocess.call(
     [os.path.join(vedir, 'bin', 'pip'), "install",
-     "-E", vedir,
+     "--index-url=http://pypi.ccnmtl.columbia.edu/",
+     "wheel==0.21.0"])
+
+if ret:
+    exit(ret)
+
+ret = subprocess.call(
+    [os.path.join(vedir, 'bin', 'pip'), "install",
+     "--use-wheel",
      "--index-url=http://pypi.ccnmtl.columbia.edu/",
      "--requirement",
      os.path.join(pwd, "requirements.txt")])
 if ret:
     exit(ret)
+
+ret = subprocess.call(["python", "virtualenv.py", "--relocatable", vedir])
+# --relocatable always complains about activate.csh, which we don't really
+# care about. but it means we need to ignore its error messages
