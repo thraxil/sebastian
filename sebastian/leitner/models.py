@@ -3,7 +3,7 @@ from sorl.thumbnail.fields import ImageWithThumbnailsField
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from random import randint
-from hashcolor import color, make_contrasting
+from sebastian.hashcolor import color, make_contrasting
 from south.modelsinspector import add_introspection_rules
 
 add_introspection_rules(

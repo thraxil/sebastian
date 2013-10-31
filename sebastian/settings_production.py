@@ -1,3 +1,4 @@
+# flake8: noqa
 from settings import *
 
 DEBUG = False
@@ -6,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 DATABASE_NAME = 'sebastian'
 
 TEMPLATE_DIRS = (
-    "/var/www/sebastian/sebastian/leitner/templates",
+    "/var/www/sebastian/sebastian/sebastian/leitner/templates",
 )
 
 # Absolute path to the directory that holds media.

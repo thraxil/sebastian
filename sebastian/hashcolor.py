@@ -22,7 +22,7 @@ def luminosity(r, g, b):
 
 
 def make_contrasting(color):
-    if type(color) == type("string"):
+    if isinstance(color, str):
         # hex -> triple
         color = color.strip("#")  # in case someone left it on there
         color = (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
