@@ -128,6 +128,8 @@ STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 THUMBNAIL_SUBDIR = "thumbs"
 
+ALLOWED_HOSTS = ['localhost', 'thraxil.org']
+
 try:
     from local_settings import *
 except ImportError:
