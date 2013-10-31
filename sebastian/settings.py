@@ -130,6 +130,11 @@ THUMBNAIL_SUBDIR = "thumbs"
 
 ALLOWED_HOSTS = ['localhost', 'cards.thraxil.org']
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}
+
 try:
     from local_settings import *
 except ImportError:
