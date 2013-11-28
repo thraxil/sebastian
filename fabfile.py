@@ -19,5 +19,5 @@ def deploy():
         run("./manage.py collectstatic --noinput --settings=sebastian.settings_production")
         for n in nginx_hosts:
             run(("rsync -avp --delete media/ "
-                 "%s:/var/www/maut/maut/media/") % n)
+                 "%s:/var/www/sebastian/sebastian/media/") % n)
     restart_gunicorn()
