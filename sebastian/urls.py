@@ -1,10 +1,8 @@
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.conf import settings
-import os
 
 admin.autodiscover()
-site_media_root = os.path.join(os.path.dirname(__file__), "media")
 
 urlpatterns = patterns(
     '',
@@ -25,8 +23,6 @@ urlpatterns = patterns(
     (r'^cards/(?P<id>\d+)/$', 'sebastian.leitner.views.card'),
     (r'^stats/$', 'sebastian.leitner.views.stats'),
     (r'^admin/', include(admin.site.urls)),
-    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': site_media_root}),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': settings.MEDIA_ROOT}),
     (r'^munin/due/$', 'sebastian.leitner.views.munin_due'),

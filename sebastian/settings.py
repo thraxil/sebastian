@@ -1,11 +1,11 @@
 # flake8: noqa
 import sys
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
     ('Anders Pearson', 'anders@columbia.edu'),
 )
 
@@ -85,6 +85,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,6 +111,8 @@ INSTALLED_APPS = (
     'sebastian.leitner',
     'django.contrib.admin',
     'django.contrib.markup',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'sorl.thumbnail',
     'south',
     'django_nose',
@@ -125,6 +128,16 @@ STATSD_PREFIX = 'sebastian'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
+
+STATIC_URL = "/media/"
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../media/")),
+)
+STATIC_ROOT = ""
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 THUMBNAIL_SUBDIR = "thumbs"
 
