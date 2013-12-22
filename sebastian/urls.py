@@ -22,7 +22,7 @@ urlpatterns = patterns(
     (r'^decks/(?P<id>\d+)/$', 'sebastian.leitner.views.deck'),
     (r'^decks/(?P<id>\d+)/test/$', 'sebastian.leitner.views.test'),
     (r'^cards/(?P<id>\d+)/$', 'sebastian.leitner.views.card'),
-    (r'^stats/$', 'sebastian.leitner.views.stats'),
+    (r'^stats/$', views.StatsView.as_view()),
     (r'^admin/', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': settings.MEDIA_ROOT}),

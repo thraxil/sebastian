@@ -1,7 +1,7 @@
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from .models import Deck, UserCard, UserCardTest, Card, Face, User
+from .models import Deck, UserCard, UserCardTest, Card, Face
 from .models import next_card, total_due, first_due, user_decks
 from .models import first_deck_due, next_deck_card, total_deck_due
 from .models import rungs_stats, ease_stats, percent_right, priority_stats
@@ -18,10 +18,8 @@ from forms import AddFaceForm
 from annoying.decorators import render_to
 
 
-
 class LoggedInMixin(object):
     @method_decorator(login_required)
-
     def dispatch(self, *args, **kwargs):
         return super(LoggedInMixin, self).dispatch(*args, **kwargs)
 
@@ -159,29 +157,31 @@ def add_multiple_cards(request):
     return HttpResponseRedirect("/add_card/")
 
 
-@login_required
-@render_to("stats.html")
-def stats(request):
-    rungs = list(rungs_stats(request.user))
-    max_rung = max([r['cards'] for r in rungs])
-    ease = list(ease_stats(request.user))
-    max_ease = max([r['cards'] for r in ease])
-    return dict(
-        rungs=rungs,
-        max_rung=max_rung,
-        ease=ease,
-        max_ease=max_ease,
-        percent_right=percent_right(request.user),
-        priorities=priority_stats(request.user),
-        total_tested=total_tested(request.user),
-        total_untested=total_untested(request.user),
-        total_due=total_due(request.user),
-        first_due=first_due(request.user),
-        next_hour_due=next_hour_due(request.user),
-        next_six_hours_due=next_six_hours_due(request.user),
-        next_day_due=next_day_due(request.user),
-        next_week_due=next_week_due(request.user),
-        next_month_due=next_month_due(request.user),
-        recent_tests=UserCardTest.objects.filter(
-            usercard__user=request.user).order_by("-timestamp")[:1000],
-    )
+class StatsView(LoggedInMixin, TemplateView):
+    template_name = "stats.html"
+
+    def get_context_data(self):
+        rungs = list(rungs_stats(self.request.user))
+        max_rung = max([r['cards'] for r in rungs])
+        ease = list(ease_stats(self.request.user))
+        max_ease = max([r['cards'] for r in ease])
+        return dict(
+            rungs=rungs,
+            max_rung=max_rung,
+            ease=ease,
+            max_ease=max_ease,
+            percent_right=percent_right(self.request.user),
+            priorities=priority_stats(self.request.user),
+            total_tested=total_tested(self.request.user),
+            total_untested=total_untested(self.request.user),
+            total_due=total_due(self.request.user),
+            first_due=first_due(self.request.user),
+            next_hour_due=next_hour_due(self.request.user),
+            next_six_hours_due=next_six_hours_due(self.request.user),
+            next_day_due=next_day_due(self.request.user),
+            next_week_due=next_week_due(self.request.user),
+            next_month_due=next_month_due(self.request.user),
+            recent_tests=UserCardTest.objects.filter(
+                usercard__user=self.request.user
+            ).order_by("-timestamp")[:1000],
+        )
