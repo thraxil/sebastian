@@ -135,33 +135,32 @@ class AddCardView(LoggedInMixin, View):
                            front=front_form, back=back_form))
 
 
-@login_required
-def add_multiple_cards(request):
-    u = request.user
-    deck_name = request.POST.get("deck", "")
-    if deck_name == "":
-        deck_name = request.POST.get("new_deck", "no deck")
+class AddMultipleCardsView(LoggedInMixin, View):
+    def post(self, request):
+        u = request.user
+        deck_name = request.POST.get("deck", "")
+        if deck_name == "":
+            deck_name = request.POST.get("new_deck", "no deck")
 
-    try:
-        deck = Deck.objects.get(name=deck_name, user=u)
-    except ObjectDoesNotExist:
-        deck = Deck.objects.create(name=deck_name, user=u)
+        try:
+            deck = Deck.objects.get(name=deck_name, user=u)
+        except ObjectDoesNotExist:
+            deck = Deck.objects.create(name=deck_name, user=u)
 
-    cards = request.POST.get("cards", "")
-    for line in cards.split("\n"):
-        parts = line.split("|")
-        front_content = parts[0]
-        back_content = "|".join(parts[1:])
-        front = Face.objects.create(content=front_content)
-        back = Face.objects.create(content=back_content)
-        card = Card.objects.create(front=front, back=back,
-                                   deck=deck)
-        UserCard.objects.create(card=card, user=request.user,
-                                due=datetime.now(),
-                                priority=int(request.POST.get('priority',
-                                                              '1')))
-
-    return HttpResponseRedirect("/add_card/")
+        cards = request.POST.get("cards", "")
+        for line in cards.split("\n"):
+            parts = line.split("|")
+            front_content = parts[0]
+            back_content = "|".join(parts[1:])
+            front = Face.objects.create(content=front_content)
+            back = Face.objects.create(content=back_content)
+            card = Card.objects.create(front=front, back=back,
+                                       deck=deck)
+            UserCard.objects.create(card=card, user=request.user,
+                                    due=datetime.now(),
+                                    priority=int(request.POST.get('priority',
+                                                                  '1')))
+        return HttpResponseRedirect("/add_card/")
 
 
 class StatsView(LoggedInMixin, TemplateView):

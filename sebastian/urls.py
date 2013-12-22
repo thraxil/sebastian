@@ -16,7 +16,7 @@ urlpatterns = patterns(
      'django.contrib.auth.views.password_change_done'),
     (r'^$', views.IndexView.as_view()),
     (r'^add_card/$', views.AddCardView.as_view()),
-    (r'^add_multiple_cards/$', 'sebastian.leitner.views.add_multiple_cards'),
+    (r'^add_multiple_cards/$', views.AddMultipleCardsView()),
     (r'^test/$', 'sebastian.leitner.views.test'),
     (r'^decks/$', views.DecksView.as_view()),
     (r'^decks/(?P<id>\d+)/$', 'sebastian.leitner.views.deck'),
