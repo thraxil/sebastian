@@ -110,6 +110,13 @@ class CardView(LoggedInMixin, View):
         return render(request, self.template_name, dict(card=card))
 
 
+def get_or_create_deck(deck_name, user):
+    try:
+        return Deck.objects.get(name=deck_name, user=user)
+    except ObjectDoesNotExist:
+        return Deck.objects.create(name=deck_name, user=user)
+
+
 class AddCardView(LoggedInMixin, View):
     template_name = "add_card.html"
 
@@ -118,11 +125,7 @@ class AddCardView(LoggedInMixin, View):
         deck_name = request.POST.get("deck", "")
         if deck_name == "":
             deck_name = request.POST.get("new_deck", "no deck")
-        try:
-            deck = Deck.objects.get(name=deck_name, user=u)
-        except ObjectDoesNotExist:
-            deck = Deck.objects.create(name=deck_name, user=u)
-
+        deck = get_or_create_deck(deck_name, u)
         front_form = AddFaceForm(request.POST, request.FILES, prefix="front")
         back_form = AddFaceForm(request.POST, request.FILES, prefix="back")
         if front_form.is_valid() and back_form.is_valid():
@@ -154,12 +157,7 @@ class AddMultipleCardsView(LoggedInMixin, View):
         deck_name = request.POST.get("deck", "")
         if deck_name == "":
             deck_name = request.POST.get("new_deck", "no deck")
-
-        try:
-            deck = Deck.objects.get(name=deck_name, user=u)
-        except ObjectDoesNotExist:
-            deck = Deck.objects.create(name=deck_name, user=u)
-
+        deck = get_or_create_deck(deck_name, u)
         cards = request.POST.get("cards", "")
         for line in cards.split("\n"):
             parts = line.split("|")
