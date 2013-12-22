@@ -162,11 +162,10 @@ class StatsView(LoggedInMixin, TemplateView):
 
     def get_context_data(self):
         rungs = list(rungs_stats(self.request.user))
-        max_rung = max([r['cards'] for r in rungs])
         ease = list(ease_stats(self.request.user))
         return dict(
             rungs=rungs,
-            max_rung=max_rung,
+            max_rung=max([r['cards'] for r in rungs]),
             ease=ease,
             max_ease=max([r['cards'] for r in ease]),
             percent_right=percent_right(self.request.user),
