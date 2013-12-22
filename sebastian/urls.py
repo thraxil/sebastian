@@ -26,9 +26,4 @@ urlpatterns = patterns(
     (r'^admin/', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': settings.MEDIA_ROOT}),
-    (r'^munin/due/$', 'sebastian.leitner.views.munin_due'),
-    (r'^munin/percent/$', 'sebastian.leitner.views.munin_percent'),
-    (r'^munin/tested/$', 'sebastian.leitner.views.munin_tested'),
-    (r'^munin/rungs/$', 'sebastian.leitner.views.munin_rungs'),
-    (r'^munin/ease/$', 'sebastian.leitner.views.munin_ease'),
 )
