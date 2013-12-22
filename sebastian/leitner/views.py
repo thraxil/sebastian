@@ -138,10 +138,9 @@ class AddCardView(LoggedInMixin, View):
                 due=datetime.now(),
                 priority=int(request.POST.get('priority', '1')))
             return HttpResponseRedirect("/add_card/")
-        else:
-            return render(request, self.template_name,
-                          dict(decks=user_decks(request.user),
-                               front=front_form, back=back_form))
+        return render(request, self.template_name,
+                      dict(decks=user_decks(request.user),
+                           front=front_form, back=back_form))
 
     def get(self, request):
         front_form = AddFaceForm(prefix="front")
