@@ -44,6 +44,9 @@ class DeckHandler(object):
             recent_tests=recent_tests(user, 100),
         )
 
+    def redirect(self):
+        return HttpResponseRedirect("/decks/%d/test/" % self.deck.id)
+
 
 class NullDeckHandler(object):
     def context_dict(self, user):
@@ -53,6 +56,9 @@ class NullDeckHandler(object):
             first_due=first_due(user),
             recent_tests=recent_tests(user, 100),
         )
+
+    def redirect(self):
+        return HttpResponseRedirect("/test/")
 
 
 def make_deck_handler(deck_id=None):
@@ -66,15 +72,12 @@ class TestView(LoggedInMixin, View):
 
     def get(self, request, id=None):
         deck_handler = make_deck_handler(id)
-
         return render(
             request, self.template_name,
             deck_handler.context_dict(request.user))
 
     def post(self, request, id=None):
-        deck = None
-        if id:
-            deck = get_object_or_404(Deck, id=id)
+        deck_handler = make_deck_handler(id)
         uc = get_object_or_404(UserCard, id=request.POST.get('card'))
         if request.POST.get("right", "no") == "yes":
             # got it right
@@ -82,10 +85,7 @@ class TestView(LoggedInMixin, View):
         else:
             # got it wrong
             uc.test_wrong()
-        if deck:
-            return HttpResponseRedirect("/decks/%d/test/" % deck.id)
-        else:
-            return HttpResponseRedirect("/test/")
+        return deck_handler.redirect()
 
 
 class DecksView(LoggedInMixin, ListView):

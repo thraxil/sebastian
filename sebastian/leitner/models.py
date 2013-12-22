@@ -259,17 +259,16 @@ class UserCard(models.Model):
             self.ease += 1
 
         if q.count() == 0:
-            # never tested before
-            # find the interval between now and when the card was added
-            # which self.due should be set to currently
-            # and calculate rung based on that
+            # never tested before. find the interval between now and
+            # when the card was added which self.due should be set to
+            # currently and calculate rung based on that
             now = datetime.now()
             interval = now - self.due
             self.update_rung(interval)
         else:
-            # if the time since the last passed test was greater than one of
-            # the intervals, make sure that it gets bumped up to at least
-            # that rung
+            # if the time since the last passed test was greater than
+            # one of the intervals, make sure that it gets bumped up
+            # to at least that rung
             last_correct = q[0].timestamp
             now = datetime.now()
             interval = now - last_correct
@@ -303,12 +302,17 @@ def percent_right(user):
 def priority_stats(user):
     """ stats for cards of each priority """
     for p in range(10, 0, -1):
-        yield dict(priority=p,
-                   tested=UserCard.objects.filter(user=user, priority=p,
-                                                  rung__gte=0).count(),
-                   untested=UserCard.objects.filter(user=user, priority=p,
-                                                    rung=-1).count(),
-                   )
+        yield pstat(user, p)
+
+
+def pstat(user, p):
+    return dict(
+        priority=p,
+        tested=UserCard.objects.filter(
+            user=user, priority=p, rung__gte=0).count(),
+        untested=UserCard.objects.filter(
+            user=user, priority=p, rung=-1).count()
+    )
 
 
 def rungs_stats(user):
