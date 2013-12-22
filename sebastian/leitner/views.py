@@ -117,14 +117,19 @@ def get_or_create_deck(deck_name, user):
         return Deck.objects.create(name=deck_name, user=user)
 
 
+def get_deck_name(post):
+    deck_name = post.get("deck", "")
+    if deck_name == "":
+        return post.get("new_deck", "no deck")
+    return deck_name
+
+
 class AddCardView(LoggedInMixin, View):
     template_name = "add_card.html"
 
     def post(self, request):
         u = request.user
-        deck_name = request.POST.get("deck", "")
-        if deck_name == "":
-            deck_name = request.POST.get("new_deck", "no deck")
+        deck_name = get_deck_name(request.POST)
         deck = get_or_create_deck(deck_name, u)
         front_form = AddFaceForm(request.POST, request.FILES, prefix="front")
         back_form = AddFaceForm(request.POST, request.FILES, prefix="back")
@@ -153,9 +158,7 @@ class AddCardView(LoggedInMixin, View):
 class AddMultipleCardsView(LoggedInMixin, View):
     def post(self, request):
         u = request.user
-        deck_name = request.POST.get("deck", "")
-        if deck_name == "":
-            deck_name = request.POST.get("new_deck", "no deck")
+        deck_name = get_deck_name(request.POST)
         deck = get_or_create_deck(deck_name, u)
         cards = request.POST.get("cards", "")
         for line in cards.split("\n"):
