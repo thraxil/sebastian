@@ -129,8 +129,7 @@ class AddCardView(LoggedInMixin, View):
 
     def post(self, request):
         u = request.user
-        deck_name = get_deck_name(request.POST)
-        deck = get_or_create_deck(deck_name, u)
+        deck = get_or_create_deck(get_deck_name(request.POST), u)
         front_form = AddFaceForm(request.POST, request.FILES, prefix="front")
         back_form = AddFaceForm(request.POST, request.FILES, prefix="back")
         if front_form.is_valid() and back_form.is_valid():
@@ -158,8 +157,7 @@ class AddCardView(LoggedInMixin, View):
 class AddMultipleCardsView(LoggedInMixin, View):
     def post(self, request):
         u = request.user
-        deck_name = get_deck_name(request.POST)
-        deck = get_or_create_deck(deck_name, u)
+        deck = get_or_create_deck(get_deck_name(request.POST), u)
         cards = request.POST.get("cards", "")
         for line in cards.split("\n"):
             parts = line.split("|")
