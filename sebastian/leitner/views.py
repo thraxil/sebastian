@@ -40,12 +40,15 @@ class TestView(LoggedInMixin, View):
         if id:
             deck = get_object_or_404(Deck, id=id)
         if deck:
-            return dict(
-                card=next_deck_card(request.user, deck),
-                total_due=total_deck_due(request.user, deck),
-                first_due=first_deck_due(request.user, deck),
-                recent_tests=recent_tests(request.user, 100),
-            )
+            return render(
+                request,
+                self.template_name,
+                dict(
+                    card=next_deck_card(request.user, deck),
+                    total_due=total_deck_due(request.user, deck),
+                    first_due=first_deck_due(request.user, deck),
+                    recent_tests=recent_tests(request.user, 100),
+                ))
         else:
             return render(
                 request,
