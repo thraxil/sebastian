@@ -164,12 +164,11 @@ class StatsView(LoggedInMixin, TemplateView):
         rungs = list(rungs_stats(self.request.user))
         max_rung = max([r['cards'] for r in rungs])
         ease = list(ease_stats(self.request.user))
-        max_ease = max([r['cards'] for r in ease])
         return dict(
             rungs=rungs,
             max_rung=max_rung,
             ease=ease,
-            max_ease=max_ease,
+            max_ease=max([r['cards'] for r in ease]),
             percent_right=percent_right(self.request.user),
             priorities=priority_stats(self.request.user),
             total_tested=total_tested(self.request.user),
