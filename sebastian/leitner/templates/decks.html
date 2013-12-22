@@ -6,13 +6,13 @@
 
 <h2>decks</h2>
 <table class="table table-bordered">
-{% for deck in decks %}
+{% for deck in object_list %}
 <tr>
 <td style="background-color: #{{ deck.bgcolor }}; color: #{{ deck.fgcolor }};">
 <a href="{{ deck.get_absolute_url }}"
  style="color: #{{ deck.fgcolor }};">{{ deck.name }}</a>
 </td>
-<td><a href="/decks/{{deck.id}}/test/">{% num_deck_cards_due deck user %} due </a> (of {{ deck.num_cards }})</td>
+<td><a href="/decks/{{deck.id}}/test/">{% num_deck_cards_due deck request.user %} due </a> (of {{ deck.num_cards }})</td>
 </tr>
 {% endfor %}
 </table>

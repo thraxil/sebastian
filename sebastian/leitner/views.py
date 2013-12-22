@@ -10,6 +10,7 @@ from .models import next_hour_due, next_six_hours_due, next_day_due
 from .models import next_week_due, next_month_due, recent_tests
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
@@ -67,11 +68,11 @@ def test(request, id=None):
             )
 
 
-@login_required
-@render_to("decks.html")
-def decks(request):
-    return dict(decks=user_decks(request.user),
-                user=request.user)
+class DecksView(LoggedInMixin, ListView):
+    template_name = "decks.html"
+
+    def get_queryset(self):
+        return user_decks(self.request.user)
 
 
 @login_required

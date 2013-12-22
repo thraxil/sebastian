@@ -18,7 +18,7 @@ urlpatterns = patterns(
     (r'^add_card/$', 'sebastian.leitner.views.add_card'),
     (r'^add_multiple_cards/$', 'sebastian.leitner.views.add_multiple_cards'),
     (r'^test/$', 'sebastian.leitner.views.test'),
-    (r'^decks/$', 'sebastian.leitner.views.decks'),
+    (r'^decks/$', views.DecksView.as_view()),
     (r'^decks/(?P<id>\d+)/$', 'sebastian.leitner.views.deck'),
     (r'^decks/(?P<id>\d+)/test/$', 'sebastian.leitner.views.test'),
     (r'^cards/(?P<id>\d+)/$', 'sebastian.leitner.views.card'),
