@@ -11,6 +11,7 @@ from .models import next_week_due, next_month_due, recent_tests
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
 from django.views.generic.base import View
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -81,12 +82,15 @@ class DecksView(LoggedInMixin, ListView):
         return user_decks(self.request.user)
 
 
-@login_required
-@render_to("deck.html")
-def deck(request, id):
-    deck = get_object_or_404(Deck, id=id)
-    return dict(deck=deck,
-                usercards=deck.usercards(request.user))
+class DeckView(LoggedInMixin, DetailView):
+    template_name = "deck.html"
+    model = Deck
+    context_object_name = "deck"
+
+    def get_context_data(self, **kwargs):
+        context = super(DeckView, self).get_context_data(**kwargs)
+        context['usercards'] = context['deck'].usercards(self.request.user)
+        return context
 
 
 @login_required

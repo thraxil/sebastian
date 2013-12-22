@@ -19,7 +19,7 @@ urlpatterns = patterns(
     (r'^add_multiple_cards/$', views.AddMultipleCardsView()),
     (r'^test/$', views.TestView.as_view()),
     (r'^decks/$', views.DecksView.as_view()),
-    (r'^decks/(?P<id>\d+)/$', 'sebastian.leitner.views.deck'),
+    (r'^decks/(?P<pk>\d+)/$', views.DeckView.as_view()),
     (r'^decks/(?P<id>\d+)/test/$', 'sebastian.leitner.views.test'),
     (r'^cards/(?P<id>\d+)/$', 'sebastian.leitner.views.card'),
     (r'^stats/$', views.StatsView.as_view()),
