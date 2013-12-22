@@ -1,6 +1,6 @@
 # Create your views here.
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from .models import Deck, UserCard, UserCardTest, Card, Face
 from .models import next_card, total_due, first_due, user_decks
 from .models import first_deck_due, next_deck_card, total_deck_due
@@ -10,6 +10,7 @@ from .models import next_hour_due, next_six_hours_due, next_day_due
 from .models import next_week_due, next_month_due, recent_tests
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView
+from django.views.generic.base import View
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -96,10 +97,10 @@ def card(request, id):
     return dict(card=card)
 
 
-@login_required
-@render_to("add_card.html")
-def add_card(request):
-    if request.method == "POST":
+class AddCardView(LoggedInMixin, View):
+    template_name = "add_card.html"
+
+    def post(self, request):
         u = request.user
         deck_name = request.POST.get("deck", "")
         if deck_name == "":
@@ -121,11 +122,17 @@ def add_card(request):
                 due=datetime.now(),
                 priority=int(request.POST.get('priority', '1')))
             return HttpResponseRedirect("/add_card/")
-    else:
+        else:
+            return render(request, self.template_name,
+                          dict(decks=user_decks(request.user),
+                               front=front_form, back=back_form))
+
+    def get(self, request):
         front_form = AddFaceForm(prefix="front")
         back_form = AddFaceForm(prefix="back")
-    return dict(decks=user_decks(request.user),
-                front=front_form, back=back_form)
+        return render(request, self.template_name,
+                      dict(decks=user_decks(request.user),
+                           front=front_form, back=back_form))
 
 
 @login_required
