@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include
 from django.contrib import admin
 from django.conf import settings
+import sebastian.leitner.views as views
 
 admin.autodiscover()
 
@@ -13,7 +14,7 @@ urlpatterns = patterns(
      'django.contrib.auth.views.password_change'),
     (r'^accounts/password_change/done/$',
      'django.contrib.auth.views.password_change_done'),
-    (r'^$', 'sebastian.leitner.views.index'),
+    (r'^$', views.IndexView.as_view()),
     (r'^add_card/$', 'sebastian.leitner.views.add_card'),
     (r'^add_multiple_cards/$', 'sebastian.leitner.views.add_multiple_cards'),
     (r'^test/$', 'sebastian.leitner.views.test'),

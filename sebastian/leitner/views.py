@@ -1,13 +1,15 @@
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from models import Deck, UserCard, UserCardTest, Card, Face, User
-from models import next_card, total_due, first_due, user_decks
-from models import first_deck_due, next_deck_card, total_deck_due
-from models import rungs_stats, ease_stats, percent_right, priority_stats
-from models import total_tested, total_untested
-from models import next_hour_due, next_six_hours_due, next_day_due
-from models import next_week_due, next_month_due, recent_tests
+from .models import Deck, UserCard, UserCardTest, Card, Face, User
+from .models import next_card, total_due, first_due, user_decks
+from .models import first_deck_due, next_deck_card, total_deck_due
+from .models import rungs_stats, ease_stats, percent_right, priority_stats
+from .models import total_tested, total_untested
+from .models import next_hour_due, next_six_hours_due, next_day_due
+from .models import next_week_due, next_month_due, recent_tests
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
@@ -15,10 +17,19 @@ from forms import AddFaceForm
 from annoying.decorators import render_to
 
 
-@login_required
-@render_to("index.html")
-def index(request):
-    return dict(user=request.user)
+
+class LoggedInMixin(object):
+    @method_decorator(login_required)
+
+    def dispatch(self, *args, **kwargs):
+        return super(LoggedInMixin, self).dispatch(*args, **kwargs)
+
+
+class IndexView(LoggedInMixin, TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self):
+        return dict(user=self.request.user)
 
 
 @login_required
