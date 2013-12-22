@@ -17,7 +17,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 from forms import AddFaceForm
-from annoying.decorators import render_to
 
 
 class LoggedInMixin(object):
@@ -93,11 +92,11 @@ class DeckView(LoggedInMixin, DetailView):
         return context
 
 
-@login_required
-@render_to("card.html")
-def card(request, id):
-    card = get_object_or_404(UserCard, id=id)
-    if request.method == "POST":
+class CardView(LoggedInMixin, View):
+    template_name = "card.html"
+
+    def post(self, request, id):
+        card = get_object_or_404(UserCard, id=id)
         card.card.front.content = request.POST.get('front', u'')
         card.card.front.save()
         card.card.back.content = request.POST.get('back', u'')
@@ -105,7 +104,10 @@ def card(request, id):
         card.priority = request.POST.get('priority', '5')
         card.save()
         return HttpResponseRedirect(card.get_absolute_url())
-    return dict(card=card)
+
+    def get(self, request, id):
+        card = get_object_or_404(UserCard, id=id)
+        return render(request, self.template_name, dict(card=card))
 
 
 class AddCardView(LoggedInMixin, View):
