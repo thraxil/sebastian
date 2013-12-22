@@ -32,33 +32,44 @@ class IndexView(LoggedInMixin, TemplateView):
         return dict(user=self.request.user)
 
 
+class DeckHandler(object):
+    def __init__(self, deck_id):
+        self.deck = get_object_or_404(Deck, id=deck_id)
+
+    def context_dict(self, user):
+        return dict(
+            card=next_deck_card(user, self.deck),
+            total_due=total_deck_due(user, self.deck),
+            first_due=first_deck_due(user, self.deck),
+            recent_tests=recent_tests(user, 100),
+        )
+
+
+class NullDeckHandler(object):
+    def context_dict(self, user):
+        return dict(
+            card=next_card(user),
+            total_due=total_due(user),
+            first_due=first_due(user),
+            recent_tests=recent_tests(user, 100),
+        )
+
+
+def make_deck_handler(deck_id=None):
+    if deck_id is None:
+        return NullDeckHandler()
+    return DeckHandler(deck_id)
+
+
 class TestView(LoggedInMixin, View):
     template_name = "test.html"
 
     def get(self, request, id=None):
-        deck = None
-        if id:
-            deck = get_object_or_404(Deck, id=id)
-        if deck:
-            return render(
-                request,
-                self.template_name,
-                dict(
-                    card=next_deck_card(request.user, deck),
-                    total_due=total_deck_due(request.user, deck),
-                    first_due=first_deck_due(request.user, deck),
-                    recent_tests=recent_tests(request.user, 100),
-                ))
-        else:
-            return render(
-                request,
-                self.template_name,
-                dict(
-                    card=next_card(request.user),
-                    total_due=total_due(request.user),
-                    first_due=first_due(request.user),
-                    recent_tests=recent_tests(request.user, 100),
-                ))
+        deck_handler = make_deck_handler(id)
+
+        return render(
+            request, self.template_name,
+            deck_handler.context_dict(request.user))
 
     def post(self, request, id=None):
         deck = None
