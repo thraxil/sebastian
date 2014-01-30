@@ -103,7 +103,7 @@ TEMPLATE_DIRS = (
     "/home/anders/code/python/sebastian/leitner/templates/",
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'django_nose',
     'django_statsd',
     'gunicorn',
-)
+]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
