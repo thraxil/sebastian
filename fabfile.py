@@ -1,8 +1,8 @@
 from fabric.api import run, sudo, local, cd, env
 
-env.hosts = ['oolong.thraxil.org', 'maru.thraxil.org']
+env.hosts = ['maru.thraxil.org']
 env.user = 'anders'
-nginx_hosts = ['lilbub.thraxil.org', 'lolrus.thraxil.org']
+nginx_hosts = ['lolrus.thraxil.org']
 
 def restart_gunicorn():
     sudo("restart sebastian")
