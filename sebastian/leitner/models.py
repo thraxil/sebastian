@@ -149,7 +149,7 @@ def random_untested_deck_card(user, deck):
         # TODO: replace with better query that finds the highest priority
         # available and just does that
         for p in range(10, 0, -1):
-            res = random_untested_from_priority(user, p)
+            res = random_untested_from_priority_in_deck(user, p, deck)
             if res is not None:
                 return res
     else:
@@ -159,6 +159,17 @@ def random_untested_deck_card(user, deck):
 
 def random_untested_from_priority(user, priority):
     r = UserCard.objects.filter(user=user, rung=-1, priority=priority)
+    c = r.count()
+    if c > 0:
+        return r[randint(0, c - 1)]
+    else:
+        # no untested cards
+        return None
+
+
+def random_untested_from_priority_in_deck(user, priority, deck):
+    r = UserCard.objects.filter(user=user, rung=-1, priority=priority,
+                                card__deck=deck)
     c = r.count()
     if c > 0:
         return r[randint(0, c - 1)]
