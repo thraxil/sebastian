@@ -111,13 +111,13 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'sebastian.leitner',
     'django.contrib.admin',
-    'django.contrib.markup',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'south',
     'django_nose',
     'django_statsd',
+    'django_markwhat',
     'gunicorn',
 ]
 
@@ -128,7 +128,6 @@ STATSD_CLIENT = 'statsd.client'
 STATSD_PREFIX = 'sebastian'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
-STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 STATIC_URL = "/media/"
 STATICFILES_DIRS = (
