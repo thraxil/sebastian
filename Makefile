@@ -49,6 +49,7 @@ collectstatic: ./ve/bin/python validate
 	$(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
 
 deploy: ./ve/bin/python validate test
+	git push
 	./ve/bin/fab deploy
 
 # run this one the very first time you check
