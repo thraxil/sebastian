@@ -242,7 +242,7 @@ class UserCard(models.Model):
         n *= (1.0 + (self.ease / 10.0))
 
         # add a 10% plus or minus to smoothe things out a bit
-        n = ((n * .2) * random.random()) + (n * .9)
+        n = ((n * .2) * random()) + (n * .9)
 
         d = timedelta(**{u: n})
         now = datetime.now()
