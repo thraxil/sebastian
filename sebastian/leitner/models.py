@@ -2,7 +2,7 @@ from django.db import models
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
-from random import randint
+from random import randint, random
 from sebastian.hashcolor import color, make_contrasting
 from south.modelsinspector import add_introspection_rules
 
@@ -240,6 +240,10 @@ class UserCard(models.Model):
         # we stick with leitner's interval. Anything in between is proportional
 
         n *= (1.0 + (self.ease / 10.0))
+
+        # add a 10% plus or minus to smoothe things out a bit
+        n = ((n * .2) * random.random()) + (n * .9)
+
         d = timedelta(**{u: n})
         now = datetime.now()
         self.due = now + d
