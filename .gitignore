@@ -3,3 +3,4 @@ ve
 *~
 local_settings.py
 .coverage
+pip-log.txt
