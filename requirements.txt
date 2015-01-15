@@ -19,7 +19,7 @@ sorl==3.1
 template_utils==0.4p2
 typogrify==1.0
 django-annoying==0.7.6
-South==0.8.4
+South==1.0.2
 django-nose==1.2
 django-statsd-mozilla==0.3.11
 pycrypto==2.6
