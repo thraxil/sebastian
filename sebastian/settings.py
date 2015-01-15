@@ -114,7 +114,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sorl.thumbnail',
-    'south',
     'django_nose',
     'django_statsd',
     'django_markwhat',
