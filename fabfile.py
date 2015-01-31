@@ -5,7 +5,7 @@ env.user = 'anders'
 nginx_hosts = ['lolrus.thraxil.org']
 
 def restart_gunicorn():
-    sudo("restart sebastian")
+    sudo("restart sebastian", shell=False)
 
 def prepare_deploy():
     local("make test")

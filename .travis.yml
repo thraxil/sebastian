@@ -1,8 +1,14 @@
 language: python
 python:
   - "2.7"
+before_install:
+  - openssl aes-256-cbc -K $encrypted_6705204e82d7_key -iv $encrypted_6705204e82d7_iv -in sebastian_rsa.enc -out sebastian_rsa -d
 install:
   - ./bootstrap.py
 script:
   - ./ve/bin/flake8 sebastian
   - ./manage.py test
+after_success:
+  - chmod 600 sebastian_rsa
+  - ssh-add sebastian_rsa
+  - make travis_deploy
