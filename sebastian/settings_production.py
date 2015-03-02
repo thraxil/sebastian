@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 DATABASE_NAME = 'sebastian'
 
 TEMPLATE_DIRS = (
-    "/var/www/sebastian/sebastian/sebastian/leitner/templates",
+    os.path.join(os.path.dirname(__file__), "leitner/templates"),
 )
 
 # Absolute path to the directory that holds media.
@@ -18,7 +18,9 @@ MEDIA_ROOT = '/var/www/sebastian/uploads/media/data/'
 SERVER_EMAIL = 'anders@columbia.edu'
 
 STATICFILES_DIRS = ()
-STATIC_ROOT = "/var/www/sebastian/sebastian/media/"
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
+
+COMPRESS_OFFLINE = True
 
 if 'migrate' not in sys.argv:
     INSTALLED_APPS = INSTALLED_APPS + [
