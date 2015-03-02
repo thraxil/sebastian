@@ -22,8 +22,12 @@ ecdsa==0.11
 paramiko==1.15.2
 Fabric==1.10.1
 six==1.8.0
+boto==2.34.0
+python-dateutil==2.2
 
 raven==5.1.1
 django-markwhat==2014.9.20
 django-appconf==0.6
 django_compressor==1.4
+django-storages-redux==1.2.2
+django-cacheds3storage==0.1.1

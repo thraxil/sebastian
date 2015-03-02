@@ -2,7 +2,6 @@ from fabric.api import run, sudo, local, cd, env
 
 env.hosts = ['orlando.thraxil.org']
 env.user = 'anders'
-nginx_hosts = ['lolrus.thraxil.org']
 
 def restart_gunicorn():
     sudo("restart sebastian", shell=False)
@@ -17,7 +16,4 @@ def deploy():
         run("make migrate")
         run("make collectstatic")
         run("make compress")
-        for n in nginx_hosts:
-            run(("rsync -avp --delete media/ "
-                 "%s:/var/www/sebastian/sebastian/media/") % n)
     restart_gunicorn()
