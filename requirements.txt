@@ -10,7 +10,7 @@ pyflakes==0.8.1
 mccabe==0.2.1
 flake8==2.3.0
 statsd==3.0.1
-gunicorn==19.1.1
+gunicorn==19.3.0
 sorl==3.1
 template_utils==0.4p2
 typogrify==2.0.7
