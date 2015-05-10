@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import sorl.thumbnail.fields
+#import sorl.thumbnail.fields
 from django.conf import settings
 
 
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('content', models.TextField(default=b'', blank=True)),
-                ('image', sorl.thumbnail.fields.ImageWithThumbnailsField(upload_to=b'faces', blank=True)),
+                ('image', models.TextField(default=b'', blank=True)),
             ],
             options={
             },

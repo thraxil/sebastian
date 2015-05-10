@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load markup %}
-{% load thumbnail %}
 
 {% block content %}
 
@@ -11,7 +10,7 @@
 {{ card.card.front.content }}
 {% endif %}
 {% if card.card.front.image %}
-<img src="{% thumbnail card.card.front.image 600x600 %}" />
+[image cards are broken right now]
 {% endif %}
 </div>
 <hr />
@@ -20,7 +19,7 @@
 {{ card.card.back.content }}
 {% endif %}
 {% if card.card.back.image %}
-<img src="{% thumbnail card.card.back.image 600x600 %}" />
+[image cards are broken right now]
 {% endif %}
 </div>
 <hr />

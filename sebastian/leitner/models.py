@@ -1,5 +1,4 @@
 from django.db import models
-from sorl.thumbnail.fields import ImageWithThumbnailsField
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from random import randint, random
@@ -16,11 +15,6 @@ INTERVALS = [
 
 class Face(models.Model):
     content = models.TextField(default="", blank=True)
-    image = ImageWithThumbnailsField(
-        upload_to="faces",
-        thumbnail={
-            'size': (200, 200)
-        }, blank=True)
 
     def size(self):
         s = 800 / len(self.content)
