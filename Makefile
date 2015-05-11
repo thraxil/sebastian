@@ -26,12 +26,6 @@ shell: ./ve/bin/python
 build:
 	docker build -t thraxil/sebastian .
 
-deploy: flake8 test build
-	docker push thraxil/sebastian
-	ssh arctic.thraxil.org docker pull thraxil/sebastian
-	ssh arctic.thraxil.org sudo /sbin/restart sebastian
-	ssh cobra.thraxil.org docker pull thraxil/sebastian
-
 clean:
 	rm -rf ve
 	rm -rf media/CACHE
