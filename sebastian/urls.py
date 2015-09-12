@@ -15,6 +15,7 @@ urlpatterns = patterns(
     (r'^accounts/password_change/done/$',
      'django.contrib.auth.views.password_change_done'),
     (r'^$', views.IndexView.as_view()),
+    (r'smoketest/', include('smoketest.urls')),
     (r'^add_card/$', views.AddCardView.as_view()),
     (r'^add_multiple_cards/$', views.AddMultipleCardsView.as_view()),
     (r'^test/$', views.TestView.as_view()),

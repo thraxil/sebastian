@@ -110,6 +110,7 @@ INSTALLED_APPS = [
     'django_markwhat',
     'gunicorn',
     'compressor',
+    'smoketest',
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
