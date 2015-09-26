@@ -12,6 +12,8 @@ INSTALLED_APPS += [  # noqa
 
 ALLOWED_HOSTS += ['cards.thraxil.org']  # noqa
 
+USE_TZ = False
+
 try:
     from local_settings import *
 except ImportError:
