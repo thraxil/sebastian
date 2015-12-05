@@ -1,8 +1,5 @@
 language: python
 python:
   - "2.7"
-install:
-  - ./bootstrap.py
 script:
-  - ./ve/bin/flake8 sebastian
-  - ./manage.py test
+  - make
