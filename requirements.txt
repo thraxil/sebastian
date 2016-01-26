@@ -27,5 +27,6 @@ django-debug-toolbar==1.4
 django-waffle==0.11
 django-jenkins==0.18.1
 django-extensions==1.6.1
+opbeat==3.2.1
 
 thraxilsettings==0.3.0
