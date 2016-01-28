@@ -16,7 +16,6 @@ sqlparse==0.1.18
 
 django-annoying==0.8.5
 django-statsd-mozilla==0.3.16
-raven==5.10.0
 django-markwhat==1.5
 django-appconf==1.0.1
 django_compressor==2.0
@@ -29,4 +28,4 @@ django-jenkins==0.18.1
 django-extensions==1.6.1
 opbeat==3.2.1
 
-thraxilsettings==0.3.0
+thraxilsettings==0.5.1
