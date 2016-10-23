@@ -12,12 +12,8 @@ SUPPORT_DIR ?= requirements/virtualenv_support/
 WHEELHOUSE ?= wheelhouse
 
 JS_FILES ?= media/js/
-
-ifeq ($(TAG), undefined)
-	IMAGE ?= $(REPO)/$(APP)
-else
-	IMAGE ?= $(REPO)/$(APP):$(TAG)
-endif
+TAG ?= latest
+IMAGE ?= $(REPO)/$(APP):$(TAG)
 
 MAX_COMPLEXITY ?= 10
 
