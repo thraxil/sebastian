@@ -80,13 +80,10 @@ def user_decks(user):
 
 
 def first_due_card(user):
-    r = UserCard.objects.filter(user=user,
-                                due__lte=datetime.now(),
-                                rung__gte=0).order_by('due')
-    if r.count() > 0:
-        return r[0]
-    else:
-        return None
+    return UserCard.objects.filter(
+        user=user,
+        due__lte=datetime.now(),
+        rung__gte=0).order_by('due').first()
 
 
 def closest_due_card(user):
@@ -103,14 +100,11 @@ def closest_due_card(user):
 
 
 def first_due_deck_card(user, deck):
-    r = UserCard.objects.filter(user=user,
-                                card__deck=deck,
-                                due__lte=datetime.now(),
-                                rung__gte=0).order_by('due')
-    if r.count() > 0:
-        return r[0]
-    else:
-        return None
+    return UserCard.objects.filter(
+        user=user,
+        card__deck=deck,
+        due__lte=datetime.now(),
+        rung__gte=0).order_by('due').first()
 
 
 def random_untested_card(user):
@@ -187,11 +181,10 @@ def first_due(user):
 
 
 def first_deck_due(user, deck):
-    r = UserCard.objects.filter(user=user,
-                                rung__gte=0,
-                                card__deck=deck).order_by("due")
-    if r.count() > 0:
-        return r[0]
+    return UserCard.objects.filter(
+        user=user,
+        rung__gte=0,
+        card__deck=deck).order_by("due").first()
 
 
 def recent_tests(user, n=100):
