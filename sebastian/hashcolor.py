@@ -33,6 +33,7 @@ def make_contrasting(color):
     else:
         return (255, 255, 255)
 
+
 if __name__ == "__main__":
     import random
     words = [line for line in open("/usr/share/dict/words")]
