@@ -2,30 +2,32 @@
 <html>
 <head><title>sebastian</title>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
 {% compress css %}
-    <link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
 		<link href="{{STATIC_URL}}css/site.css" rel="stylesheet">
 {% endcompress %}
 {% block js %}{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <script type="text/javascript"
    src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
-<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <div class="nav-collapse collapse">
-            <ul class="nav">
+
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
 							<li><a href="/test/">test</a></li>
 							<li><a href="/add_card/">add</a></li>
 							<li><a href="/stats/">stats</a></li>
 							<li><a href="/decks/">decks</a></li>
-
             </ul>
-          </div>
         </div>
-      </div>
     </div>
 
 <div class="container">

@@ -3,10 +3,7 @@
 {% load compress %}
 
 {% block js %}
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
-        type="text/javascript" ></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.3/jquery-ui.min.js" type="text/javascript"></script>
+
 
 {% compress js %}
 <script type="text/javascript" src="{{STATIC_URL}}js/test.js"></script>
@@ -16,21 +13,17 @@
 {% block content %}
 
 {% if card %}
-<header class="jumbotron subhead">
-		<div class="row">
-			<div class="span12">
-				<h1 style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</h1>
-			</div>
-		</div>
-</header>
 
-
+		<h1 style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</h1>
+    
 	<div class="row" id="card">
-	    <div class="span12">
+	    <div class="col-md-12">
           
 		{% if card.card.front.content %}
-		<span style="margin: 10px; font-size: {{card.card.front.size}}px">{{ card.card.front.content }}</span>
-    <a class="pull-right btn btn-primary" href="{% url 'card-detail' card.card.id %}"><i class="icon-pencil icon-white"></i></a>
+		    <span style="margin: 10px; font-size: {{card.card.front.size}}px">{{ card.card.front.content }}</span>
+        <a class="pull-right btn btn-primary" href="{% url 'card-detail' card.card.id %}">
+            <span class="glyphicon glyphicon-pencil"></i>
+        </a>
 		{% endif %}
 
 		{% if card.card.front.image %}
@@ -42,8 +35,8 @@
 
 
 <div class="row">
-	<div class="span12 btn-group">
-		<a href="#back" class="btn btn-large btn-block" id="flip-btn" onclick="flip();return false">flip</a>
+	<div class="col-md-12 btn-group">
+		<a href="#back" class="btn btn-lg btn-block btn-default" id="flip-btn" onclick="flip();return false">flip</a>
 	</div>
 </div>
 
@@ -51,14 +44,15 @@
 
 <div id="back" class="invisible hero-unit">
 
+    <div class="jumbotron">
 {% if card.card.back.content %}
-{{ card.card.back.content }}
+    <p>{{ card.card.back.content }}</p>
 {% endif %}
 
 {% if card.card.back.image %}
 [image cards are broken right now]
 {% endif %}
-
+    </div>
 </div>
 
 <div id="form" class="invisible">
@@ -67,11 +61,11 @@
 <input type="hidden" name="right" value="" id="right" />
 
 <div class="row">
-	<div class="span6 btn-group">
-		<input type="button" class="btn btn-large btn-success btn-block" name="rightbutton" value="yes" id="rightbutton"
+	<div class="col-md-6 btn-group">
+		<input type="button" class="btn btn-lg btn-success btn-block" name="rightbutton" value="yes" id="rightbutton"
        onclick="submitForm('yes')" /></div>
-	<div class="span6 btn-group">
-		<input type="button" class="btn btn-large btn-danger btn-block" name="wrongbutton" value="no" id="wrongbutton"
+	<div class="col-md-6 btn-group">
+		<input type="button" class="btn btn-lg btn-danger btn-block" name="wrongbutton" value="no" id="wrongbutton"
 					 onclick="submitForm('no')" />
 	</div>
 </div>

@@ -5,7 +5,7 @@
 
 <h2>Stats</h2>
 
-<table>
+<table class="table table-bordered">
 <tr><th>due</th><th>hour</th><th>6h</th><th>day</th><th>week</th><th>month</th></tr>
 <tr>
 <td>{{ total_due }}
@@ -19,9 +19,10 @@
 
 </table>
 
-<p>tested: {{ total_tested }}</p>
-<p>untested: {{ total_untested }}</p>
-<p>percent correct: {{ percent_right }}</p>
+<dl class="dl-horizontal">
+    <dt>tested:</dt> <dd>{{ total_tested }}</dd>
+    <dt>untested:</dt> <dd>{{ total_untested }}</dd>
+    <dt>percent correct:</dt> <dd>{{ percent_right }}</dd>
 
 <table id="tests" cellpadding="0" cellspacing="0">
 <tr>
