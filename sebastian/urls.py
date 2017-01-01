@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^decks/$', views.DecksView.as_view()),
     url(r'^decks/(?P<pk>\d+)/$', views.DeckView.as_view()),
     url(r'^decks/(?P<id>\d+)/test/$', views.TestView.as_view()),
-    url(r'^cards/(?P<id>\d+)/$', views.CardView.as_view()),
+    url(r'^cards/(?P<id>\d+)/$', views.CardView.as_view(), name='card-detail'),
     url(r'^stats/$', views.StatsView.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^uploads/(?P<path>.*)$', django.views.static.serve,
