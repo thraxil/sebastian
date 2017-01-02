@@ -21,7 +21,7 @@
           
 		{% if card.card.front.content %}
 		    <span style="margin: 10px; font-size: {{card.card.front.size}}px">{{ card.card.front.content }}</span>
-        <a class="pull-right btn btn-primary" href="{% url 'card-detail' card.card.id %}">
+        <a class="pull-right btn btn-primary" href="{% url 'card-detail' card.id %}">
             <span class="glyphicon glyphicon-pencil"></i>
         </a>
 		{% endif %}
