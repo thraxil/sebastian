@@ -15,7 +15,7 @@ gunicorn==19.6.0
 six==1.10.0
 boto==2.46.1
 python-dateutil==2.6.0
-sqlparse==0.2.2
+sqlparse==0.2.3
 
 django-statsd-mozilla==0.3.16
 django-markwhat==1.5
