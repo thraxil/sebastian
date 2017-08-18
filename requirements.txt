@@ -1,7 +1,7 @@
 Django==1.11.4
 
 pytz==2017.2
-Markdown==2.6.8
+Markdown==2.6.9
 psycopg2==2.7.3
 Pillow==4.2.1
 coverage==4.4.1
