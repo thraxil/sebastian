@@ -32,4 +32,4 @@ django-jenkins==0.110.0
 django-extensions==1.9.1
 opbeat==3.5.2
 
-thraxilsettings==1.2.1
+thraxilsettings==2.0.0
