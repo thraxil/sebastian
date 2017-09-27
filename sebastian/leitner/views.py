@@ -16,7 +16,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
-from forms import AddFaceForm
+from .forms import AddFaceForm
 
 
 class LoggedInMixin(object):

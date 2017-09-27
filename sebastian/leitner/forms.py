@@ -1,4 +1,4 @@
-from models import Face
+from .models import Face
 from django.forms import ModelForm
 
 

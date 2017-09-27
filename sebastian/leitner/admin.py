@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Face, Card, Deck, UserCard, UserCardTest
+from .models import Face, Card, Deck, UserCard, UserCardTest
 
 
 class FaceAdmin(admin.ModelAdmin):

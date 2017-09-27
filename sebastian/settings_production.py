@@ -1,5 +1,5 @@
 # flake8: noqa
-from settings import *
+from .settings import *
 import os.path
 
 DEBUG = False
