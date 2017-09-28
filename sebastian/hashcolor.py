@@ -3,7 +3,7 @@ import hashlib
 
 def color(phrase):
     m = hashlib.md5()
-    m.update(phrase)
+    m.update(phrase.encode('utf-8'))
     return m.hexdigest()[:6]
 
 
