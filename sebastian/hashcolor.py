@@ -27,8 +27,8 @@ def make_contrasting(color):
         color = color.strip("#")  # in case someone left it on there
         color = (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
     (r, g, b) = color
-    l = luminosity(r, g, b)
-    if l >= 0.5:
+    lum = luminosity(r, g, b)
+    if lum >= 0.5:
         return (0, 0, 0)
     else:
         return (255, 255, 255)
