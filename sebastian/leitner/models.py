@@ -27,7 +27,7 @@ class Face(models.Model):
 
 class Deck(models.Model):
     name = models.CharField(max_length=256)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def cards(self):
         return self.card_set.all()
@@ -62,11 +62,13 @@ class Deck(models.Model):
 
 
 class Card(models.Model):
-    front = models.ForeignKey(Face, related_name="front")
-    back = models.ForeignKey(Face, related_name="back")
+    front = models.ForeignKey(Face, related_name="front",
+                              on_delete=models.CASCADE)
+    back = models.ForeignKey(Face, related_name="back",
+                             on_delete=models.CASCADE)
     added = models.DateTimeField(auto_now=True)
     modified = models.DateTimeField(auto_now=True)
-    deck = models.ForeignKey(Deck)
+    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return "/cards/%d/" % self.id
@@ -194,8 +196,8 @@ def recent_tests(user, n=100):
 
 
 class UserCard(models.Model):
-    user = models.ForeignKey(User)
-    card = models.ForeignKey(Card)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
     priority = models.PositiveSmallIntegerField(default=1)
     due = models.DateTimeField(blank=True)
     # -1 means never presented to the user
@@ -435,7 +437,7 @@ class UserCardTest(models.Model):
     """ represents an instance of a user being tested on a given card.
     basically here for logging/statistics/history purposes. might be possible
     to remove """
-    usercard = models.ForeignKey(UserCard)
+    usercard = models.ForeignKey(UserCard, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
     correct = models.BooleanField(default=True)
     old_rung = models.SmallIntegerField(default=0)

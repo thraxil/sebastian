@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^decks/(?P<id>\d+)/test/$', views.TestView.as_view()),
     url(r'^cards/(?P<id>\d+)/$', views.CardView.as_view(), name='card-detail'),
     url(r'^stats/$', views.StatsView.as_view()),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^uploads/(?P<path>.*)$', django.views.static.serve,
         {'document_root': settings.MEDIA_ROOT}),
 ]

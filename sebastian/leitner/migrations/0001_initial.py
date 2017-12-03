@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=256)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -55,8 +55,8 @@ class Migration(migrations.Migration):
                 ('due', models.DateTimeField(blank=True)),
                 ('rung', models.SmallIntegerField(default=-1)),
                 ('ease', models.PositiveSmallIntegerField(default=5)),
-                ('card', models.ForeignKey(to='leitner.Card')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('card', models.ForeignKey(to='leitner.Card', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('correct', models.BooleanField(default=True)),
                 ('old_rung', models.SmallIntegerField(default=0)),
                 ('new_rung', models.SmallIntegerField(default=0)),
-                ('usercard', models.ForeignKey(to='leitner.UserCard')),
+                ('usercard', models.ForeignKey(to='leitner.UserCard', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -79,19 +79,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='card',
             name='back',
-            field=models.ForeignKey(related_name='back', to='leitner.Face'),
+            field=models.ForeignKey(related_name='back', to='leitner.Face', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='card',
             name='deck',
-            field=models.ForeignKey(to='leitner.Deck'),
+            field=models.ForeignKey(to='leitner.Deck', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='card',
             name='front',
-            field=models.ForeignKey(related_name='front', to='leitner.Face'),
+            field=models.ForeignKey(related_name='front', to='leitner.Face', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
