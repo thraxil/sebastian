@@ -31,4 +31,4 @@ django-waffle==0.12.0
 django-jenkins==0.110.0
 opbeat==3.5.3
 
-thraxilsettings==2.1.0
+thraxilsettings==3.0.0
