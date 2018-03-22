@@ -30,5 +30,6 @@ django-debug-toolbar==1.9.1
 django-waffle==0.14.0
 django-jenkins==0.110.0
 opbeat==3.6.1
+raven==6.6.0
 
 thraxilsettings==3.0.0

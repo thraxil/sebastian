@@ -8,6 +8,7 @@ locals().update(common(app=app, base=base))
 
 INSTALLED_APPS += [  # noqa
     'sebastian.leitner',
+    'raven.contrib.django.raven_compat',
 ]
 
 ALLOWED_HOSTS += ['cards.thraxil.org']  # noqa
