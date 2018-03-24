@@ -16,10 +16,3 @@ locals().update(
         STATIC_ROOT=STATIC_ROOT,
         MIDDLEWARE=MIDDLEWARE,
     ))
-
-RAVEN_DSN = os.environ.get('RAVEN_DSN', None)
-
-if RAVEN_DSN:
-    RAVEN_CONFIG = {
-        'dsn': RAVEN_DSN,
-    }
