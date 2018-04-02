@@ -3,7 +3,7 @@ Django==2.0.3
 pytz==2018.3
 Markdown==2.6.11
 psycopg2-binary==2.7.4
-Pillow==5.0.0
+Pillow==5.1.0
 coverage==4.5.1
 pep8==1.7.1
 pyflakes==1.6.0
