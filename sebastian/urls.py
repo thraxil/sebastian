@@ -1,21 +1,18 @@
-import django.contrib.auth.views
+import django.contrib.auth.views as auth_views
 import django.views.static
 
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
+from django.urls import path
 import sebastian.leitner.views as views
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^login/$', django.contrib.auth.views.login),
-    url(r'^accounts/login/$', django.contrib.auth.views.login),
-    url(r'^logout/$', django.contrib.auth.views.logout),
-    url(r'^accounts/password_change/$',
-        django.contrib.auth.views.password_change),
-    url(r'^accounts/password_change/done/$',
-        django.contrib.auth.views.password_change_done),
+    url(r'^login/$', auth_views.LoginView.as_view()),
+    url(r'^logout/$', auth_views.LogoutView.as_view()),
+    path('accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.IndexView.as_view()),
     url(r'smoketest/', include('smoketest.urls')),
     url(r'^add_card/$', views.AddCardView.as_view()),
