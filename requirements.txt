@@ -12,7 +12,7 @@ pycodestyle==2.3.1
 enum34==1.1.6
 configparser==3.5.0
 flake8==3.5.0
-statsd==3.2.2
+statsd==3.3.0
 gunicorn==19.8.1
 six==1.11.0
 boto==2.49.0
