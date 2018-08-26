@@ -13,7 +13,7 @@ enum34==1.1.6
 configparser==3.5.0
 flake8==3.5.0
 statsd==3.3.0
-gunicorn==19.8.1
+gunicorn==19.9.0
 six==1.11.0
 boto==2.49.0
 python-dateutil==2.7.3
