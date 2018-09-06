@@ -20,7 +20,7 @@ python-dateutil==2.7.3
 sqlparse==0.2.4
 
 django-statsd-mozilla==0.4.0
-django-markwhat==1.6.0
+django-markwhat==1.6.1
 django-appconf==1.0.2
 django_compressor==2.2
 django-storages==1.7
