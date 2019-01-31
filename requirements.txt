@@ -11,7 +11,7 @@ mccabe==0.6.1
 pycodestyle==2.4.0
 enum34==1.1.6
 configparser==3.7.1
-flake8==3.6.0
+flake8==3.7.2
 statsd==3.3.0
 gunicorn==19.9.0
 six==1.12.0
