@@ -1,22 +1,22 @@
-Django==2.1.5
+Django==2.1.7
 
 pytz==2018.9
 Markdown==3.0.1
-psycopg2-binary==2.7.6.1
+psycopg2-binary==2.7.7
 Pillow==5.4.1
 coverage==4.5.2
 pep8==1.7.1
-pyflakes==2.0.0
+pyflakes==2.1.0
 mccabe==0.6.1
-pycodestyle==2.4.0
+pycodestyle==2.5.0
 enum34==1.1.6
-configparser==3.5.0
-flake8==3.6.0
+configparser==3.7.1
+flake8==3.7.5
 statsd==3.3.0
 gunicorn==19.9.0
 six==1.12.0
 boto==2.49.0
-python-dateutil==2.7.5
+python-dateutil==2.8.0
 sqlparse==0.2.4
 
 django-statsd-mozilla==0.4.0
