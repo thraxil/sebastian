@@ -1,35 +1,37 @@
-Django==2.1.5
+Django==2.1.7
+
+Markdown==3.0
 
 pytz==2018.9
 
-Markdown==3.0.1
+psycopg2-binary==2.7.7
 
-psycopg2-binary==2.7.6.1
 Pillow==5.4.1
-coverage==4.5.2
+coverage==4.5.3
+
 pep8==1.7.1
-pyflakes==2.0.0
+pyflakes==2.1.1
 mccabe==0.6.1
-pycodestyle==2.4.0
+pycodestyle==2.5.0
 enum34==1.1.6
-configparser==3.5.0
+configparser==3.7.3
 flake8==3.6.0
 statsd==3.3.0
 gunicorn==19.9.0
 six==1.12.0
 boto==2.49.0
-python-dateutil==2.7.5
-sqlparse==0.2.4
+python-dateutil==2.8.0
+sqlparse==0.3.0
 
 django-statsd-mozilla==0.4.0
 django-markwhat==1.6.1
-django-appconf==1.0.2
+django-appconf==1.0.3
 django_compressor==2.2
 django-storages==1.7.1
 django-cacheds3storage==0.1.2
 django-smoketest==1.1.0
 django-debug-toolbar==1.11
-django-waffle==0.15.0
+django-waffle==0.15.1
 django-jenkins==0.110.0
 raven==6.10.0
 
