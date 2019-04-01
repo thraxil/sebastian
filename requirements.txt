@@ -1,4 +1,4 @@
-Django==2.1.7
+Django==2.2
 
 Markdown==3.0
 
