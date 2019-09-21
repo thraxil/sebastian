@@ -1,0 +1,25 @@
+on: push
+name: run tests
+jobs:
+  buildDockerImage:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build docker image
+      uses: actions/docker/cli@master
+      with:
+        args: build -t thraxil/sebastian .
+    - name: Deploy branch filter
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: docker login
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: docker push
+      uses: actions/docker/cli@master
+      with:
+        args: push thraxil/sebastian
