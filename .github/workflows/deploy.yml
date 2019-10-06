@@ -21,3 +21,18 @@ jobs:
       uses: actions/docker/cli@master
       with:
         args: push thraxil/sebastian:${{ github.sha }}
+    - name: deploy
+      uses: thraxil/django-deploy-action@master
+      env:
+        APP: sebastian
+        KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        SSH_USER: anders
+        WEB_HOSTS: ${{ secrets.WEB_HOSTS }}
+    - name: sentry release
+      uses: juankaram/sentry-release@master
+      env:
+        ENVIRONMENT: production
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: thraxil
+        SENTRY_PROJECT: sebastian
