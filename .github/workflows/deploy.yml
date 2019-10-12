@@ -9,18 +9,14 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build docker image
-      uses: actions/docker/cli@master
-      with:
-        args: build -t thraxil/sebastian:${{ github.sha }} .
+      run: docker build -t thraxil/sebastian:${{ github.sha }} .
     - name: docker login
-      uses: actions/docker/login@master
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: docker push
-      uses: actions/docker/cli@master
-      with:
-        args: push thraxil/sebastian:${{ github.sha }}
+      run: docker push thraxil/sebastian:${{ github.sha }}
     - name: deploy
       uses: thraxil/django-deploy-action@master
       env:
