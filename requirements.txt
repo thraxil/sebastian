@@ -6,7 +6,7 @@ pytz==2019.3
 
 psycopg2-binary==2.8.4
 
-Pillow==6.2.0
+Pillow==6.2.1
 coverage==4.5.4
 
 pep8==1.7.1
