@@ -22,7 +22,7 @@ flake8==3.7.9
 statsd==3.3.0
 gunicorn==20.0.4
 six==1.14.0
-boto3==1.12.43
+boto3==1.12.45
 python-dateutil==2.8.1
 sqlparse==0.3.1
 
