@@ -30,7 +30,7 @@ django-statsd-mozilla==0.4.0
 django-markwhat==1.6.2
 django-appconf==1.0.4
 django_compressor==2.4
-django-storages==1.9.1
+django-storages==1.10.1
 django-cacheds3storage==0.2.2
 django-smoketest==1.1.2
 
