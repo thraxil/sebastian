@@ -1,5 +1,5 @@
 # Create your views here.
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Deck, UserCard, UserCardTest, Card, Face
 from .models import next_card, total_due, first_due, user_decks
@@ -86,6 +86,16 @@ class TestView(LoggedInMixin, View):
             # got it wrong
             uc.test_wrong()
         return deck_handler.redirect()
+
+
+class ExportDeckView(LoggedInMixin, View):
+    def get(self, request, id=None):
+        deck = get_object_or_404(Deck, id=id)
+        cards = [
+            "{}|{}".format(c.front.content, c.back.content)
+            for c in deck.cards()
+            ]
+        return HttpResponse("\n".join(cards), content_type="text/plain")
 
 
 class DecksView(LoggedInMixin, ListView):
