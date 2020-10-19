@@ -113,6 +113,10 @@ class DeckView(LoggedInMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(DeckView, self).get_context_data(**kwargs)
         context['usercards'] = context['deck'].usercards(self.request.user)
+        context['deck_total'] = len(context['deck'].usercards(
+            self.request.user))
+        context['deck_unlearned'] = context['deck'].num_unlearned(
+            self.request.user)
         return context
 
 

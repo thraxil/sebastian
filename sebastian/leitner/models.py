@@ -42,6 +42,12 @@ class Deck(models.Model):
             card__deck=self,
             due__lte=datetime.now()).count()
 
+    def num_unlearned(self, user):
+        return UserCard.objects.filter(
+            user=user,
+            rung=-1,
+            card__deck=self).count()
+
     def usercards(self, user):
         return UserCard.objects.filter(
             user=user,
