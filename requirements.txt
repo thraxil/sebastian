@@ -2,7 +2,7 @@ Django==3.1.2
 
 Markdown==3.0.1 # pyup: <3.1
 
-pytz==2020.1
+pytz==2020.4
 
 psycopg2-binary==2.8.6
 
