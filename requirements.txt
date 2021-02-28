@@ -16,7 +16,7 @@ mccabe==0.6.1
 pycodestyle==2.6.0
 enum34==1.1.10
 
-configparser==5.0.1
+configparser==5.0.2
 flake8==3.8.4
 
 statsd==3.3.0
