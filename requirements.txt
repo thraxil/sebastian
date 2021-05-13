@@ -1,4 +1,4 @@
-Django==3.2.2
+Django==3.2.3
 
 Markdown==3.0.1 # pyup: <3.1
 
