@@ -15,6 +15,18 @@ spec:
       labels:
         app: sebastian
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - sebastian
+              topologyKey: kubernetes.io/hostname
       volumes:
         - name: config-volume
           secret:
