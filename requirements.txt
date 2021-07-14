@@ -23,7 +23,7 @@ statsd==3.3.0
 gunicorn==20.1.0
 six==1.16.0
 boto3==1.17.111
-python-dateutil==2.8.1
+python-dateutil==2.8.2
 sqlparse==0.4.1
 
 django-statsd-mozilla==0.4.0
