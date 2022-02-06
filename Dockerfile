@@ -1,4 +1,4 @@
-FROM thraxil/django.base:2020-09-26-83678bbd1abe
+FROM thraxil/django.base:2022-02-05-51590e55d646
 COPY requirements.txt /app/requirements.txt
 RUN /ve/bin/pip3 install -r /app/requirements.txt && touch /ve/sentinal
 WORKDIR /app
