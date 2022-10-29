@@ -6,7 +6,7 @@ pytz==2022.5
 
 psycopg2-binary==2.9.5
 
-Pillow==9.2.0
+Pillow==9.3.0
 
 coverage==6.5.0
 
