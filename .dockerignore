@@ -5,3 +5,5 @@ reports
 Jenkinsfile
 .github
 deploy
+shell.nix
+.envrc
