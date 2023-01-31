@@ -36,7 +36,6 @@ django-debug-toolbar==3.8.1
 
 django-waffle==3.0.0
 
-django-jenkins==0.110.0
 raven==6.10.0
 
-thraxilsettings==4.0.1
+thraxilsettings==4.1.0
