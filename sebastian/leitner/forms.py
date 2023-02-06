@@ -1,5 +1,6 @@
-from .models import Face
 from django.forms import ModelForm
+
+from .models import Face
 
 
 class AddFaceForm(ModelForm):

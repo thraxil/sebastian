@@ -2,8 +2,8 @@ import hashlib
 
 
 def color(phrase):
-    m = hashlib.md5()
-    m.update(phrase.encode('utf-8'))
+    m = hashlib.md5()  # nosec
+    m.update(phrase.encode("utf-8"))
     return m.hexdigest()[:6]
 
 
@@ -36,6 +36,7 @@ def make_contrasting(color):
 
 if __name__ == "__main__":
     import random
+
     words = [line for line in open("/usr/share/dict/words")]
     random.shuffle(words)
 
@@ -45,7 +46,9 @@ if __name__ == "__main__":
         hex = color(word)
         print("<tr>")
         bghex = "%02x%02x%02x" % make_contrasting(hex)
-        print("""<td bgcolor="#%s"><font color="#%s">%s</font></td>"""
-              % (hex, bghex, word))
+        print(
+            """<td bgcolor="#%s"><font color="#%s">%s</font></td>"""
+            % (hex, bghex, word)
+        )
         print("</tr>")
     print("</table>")

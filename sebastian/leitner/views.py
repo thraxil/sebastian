@@ -1,22 +1,22 @@
 # Create your views here.
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render
-from .models import Deck, UserCard, UserCardTest, Card, Face
-from .models import next_card, total_due, first_due, user_decks
-from .models import first_deck_due, next_deck_card, total_deck_due
-from .models import rungs_stats, ease_stats, percent_right, priority_stats
-from .models import total_tested, total_untested
-from .models import next_hour_due, next_six_hours_due, next_day_due
-from .models import next_week_due, next_month_due, recent_tests
-from django.utils.decorators import method_decorator
-from django.views.generic.base import TemplateView
-from django.views.generic.base import View
-from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView, View
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+
 from .forms import AddFaceForm
+from .models import (Card, Deck, Face, UserCard, UserCardTest, ease_stats,
+                     first_deck_due, first_due, next_card, next_day_due,
+                     next_deck_card, next_hour_due, next_month_due,
+                     next_six_hours_due, next_week_due, percent_right,
+                     priority_stats, recent_tests, rungs_stats, total_deck_due,
+                     total_due, total_tested, total_untested, user_decks)
 
 
 class LoggedInMixin(object):
@@ -73,12 +73,14 @@ class TestView(LoggedInMixin, View):
     def get(self, request, id=None):
         deck_handler = make_deck_handler(id)
         return render(
-            request, self.template_name,
-            deck_handler.context_dict(request.user))
+            request,
+            self.template_name,
+            deck_handler.context_dict(request.user),
+        )
 
     def post(self, request, id=None):
         deck_handler = make_deck_handler(id)
-        uc = get_object_or_404(UserCard, id=request.POST.get('card'))
+        uc = get_object_or_404(UserCard, id=request.POST.get("card"))
         if request.POST.get("right", "no") == "yes":
             # got it right
             uc.test_correct()
@@ -94,7 +96,7 @@ class ExportDeckView(LoggedInMixin, View):
         cards = [
             "{}|{}".format(c.front.content, c.back.content)
             for c in deck.cards()
-            ]
+        ]
         return HttpResponse("\n".join(cards), content_type="text/plain")
 
 
@@ -112,11 +114,13 @@ class DeckView(LoggedInMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DeckView, self).get_context_data(**kwargs)
-        context['usercards'] = context['deck'].usercards(self.request.user)
-        context['deck_total'] = len(context['deck'].usercards(
-            self.request.user))
-        context['deck_unlearned'] = context['deck'].num_unlearned(
-            self.request.user)
+        context["usercards"] = context["deck"].usercards(self.request.user)
+        context["deck_total"] = len(
+            context["deck"].usercards(self.request.user)
+        )
+        context["deck_unlearned"] = context["deck"].num_unlearned(
+            self.request.user
+        )
         return context
 
 
@@ -125,11 +129,11 @@ class CardView(LoggedInMixin, View):
 
     def post(self, request, id):
         card = get_object_or_404(UserCard, id=id)
-        card.card.front.content = request.POST.get('front', u'')
+        card.card.front.content = request.POST.get("front", "")
         card.card.front.save()
-        card.card.back.content = request.POST.get('back', u'')
+        card.card.back.content = request.POST.get("back", "")
         card.card.back.save()
-        card.priority = request.POST.get('priority', '5')
+        card.priority = request.POST.get("priority", "5")
         card.save()
         return HttpResponseRedirect(card.get_absolute_url())
 
@@ -163,23 +167,36 @@ class AddCardView(LoggedInMixin, View):
         if front_form.is_valid() and back_form.is_valid():
             front = front_form.save()
             back = back_form.save()
-            card = Card.objects.create(front=front, back=back,
-                                       deck=deck)
+            card = Card.objects.create(front=front, back=back, deck=deck)
             UserCard.objects.create(
-                card=card, user=request.user,
+                card=card,
+                user=request.user,
                 due=datetime.now(),
-                priority=int(request.POST.get('priority', '1')))
+                priority=int(request.POST.get("priority", "1")),
+            )
             return HttpResponseRedirect("/add_card/")
-        return render(request, self.template_name,
-                      dict(decks=user_decks(request.user),
-                           front=front_form, back=back_form))
+        return render(
+            request,
+            self.template_name,
+            dict(
+                decks=user_decks(request.user),
+                front=front_form,
+                back=back_form,
+            ),
+        )
 
     def get(self, request):
         front_form = AddFaceForm(prefix="front")
         back_form = AddFaceForm(prefix="back")
-        return render(request, self.template_name,
-                      dict(decks=user_decks(request.user),
-                           front=front_form, back=back_form))
+        return render(
+            request,
+            self.template_name,
+            dict(
+                decks=user_decks(request.user),
+                front=front_form,
+                back=back_form,
+            ),
+        )
 
 
 class AddMultipleCardsView(LoggedInMixin, View):
@@ -193,12 +210,13 @@ class AddMultipleCardsView(LoggedInMixin, View):
             back_content = "|".join(parts[1:])
             front = Face.objects.create(content=front_content)
             back = Face.objects.create(content=back_content)
-            card = Card.objects.create(front=front, back=back,
-                                       deck=deck)
-            UserCard.objects.create(card=card, user=request.user,
-                                    due=datetime.now(),
-                                    priority=int(request.POST.get('priority',
-                                                                  '1')))
+            card = Card.objects.create(front=front, back=back, deck=deck)
+            UserCard.objects.create(
+                card=card,
+                user=request.user,
+                due=datetime.now(),
+                priority=int(request.POST.get("priority", "1")),
+            )
         return HttpResponseRedirect("/add_card/")
 
 
@@ -210,9 +228,9 @@ class StatsView(LoggedInMixin, TemplateView):
         ease = list(ease_stats(self.request.user))
         return dict(
             rungs=rungs,
-            max_rung=max([r['cards'] for r in rungs]),
+            max_rung=max([r["cards"] for r in rungs]),
             ease=ease,
-            max_ease=max([r['cards'] for r in ease]),
+            max_ease=max([r["cards"] for r in ease]),
             percent_right=percent_right(self.request.user),
             priorities=priority_stats(self.request.user),
             total_tested=total_tested(self.request.user),
