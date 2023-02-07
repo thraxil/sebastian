@@ -18,3 +18,14 @@ locals().update(
         MIDDLEWARE=MIDDLEWARE,
     )
 )
+
+MIDDLEWARE = [
+    "django.middleware.common.CommonMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "waffle.middleware.WaffleMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+]

@@ -2,6 +2,7 @@
 
 pkgs.mkShell {
   buildInputs = [
+    pkgs.flyctl
     pkgs.python310
     pkgs.python310.pkgs.tox
     pkgs.python310.pkgs.psycopg2
