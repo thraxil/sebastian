@@ -35,4 +35,4 @@ django-waffle==3.0.0
 
 raven==6.10.0
 
-thraxilsettings==5.0.0
+thraxilsettings==5.1.0
