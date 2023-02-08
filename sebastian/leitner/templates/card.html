@@ -31,38 +31,40 @@
 
 <ul>history</ul>
 {% for test in card.usercardtest_set.all %}
-<li class="correct-{{test.correct}}">{{ test.timestamp|date:"D, F j G:i:s" }}: {{ test.correct }}</li>
+    <li class="correct-{{test.correct}}">{{ test.timestamp|date:"D, F j G:i:s" }}: {{ test.correct }}</li>
 {% endfor %}
 </ul>
 
 <form action="." method="post" class="form">
-<fieldset><legend>edit card</legend>
-<table class="table">
-<tr><th>front</th><td><textarea name="front" class="form-control">{{ card.card.front.content }}</textarea></td></tr>
-<tr><th>back</th><td><textarea name="back" class="form-control">{{ card.card.back.content }}</textarea></td></tr>
-<tr><th>priority</th><td><select name="priority" class="form-control">
+    {% csrf_token %}
+    <fieldset><legend>edit card</legend>
+        <table class="table">
+            <tr><th>front</th><td><textarea name="front" class="form-control">{{ card.card.front.content }}</textarea></td></tr>
+            <tr><th>back</th><td><textarea name="back" class="form-control">{{ card.card.back.content }}</textarea></td></tr>
+            <tr><th>priority</th><td><select name="priority" class="form-control">
 
-<option value="10" {% ifequal card.priority 10 %}selected="selected"{% endifequal %}>10</option>
-<option value="9" {% ifequal card.priority 9 %}selected="selected"{% endifequal %}>9</option>
-<option value="8" {% ifequal card.priority 8 %}selected="selected"{% endifequal %}>8</option>
-<option value="7" {% ifequal card.priority 7 %}selected="selected"{% endifequal %}>7</option>
-<option value="6" {% ifequal card.priority 6 %}selected="selected"{% endifequal %}>6</option>
-<option value="5" {% ifequal card.priority 5 %}selected="selected"{% endifequal %}>5</option>
-<option value="4" {% ifequal card.priority 4 %}selected="selected"{% endifequal %}>4</option>
-<option value="3" {% ifequal card.priority 3 %}selected="selected"{% endifequal %}>3</option>
-<option value="2" {% ifequal card.priority 2 %}selected="selected"{% endifequal %}>2</option>
-<option value="1" {% ifequal card.priority 1 %}selected="selected"{% endifequal %}>1</option>
-</select>
+                <option value="10" {% ifequal card.priority 10 %}selected="selected"{% endifequal %}>10</option>
+                <option value="9" {% ifequal card.priority 9 %}selected="selected"{% endifequal %}>9</option>
+                <option value="8" {% ifequal card.priority 8 %}selected="selected"{% endifequal %}>8</option>
+                <option value="7" {% ifequal card.priority 7 %}selected="selected"{% endifequal %}>7</option>
+                <option value="6" {% ifequal card.priority 6 %}selected="selected"{% endifequal %}>6</option>
+                <option value="5" {% ifequal card.priority 5 %}selected="selected"{% endifequal %}>5</option>
+                <option value="4" {% ifequal card.priority 4 %}selected="selected"{% endifequal %}>4</option>
+                <option value="3" {% ifequal card.priority 3 %}selected="selected"{% endifequal %}>3</option>
+                <option value="2" {% ifequal card.priority 2 %}selected="selected"{% endifequal %}>2</option>
+                <option value="1" {% ifequal card.priority 1 %}selected="selected"{% endifequal %}>1</option>
+            </select>
 
-</td></tr>
-</table>
+            </td></tr>
+        </table>
 
-<input type="submit" value="save" class="btn btn-primary" />
+        <input type="submit" value="save" class="btn btn-primary" />
 
-</fieldset>
+    </fieldset>
 </form>
 
 <form action="/card/{{ card.id }}/delete/" method="post" class="form">
+    {% csrf_token %}
 <fieldset><legend>delete card</legend>
 <input type="submit" value="delete" class="btn btn-danger" />
 </fieldset></form>

@@ -55,8 +55,9 @@
 </div>
 
 <div id="form" class="invisible">
-<form action="." method="post" id="testform">
-<input type="hidden" name="card" value="{{ card.id }}" />
+    <form action="." method="post" id="testform">
+        {% csrf_token %}
+        <input type="hidden" name="card" value="{{ card.id }}" />
 <input type="hidden" name="right" value="" id="right" />
 
 <div class="row">

@@ -2,55 +2,56 @@
 
 {% block content %}
 
-<form action="/add_card/" method="post" enctype="multipart/form-data">
+    <form action="/add_card/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <table>
+            <tr>
+                <th>Deck</th>
+                <td>
+                    <select name="deck">
+                        {% for deck in decks %}
+                            <option value="{{ deck.name }}">{{ deck.name }}</option>
+                        {% endfor %}
+                        <option value="">New Deck</option>
+                    </select> new deck: <input type="text" name="new_deck" /></td>
+            </tr>
+
+            <tr>
+                <th>Priority</th>
+                <td>
+                    <select name="priority">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                </td>
+            </tr>
 
 
-<table>
-<tr>
-<th>Deck</th>
-<td>
-<select name="deck">
-{% for deck in decks %}
-<option value="{{ deck.name }}">{{ deck.name }}</option>
-{% endfor %}
-<option value="">New Deck</option>
-</select> new deck: <input type="text" name="new_deck" /></td>
-</tr>
 
-<tr>
-<th>Priority</th>
-<td>
-<select name="priority">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</td>
-</tr>
+            <tr><th colspan="2">Front</th></tr>
 
+            {{ front.as_table }}
 
+            <tr><th colspan="2">Back</th></tr>
 
-<tr><th colspan="2">Front</th></tr>
+            {{ back.as_table }}
 
-{{ front.as_table }}
+        </table>
 
-<tr><th colspan="2">Back</th></tr>
+        <input type="submit" value="add card" />
 
-{{ back.as_table }}
+    </form>
 
-</table>
-
-<input type="submit" value="add card" />
-
-</form>
-
-<form action="/add_multiple_cards/" method="post">
+    <form action="/add_multiple_cards/" method="post">
+        {% csrf_token %}
 <fieldset><legend>add multiple simple cards</legend>
 
 <table>
