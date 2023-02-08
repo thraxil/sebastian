@@ -37,6 +37,7 @@ TEMPLATES = [
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+CSRF_TRUSTED_ORIGINS = ["https://cards.thraxil.org"]
 
 try:
     from local_settings import *
