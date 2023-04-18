@@ -21,7 +21,7 @@ gunicorn==20.1.0
 six==1.16.0
 boto3==1.26.114
 python-dateutil==2.8.2
-sqlparse==0.4.3
+sqlparse==0.4.4
 
 django-appconf==1.0.5
 django_compressor==4.0
