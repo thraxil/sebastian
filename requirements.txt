@@ -6,7 +6,7 @@ psycopg2-binary==2.9.7
 
 Pillow==10.0.0
 
-coverage==7.2.7
+coverage==7.3.0
 
 pep8==1.7.1
 pyflakes==2.5.0
