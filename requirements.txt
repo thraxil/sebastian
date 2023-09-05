@@ -1,6 +1,6 @@
 Django==4.2.5
 
-pytz==2023.3
+pytz==2023.3.post1
 
 psycopg2-binary==2.9.7
 
