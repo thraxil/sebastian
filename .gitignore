@@ -7,3 +7,4 @@ pip-log.txt
 CACHE
 wheelhouse
 .tox
+.direnv
