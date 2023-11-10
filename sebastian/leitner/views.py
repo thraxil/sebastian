@@ -11,12 +11,32 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .forms import AddFaceForm
-from .models import (Card, Deck, Face, UserCard, UserCardTest, ease_stats,
-                     first_deck_due, first_due, next_card, next_day_due,
-                     next_deck_card, next_hour_due, next_month_due,
-                     next_six_hours_due, next_week_due, percent_right,
-                     priority_stats, recent_tests, rungs_stats, total_deck_due,
-                     total_due, total_tested, total_untested, user_decks)
+from .models import (
+    Card,
+    Deck,
+    Face,
+    UserCard,
+    UserCardTest,
+    ease_stats,
+    first_deck_due,
+    first_due,
+    next_card,
+    next_day_due,
+    next_deck_card,
+    next_hour_due,
+    next_month_due,
+    next_six_hours_due,
+    next_week_due,
+    percent_right,
+    priority_stats,
+    recent_tests,
+    rungs_stats,
+    total_deck_due,
+    total_due,
+    total_tested,
+    total_untested,
+    user_decks,
+)
 
 
 class LoggedInMixin(object):
