@@ -23,7 +23,7 @@ boto3==1.29.3
 python-dateutil==2.8.2
 sqlparse==0.4.4
 
-django-appconf==1.0.5
+django-appconf==1.0.6
 django_compressor==4.4
 django-storages==1.14.2
 django-cacheds3storage==0.3.0
