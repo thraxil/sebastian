@@ -8,7 +8,7 @@
 <tr><th>due</th><th>hour</th><th>6h</th><th>day</th><th>week</th><th>month</th></tr>
 <tr>
 <td>{{ total_due }}
-{% ifequal total_due 0 %} next due at {{ first_due.due|date:"D, F j G:i:s" }}{% endifequal %}</td>
+{% if total_due == 0 %} next due at {{ first_due.due|date:"D, F j G:i:s" }}{% endif %}</td>
 <td>{{ next_hour_due }}</td>
 <td>{{ next_six_hours_due }}</td>
 <td>{{ next_day_due }}</td>

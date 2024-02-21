@@ -2,71 +2,71 @@
 
 {% block content %}
 
-<h2><a href="{{ card.card.deck.get_absolute_url }}" style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</a></h2>
+    <h2><a href="{{ card.card.deck.get_absolute_url }}" style="background-color: #{{ card.card.deck.bgcolor }}; color: #{{ card.card.deck.fgcolor }};">{{ card.card.deck.name }}</a></h2>
 
-<div id="front">
-{% if card.card.front.content %}
-{{ card.card.front.content }}
-{% endif %}
-{% if card.card.front.image %}
-[image cards are broken right now]
-{% endif %}
-</div>
-<hr />
-<div id="back">
-{% if card.card.back.content %}
-{{ card.card.back.content }}
-{% endif %}
-{% if card.card.back.image %}
-[image cards are broken right now]
-{% endif %}
-</div>
-<hr />
-<table class="table table-bordered">
-<tr><th>rung</th><td>{{ card.rung }}</td></tr>
-<tr><th>ease</th><td>{{ card.ease }}</td></tr>
-<tr><th>priority</th><td>{{ card.priority }}</td></tr>
-<tr><th>due</th><td>{{ card.due|date:"D, F j G:i:s" }}</td></tr>
-</table>
+    <div id="front">
+        {% if card.card.front.content %}
+            {{ card.card.front.content }}
+        {% endif %}
+        {% if card.card.front.image %}
+            [image cards are broken right now]
+        {% endif %}
+    </div>
+    <hr />
+    <div id="back">
+        {% if card.card.back.content %}
+            {{ card.card.back.content }}
+        {% endif %}
+        {% if card.card.back.image %}
+            [image cards are broken right now]
+        {% endif %}
+    </div>
+    <hr />
+    <table class="table table-bordered">
+        <tr><th>rung</th><td>{{ card.rung }}</td></tr>
+        <tr><th>ease</th><td>{{ card.ease }}</td></tr>
+        <tr><th>priority</th><td>{{ card.priority }}</td></tr>
+        <tr><th>due</th><td>{{ card.due|date:"D, F j G:i:s" }}</td></tr>
+    </table>
 
-<ul>history</ul>
-{% for test in card.usercardtest_set.all %}
-    <li class="correct-{{test.correct}}">{{ test.timestamp|date:"D, F j G:i:s" }}: {{ test.correct }}</li>
-{% endfor %}
-</ul>
+    <ul>history</ul>
+    {% for test in card.usercardtest_set.all %}
+        <li class="correct-{{test.correct}}">{{ test.timestamp|date:"D, F j G:i:s" }}: {{ test.correct }}</li>
+    {% endfor %}
+    </ul>
 
-<form action="." method="post" class="form">
-    {% csrf_token %}
-    <fieldset><legend>edit card</legend>
-        <table class="table">
-            <tr><th>front</th><td><textarea name="front" class="form-control">{{ card.card.front.content }}</textarea></td></tr>
-            <tr><th>back</th><td><textarea name="back" class="form-control">{{ card.card.back.content }}</textarea></td></tr>
-            <tr><th>priority</th><td><select name="priority" class="form-control">
+    <form action="." method="post" class="form">
+        {% csrf_token %}
+        <fieldset><legend>edit card</legend>
+            <table class="table">
+                <tr><th>front</th><td><textarea name="front" class="form-control">{{ card.card.front.content }}</textarea></td></tr>
+                <tr><th>back</th><td><textarea name="back" class="form-control">{{ card.card.back.content }}</textarea></td></tr>
+                <tr><th>priority</th><td><select name="priority" class="form-control">
 
-                <option value="10" {% ifequal card.priority 10 %}selected="selected"{% endifequal %}>10</option>
-                <option value="9" {% ifequal card.priority 9 %}selected="selected"{% endifequal %}>9</option>
-                <option value="8" {% ifequal card.priority 8 %}selected="selected"{% endifequal %}>8</option>
-                <option value="7" {% ifequal card.priority 7 %}selected="selected"{% endifequal %}>7</option>
-                <option value="6" {% ifequal card.priority 6 %}selected="selected"{% endifequal %}>6</option>
-                <option value="5" {% ifequal card.priority 5 %}selected="selected"{% endifequal %}>5</option>
-                <option value="4" {% ifequal card.priority 4 %}selected="selected"{% endifequal %}>4</option>
-                <option value="3" {% ifequal card.priority 3 %}selected="selected"{% endifequal %}>3</option>
-                <option value="2" {% ifequal card.priority 2 %}selected="selected"{% endifequal %}>2</option>
-                <option value="1" {% ifequal card.priority 1 %}selected="selected"{% endifequal %}>1</option>
-            </select>
+                    <option value="10" {% if card.priority == 10 %}selected="selected"{% endif %}>10</option>
+                    <option value="9" {% if card.priority == 9 %}selected="selected"{% endif %}>9</option>
+                    <option value="8" {% if card.priority == 8 %}selected="selected"{% endif %}>8</option>
+                    <option value="7" {% if card.priority == 7 %}selected="selected"{% endif %}>7</option>
+                    <option value="6" {% if card.priority == 6 %}selected="selected"{% endif %}>6</option>
+                    <option value="5" {% if card.priority == 5 %}selected="selected"{% endif %}>5</option>
+                    <option value="4" {% if card.priority == 4 %}selected="selected"{% endif %}>4</option>
+                    <option value="3" {% if card.priority == 3 %}selected="selected"{% endif %}>3</option>
+                    <option value="2" {% if card.priority == 2 %}selected="selected"{% endif %}>2</option>
+                    <option value="1" {% if card.priority == 1 %}selected="selected"{% endif %}>1</option>
+                </select>
 
-            </td></tr>
-        </table>
+                </td></tr>
+            </table>
 
-        <input type="submit" value="save" class="btn btn-primary" />
+            <input type="submit" value="save" class="btn btn-primary" />
 
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
 
-<form action="/card/{{ card.id }}/delete/" method="post" class="form">
-    {% csrf_token %}
-<fieldset><legend>delete card</legend>
-<input type="submit" value="delete" class="btn btn-danger" />
-</fieldset></form>
+    <form action="/card/{{ card.id }}/delete/" method="post" class="form">
+        {% csrf_token %}
+        <fieldset><legend>delete card</legend>
+            <input type="submit" value="delete" class="btn btn-danger" />
+        </fieldset></form>
 
 {% endblock %}

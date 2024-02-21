@@ -1,12 +1,9 @@
 {% extends "base.html" %}
-{% load compress %}
 
 {% block js %}
 
 
-{% compress js %}
 <script type="text/javascript" src="{{STATIC_URL}}js/test.js"></script>
-{% endcompress %}
 {% endblock %}
 
 {% block content %}
