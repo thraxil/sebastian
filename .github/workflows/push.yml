@@ -8,3 +8,35 @@ jobs:
     - uses: actions/checkout@master
     - name: Build docker image
       run: docker build -t thraxil/sebastian:${{ github.sha }} .
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+        tox-env:
+          - py3
+          - bandit
+          - black
+          - flake8
+          - isort
+          - mypy
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cache tox environments
+        id: cache-tox
+        uses: actions/cache@v1
+        with:
+          path: .tox
+          # requirements.txt, tox.ini, and setup.cfg have
+          # versioning info that would impact the tox environment. hashFiles
+          # only takes a single file path or pattern at the moment.
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('setup.cfg') }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('tox.ini') }}
+      - id: tox
+        name: Test with tox
+        run: |
+          pip install tox==4.4.6 virtualenv==20.24.4
+          tox -e ${{ matrix.tox-env }}   

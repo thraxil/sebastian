@@ -2,8 +2,11 @@
 import os
 import os.path
 
+from .settings_shared import INSTALLED_APPS, MIDDLEWARE, STATIC_ROOT
+
 from .settings_shared import *  # isort:skip
 from thraxilsettings.docker import common  # isort:skip
+
 
 app = "sebastian"
 base = os.path.dirname(__file__)
