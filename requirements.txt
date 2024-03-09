@@ -35,3 +35,9 @@ django-waffle==4.1.0
 raven==6.10.0
 
 thraxilsettings==5.1.0
+mypy==1.6.1
+mypy-extensions==1.0.0
+typing-extensions==4.8.0
+tomli==2.0.1
+django-stubs[compatible-mypy]==4.2.5
+asgiref==3.7.2

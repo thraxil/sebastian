@@ -1,13 +1,14 @@
 import hashlib
+from typing import Tuple
 
 
-def color(phrase):
+def color(phrase: str) -> str:
     m = hashlib.md5()  # nosec
     m.update(phrase.encode("utf-8"))
     return m.hexdigest()[:6]
 
 
-def _adjust(v):
+def _adjust(v: int | float) -> float:
     v = float(v) / 255.0
     if v <= 0.0398:
         return v / 12.92
@@ -15,13 +16,15 @@ def _adjust(v):
         return ((v + 0.055) / 1.055) ** 2.4
 
 
-def luminosity(r, g, b):
+def luminosity(r: int | float, g: int | float, b: int | float) -> float:
     # using formula from http://www.w3.org/TR/WCAG20-GENERAL/G17.html
     [r, g, b] = [_adjust(v) for v in [r, g, b]]
     return (0.2126 * r) + (0.7152 * g) + (0.0722 * b)
 
 
-def make_contrasting(color):
+def make_contrasting(
+    color: str | Tuple[int, int, int]
+) -> Tuple[int, int, int]:
     if isinstance(color, str):
         # hex -> triple
         color = color.strip("#")  # in case someone left it on there

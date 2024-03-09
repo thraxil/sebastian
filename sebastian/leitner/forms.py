@@ -6,4 +6,4 @@ from .models import Face
 class AddFaceForm(ModelForm):
     class Meta:
         model = Face
-        exclude = []
+        exclude = []  # type: ignore
