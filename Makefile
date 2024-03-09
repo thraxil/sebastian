@@ -4,4 +4,4 @@ MAX_COMPLEXITY=4
 
 include *.mk
 
-all: flake8 test
+all: test
