@@ -16,9 +16,8 @@ jobs:
         tox-env:
           - py3
           - bandit
-          - black
-          - flake8
-          - isort
+          - ruff-format
+          - ruff-check
           - mypy
     steps:
       - uses: actions/checkout@master

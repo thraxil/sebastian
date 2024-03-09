@@ -13,6 +13,7 @@
           {
             buildInputs = [
               pkgs.flyctl
+              pkgs.ruff
               (pkgs.python310.withPackages (p: [
                 p.tox
                 p.psycopg2

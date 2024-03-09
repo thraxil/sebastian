@@ -23,7 +23,7 @@ def luminosity(r: int | float, g: int | float, b: int | float) -> float:
 
 
 def make_contrasting(
-    color: str | Tuple[int, int, int]
+    color: str | Tuple[int, int, int],
 ) -> Tuple[int, int, int]:
     if isinstance(color, str):
         # hex -> triple
