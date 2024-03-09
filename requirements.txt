@@ -34,6 +34,6 @@ mypy==1.9.0
 mypy-extensions==1.0.0
 typing-extensions==4.10.0
 tomli==2.0.1
-django-stubs==1.9.0
+django-stubs==4.2.7
 asgiref==3.7.2
 toml==0.10.2
