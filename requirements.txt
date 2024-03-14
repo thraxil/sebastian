@@ -6,7 +6,7 @@ psycopg2-binary==2.9.9
 
 Pillow==10.2.0
 
-coverage==7.4.3
+coverage==7.4.4
 
 enum34==1.1.10
 
