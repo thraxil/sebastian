@@ -2,6 +2,9 @@
 import os
 import os.path
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from .settings_shared import INSTALLED_APPS, MIDDLEWARE, STATIC_ROOT
 
 from .settings_shared import *  # isort:skip
@@ -82,15 +85,22 @@ LOGGING = {
     "disable_existing_loggers": False,
 }
 
-RAVEN_DSN = os.environ.get("RAVEN_DSN", None)
-
-if RAVEN_DSN:
-    INSTALLED_APPS += [
-        "raven.contrib.django.raven_compat",
-    ]
-    RAVEN_CONFIG = {
-        "dsn": RAVEN_DSN,
-    }
+SENTRY_DSN: str = os.getenv("RAVEN_DSN", "")
+if SENTRY_DSN != "":
+    ENVIRONMENT = "production"
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[
+            DjangoIntegration(
+                middleware_spans=False,
+                signals_spans=False,
+                cache_spans=False,
+            )
+        ],
+        traces_sample_rate=1.0,
+        send_default_pii=False,
+        environment=ENVIRONMENT,
+    )
 
 MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",

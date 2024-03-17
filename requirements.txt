@@ -22,6 +22,10 @@ botocore==1.34.64 \
     # via
     #   boto3
     #   s3transfer
+certifi==2024.2.2 \
+    --hash=sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f \
+    --hash=sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1
+    # via sentry-sdk
 coverage==7.4.4 \
     --hash=sha256:00838a35b882694afda09f85e469c96367daa3f3f2b097d846a7216993d37f4c \
     --hash=sha256:0513b9508b93da4e1716744ef6ebc507aff016ba115ffe8ecff744d1322a7b63 \
@@ -331,14 +335,14 @@ pytz==2024.1 \
     --hash=sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812 \
     --hash=sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319
     # via -r requirements.in
-raven==6.10.0 \
-    --hash=sha256:3fa6de6efa2493a7c827472e984ce9b020797d0da16f1db67197bcc23c8fae54 \
-    --hash=sha256:44a13f87670836e153951af9a3c80405d36b43097db869a36e92809673692ce4
-    # via -r requirements.in
 s3transfer==0.10.1 \
     --hash=sha256:5683916b4c724f799e600f41dd9e10a9ff19871bf87623cc8f491cb4f5fa0a19 \
     --hash=sha256:ceb252b11bcf87080fb7850a224fb6e05c8a776bab8f2b64b7f25b969464839d
     # via boto3
+sentry-sdk==1.41.0 \
+    --hash=sha256:4f2d6c43c07925d8cd10dfbd0970ea7cb784f70e79523cca9dbcd72df38e5a46 \
+    --hash=sha256:be4f8f4b29a80b6a3b71f0f31487beb9e296391da20af8504498a328befed53f
+    # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
@@ -383,4 +387,6 @@ typing-extensions==4.10.0 \
 urllib3==2.2.1 \
     --hash=sha256:450b20ec296a467077128bff42b73080516e71b56ff59a60a02bef2232c4fa9d \
     --hash=sha256:d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19
-    # via botocore
+    # via
+    #   botocore
+    #   sentry-sdk
