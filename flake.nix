@@ -16,6 +16,7 @@
               pkgs.ruff
               (pkgs.python310.withPackages (p: [
                 p.tox
+                p.pip-tools
                 p.psycopg2
               ]))
             ];
