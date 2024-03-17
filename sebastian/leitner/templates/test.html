@@ -1,9 +1,10 @@
+{% load static %}
 {% extends "base.html" %}
 
 {% block js %}
 
 
-<script type="text/javascript" src="{{STATIC_URL}}js/test.js"></script>
+<script type="text/javascript" src="{% static "js/test.js" %}"></script>
 {% endblock %}
 
 {% block content %}

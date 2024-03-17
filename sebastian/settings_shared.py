@@ -52,6 +52,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(base, "static"),
 ]
+STATIC_ROOT = os.path.join(base, "staticfiles")
+
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -138,8 +140,6 @@ TEMPLATES = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 CSRF_TRUSTED_ORIGINS = ["https://cards.thraxil.org"]
-
-STATIC_ROOT = os.path.join(base, "staticfiles")
 
 MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",

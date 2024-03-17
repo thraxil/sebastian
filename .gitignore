@@ -8,3 +8,4 @@ CACHE
 wheelhouse
 .tox
 .direnv
+staticfiles
