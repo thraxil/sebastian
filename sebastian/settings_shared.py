@@ -79,9 +79,6 @@ EMAIL_HOST = "localhost"
 SERVER_EMAIL = app + "@thraxil.org"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
-COMPRESS_URL = "/media/"
-COMPRESS_ROOT = "media/"
-
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 265 * 5
