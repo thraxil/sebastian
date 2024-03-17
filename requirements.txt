@@ -22,10 +22,6 @@ botocore==1.34.64 \
     # via
     #   boto3
     #   s3transfer
-configparser==6.0.1 \
-    --hash=sha256:5a0da275bea56f871abaa9e0806331791e9d8ae2938e8b8797b99ab3e8e192c4 \
-    --hash=sha256:db45513e971e509496b150be31bd67b0e14ab20b78a383b677e4b158e2c682d8
-    # via -r requirements.in
 coverage==7.4.4 \
     --hash=sha256:00838a35b882694afda09f85e469c96367daa3f3f2b097d846a7216993d37f4c \
     --hash=sha256:0513b9508b93da4e1716744ef6ebc507aff016ba115ffe8ecff744d1322a7b63 \

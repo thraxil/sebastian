@@ -10,8 +10,6 @@ coverage==7.4.4
 
 enum34==1.1.10
 
-configparser==6.0.1
-
 gunicorn==21.2.0
 six==1.16.0
 boto3==1.34.64
