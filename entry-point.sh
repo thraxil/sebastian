@@ -15,7 +15,7 @@ if [ "$1" == "migrate" ]; then
     exec python manage.py migrate
 fi
 
-if [ "$1" == "static" ]; then
+if [ "$1" == "collectstatic" ]; then
     exec python manage.py collectstatic --verbosity 2 --noinput
 fi
 

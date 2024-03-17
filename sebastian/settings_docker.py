@@ -90,10 +90,3 @@ MIDDLEWARE = [
     "waffle.middleware.WaffleMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
-
-WN_STORAGE: str = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}

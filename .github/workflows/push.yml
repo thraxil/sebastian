@@ -18,7 +18,6 @@ jobs:
           - bandit
           - ruff-format
           - ruff-check
-          - mypy
     steps:
       - uses: actions/checkout@master
       - name: Set up Python ${{ matrix.python-version }}

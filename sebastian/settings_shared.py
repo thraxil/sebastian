@@ -50,10 +50,9 @@ ROOT_URLCONF = app + ".urls"
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(base, "static"),
+    base / "static",
 ]
-STATIC_ROOT = os.path.join(base, "staticfiles")
-
+STATIC_ROOT = base / "staticfiles"
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -98,6 +97,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.flatpages",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "debug_toolbar",
@@ -152,3 +152,10 @@ MIDDLEWARE = [
     "waffle.middleware.WaffleMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
+
+WN_STORAGE: str = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}

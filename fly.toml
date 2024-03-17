@@ -15,7 +15,11 @@ processes = []
   AWS_STORAGE_BUCKET_NAME="thraxil-sebastian-static-prod"
 
 [deploy]
-  release_command = "/run.sh migrate && /run.sh collectstatic"
+  release_command = "/run.sh migrate"
+
+[[statics]]
+  guest_path = "/app/staticfiles"
+  url_prefix = "/static"
 
 [experimental]
   allowed_public_ports = []
