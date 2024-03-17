@@ -1,8 +1,9 @@
 import os.path
 import sys
+from pathlib import Path
 
 app = "sebastian"
-base = os.path.dirname(__file__)
+base = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
@@ -47,9 +48,9 @@ SECRET_KEY = "you must override this"  # nosec
 
 ROOT_URLCONF = app + ".urls"
 
-STATIC_URL = "/media/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.abspath(os.path.join(base, "../media/")),
+    os.path.join(base, "static"),
 ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -77,11 +78,6 @@ EMAIL_SUBJECT_PREFIX = "[" + app + "] "
 EMAIL_HOST = "localhost"
 SERVER_EMAIL = app + "@thraxil.org"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
-
-# put any static media here to override app served static media
-STATICMEDIA_MOUNTS = [
-    ("/sitemedia", "sitemedia"),
-]
 
 COMPRESS_URL = "/media/"
 COMPRESS_ROOT = "media/"
@@ -120,18 +116,24 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(os.path.dirname(__file__), "templates"),
+            os.path.join(base, "sebastian/templates"),
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.debug",
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
-                "django.template.context_processors.debug",
-                "django.template.context_processors.media",
-                "django.template.context_processors.static",
-                "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
+            ],
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                    ],
+                ),
+                "django.template.loaders.app_directories.Loader",
             ],
         },
     },
@@ -140,9 +142,10 @@ TEMPLATES = [
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 CSRF_TRUSTED_ORIGINS = ["https://cards.thraxil.org"]
 
-STATIC_ROOT = ""
+STATIC_ROOT = os.path.join(base, "staticfiles")
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

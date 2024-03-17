@@ -11,11 +11,10 @@ from .settings_shared import *  # isort:skip
 
 
 app = "sebastian"
-base = os.path.dirname(__file__)
 
 
 # required settings:
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # optional/defaulted settings
 DB_NAME = os.environ.get("DB_NAME", app)
@@ -29,14 +28,6 @@ DB_PORT = int(
 )
 DB_USER = os.environ.get("DB_USER", "")
 DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
-
-AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN", "")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
-AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY", "")
-AWS_SECRET_KEY = os.environ.get("AWS_SECRET_KEY", "")
-AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY
-AWS_SECRET_ACCESS_KEY = AWS_SECRET_KEY
-AWS_DEFAULT_ACL = "public-read"
 
 if "ALLOWED_HOSTS" in os.environ:
     ALLOWED_HOSTS = os.environ["ALLOWED_HOSTS"].split(",")
@@ -66,19 +57,6 @@ DATABASES = {
         "PASSWORD": DB_PASSWORD,
     }
 }
-
-if AWS_S3_CUSTOM_DOMAIN:
-    AWS_PRELOAD_METADATA = True
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    S3_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-    # static data, e.g. css, js, etc.
-    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-    STATIC_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
-    COMPRESS_ENABLED = True
-    COMPRESS_OFFLINE = True
-    COMPRESS_ROOT = STATIC_ROOT
-    COMPRESS_URL = STATIC_URL
-    COMPRESS_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 LOGGING = {
     "version": 1,

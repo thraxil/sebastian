@@ -1,10 +1,20 @@
-FROM thraxil/django.base:2022-09-11-fd03dfc6c7a5
-COPY requirements.txt /app/requirements.txt
-RUN /ve/bin/pip3 install -r /app/requirements.txt && touch /ve/sentinal
-WORKDIR /app
-COPY . /app/
-RUN VE=/ve/ MANAGE="/ve/bin/python3 manage.py" NODE_MODULES=/node/node_modules make all
+FROM python:3.10-slim
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc python3-dev
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+
+ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
 ENV APP sebastian
-ENTRYPOINT ["/run.sh"]
+
+COPY requirements.txt .
+RUN pip install --no-deps --no-cache-dir -r requirements.txt
+
+COPY . .
+ENV DJANGO_SETTINGS_MODULE sebastian.settings_docker
+ENV COMPRESS true
+RUN python manage.py collectstatic --verbosity 2 --noinput
+ENTRYPOINT ["/usr/bin/env", "bash", "/app/entry-point.sh"]
 CMD ["run"]

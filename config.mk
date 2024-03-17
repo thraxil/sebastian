@@ -7,7 +7,7 @@ PIP ?= $(VE)/bin/pip3
 SENTINAL ?= $(VE)/sentinal
 REQUIREMENTS ?= requirements.txt
 
-JS_FILES ?= media/js/
+JS_FILES ?= static/js/
 TAG ?= latest
 IMAGE ?= $(REPO)/$(APP):$(TAG)
 
