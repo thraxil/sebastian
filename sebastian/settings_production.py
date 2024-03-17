@@ -17,7 +17,7 @@ MEDIA_ROOT = "/var/www/sebastian/uploads/media/data/"
 
 SERVER_EMAIL = "anders@columbia.edu"
 
-STATICFILES_DIRS = ()
+STATICFILES_DIRS = []
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
 
 COMPRESS_OFFLINE = True
