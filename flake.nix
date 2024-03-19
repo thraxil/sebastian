@@ -12,8 +12,6 @@
         pkgs.mkShell
           {
             buildInputs = [
-              pkgs.gccStdenv
-              pkgs.stdenv.cc.cc.lib
               pkgs.flyctl
 	      pkgs.postgresql
               pkgs.ruff
@@ -23,11 +21,6 @@
                 p.psycopg2
               ]))
             ];
-	    shellHook = ''
-              export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
-              pkgs.stdenv.cc.cc
-              ]}
-              '';
           };
     };
 }
