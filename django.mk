@@ -1,7 +1,7 @@
 jenkins: $(SENTINAL) check test
 
-test: $(SENTINAL)
-	$(MANAGE) test
+test: $(REQUIREMENTS)
+	tox --parallel
 
 coverage: $(SENTINAL)
 	. $(VE)/bin/activate && $(VE)/bin/coverage run --source='$(APP)' $(MANAGE) test \
