@@ -16,9 +16,10 @@ jobs:
           with:
             args: "deploy"
         - name: sentry release
-          uses: NSCoder/sentry-release@master
+          uses: getsentry/action-release@v1
           env:
-            ENVIRONMENT: production
             SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_ORG: thraxil
             SENTRY_PROJECT: sebastian
+          with:
+            environment: production
