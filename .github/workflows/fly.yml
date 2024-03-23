@@ -16,7 +16,7 @@ jobs:
           with:
             args: "deploy"
         - name: sentry release
-          uses: juankaram/sentry-release@master
+          uses: NSCoder/sentry-release@master
           env:
             ENVIRONMENT: production
             SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
