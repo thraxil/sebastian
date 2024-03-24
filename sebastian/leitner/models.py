@@ -87,28 +87,6 @@ class UserCard(models.Model):
         return "/cards/%d/" % self.id
 
 
-def overdue_dates(user: User) -> list[int]:
-    now = datetime.now()
-    return [
-        (now - u.due).seconds
-        for u in UserCard.objects.filter(user=user, rung__gte=0).order_by(
-            "due"
-        )
-        if u.due < now
-    ]
-
-
-def due_dates(user: User) -> list[int]:
-    now = datetime.now()
-    return [
-        (u.due - now).seconds
-        for u in UserCard.objects.filter(user=user, rung__gte=0).order_by(
-            "due"
-        )
-        if u.due > now
-    ]
-
-
 class UserCardTest(models.Model):
     """represents an instance of a user being tested on a given card.
     basically here for logging/statistics/history purposes. might be possible
