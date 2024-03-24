@@ -18,6 +18,9 @@ from .models import (
     Face,
     UserCard,
     UserCardTest,
+)
+from .selectors import (
+    ease_stats,
     first_deck_due,
     first_due,
     next_card,
@@ -27,18 +30,15 @@ from .models import (
     next_month_due,
     next_six_hours_due,
     next_week_due,
-    percent_right,
-    priority_stats,
     recent_tests,
-    user_decks,
-)
-from .selectors import (
-    ease_stats,
     rungs_stats,
     total_deck_due,
     total_due,
     total_tested,
     total_untested,
+    user_decks,
+    user_percent_right,
+    user_priority_stats,
 )
 from .service import usercard_test_correct, usercard_test_wrong
 
@@ -255,8 +255,8 @@ class StatsView(LoggedInMixin, TemplateView):
             max_rung=max([r["cards"] for r in rungs]),
             ease=ease,
             max_ease=max([r["cards"] for r in ease]),
-            percent_right=percent_right(self.request.user),
-            priorities=priority_stats(self.request.user),
+            percent_right=user_percent_right(self.request.user),
+            priorities=user_priority_stats(self.request.user),
             total_tested=total_tested(self.request.user),
             total_untested=total_untested(self.request.user),
             total_due=total_due(self.request.user),
