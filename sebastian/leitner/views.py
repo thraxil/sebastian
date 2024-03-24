@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -56,7 +57,7 @@ class DeckHandler(object):
     def __init__(self, deck_id):
         self.deck = get_object_or_404(Deck, id=deck_id)
 
-    def context_dict(self, user):
+    def context_dict(self, user: User):
         return dict(
             card=next_deck_card(user, self.deck),
             total_due=total_deck_due(user, self.deck),
@@ -69,7 +70,7 @@ class DeckHandler(object):
 
 
 class NullDeckHandler(object):
-    def context_dict(self, user):
+    def context_dict(self, user: User):
         return dict(
             card=next_card(user),
             total_due=total_due(user),
@@ -169,7 +170,7 @@ def get_or_create_deck(deck_name, user):
         return Deck.objects.create(name=deck_name, user=user)
 
 
-def get_deck_name(post):
+def get_deck_name(post) -> str:
     deck_name = post.get("deck", "")
     if deck_name == "":
         return post.get("new_deck", "no deck")
