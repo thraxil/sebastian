@@ -40,6 +40,7 @@ from .selectors import (
     total_tested,
     total_untested,
 )
+from .service import usercard_test_correct, usercard_test_wrong
 
 
 class LoggedInMixin(object):
@@ -106,10 +107,10 @@ class TestView(LoggedInMixin, View):
         uc = get_object_or_404(UserCard, id=request.POST.get("card"))
         if request.POST.get("right", "no") == "yes":
             # got it right
-            uc.test_correct()
+            usercard_test_correct(uc)
         else:
             # got it wrong
-            uc.test_wrong()
+            usercard_test_wrong(uc)
         return deck_handler.redirect()
 
 

@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from random import randint, random
+from random import randint
 from typing import Optional
 
 from django.contrib.auth.models import User
@@ -7,21 +7,6 @@ from django.db import models
 from django.db.models import QuerySet
 
 from sebastian.hashcolor import color, make_contrasting
-
-# Leitner's intervals
-INTERVALS = [
-    (5, "seconds"),
-    (25, "seconds"),
-    (2 * 60, "seconds"),
-    (10 * 60, "seconds"),
-    (1, "hours"),
-    (5, "hours"),
-    (1, "days"),
-    (5, "days"),
-    (25, "days"),
-    (4 * 4, "weeks"),
-    (2 * 52, "weeks"),
-]
 
 
 class Face(models.Model):
@@ -225,87 +210,6 @@ class UserCard(models.Model):
     rung = models.SmallIntegerField(default=-1)
     # number right out of the last 10 tests
     ease = models.PositiveSmallIntegerField(default=5)
-
-    def update_due(self):
-        """figure out the next due date for this card based on rung,
-        difficulty, and current datetime"""
-
-        # if rung == -1, the user has never been presented with this card,
-        # so we should never be here
-        if self.rung == -1:
-            return
-        if self.rung > len(INTERVALS) - 1:
-            self.rung = len(INTERVALS) - 1
-
-        (n, u) = INTERVALS[self.rung]
-
-        # extend interval based on ease. Ie, if they've gotten it right
-        # 10 times out of 10, the interval gets doubled. 0 out of the last 10,
-        # we stick with leitner's interval. Anything in between is proportional
-
-        n *= 1.0 + (self.ease / 10.0)
-
-        # add a 10% plus or minus to smoothe things out a bit
-        n = ((n * 0.2) * random()) + (n * 0.9)  # nosec
-
-        d = timedelta(**{u: n})
-        now = datetime.now()
-        self.due = now + d
-        self.save()
-
-    def update_rung(self, interval: timedelta):
-        intervals = INTERVALS[:]
-        intervals.reverse()
-        rung = 10
-        for n, u in intervals:
-            li = timedelta(**{u: n})
-            if interval > li:
-                # upgrade to either rung + 1 or the rung
-                # that matches the interval
-                self.rung = max(rung, self.rung + 1)
-                break
-            rung -= 1
-        else:
-            # tested within 5 seconds of the card being added
-            if self.rung < 1:
-                self.rung = 1
-
-    def test_correct(self):
-        """user got it right, so we update accordingly"""
-        old_rung = self.rung
-        q = self.usercardtest_set.all().order_by("-timestamp")
-        if self.ease < 10:
-            self.ease += 1
-
-        if q.count() == 0:
-            # never tested before. find the interval between now and
-            # when the card was added which self.due should be set to
-            # currently and calculate rung based on that
-            now = datetime.now()
-            interval = now - self.due
-            self.update_rung(interval)
-        else:
-            # if the time since the last passed test was greater than
-            # one of the intervals, make sure that it gets bumped up
-            # to at least that rung
-            last_correct = q[0].timestamp
-            now = datetime.now()
-            interval = now - last_correct
-            self.update_rung(interval)
-        UserCardTest.objects.create(
-            usercard=self, correct=True, old_rung=old_rung, new_rung=self.rung
-        )
-        self.update_due()
-
-    def test_wrong(self):
-        UserCardTest.objects.create(
-            usercard=self, correct=False, old_rung=self.rung, new_rung=0
-        )
-        self.rung = 0
-        self.ease -= 1
-        if self.ease < 0:
-            self.ease = 0
-        self.update_due()
 
     def get_absolute_url(self) -> str:
         return "/cards/%d/" % self.id
