@@ -119,3 +119,10 @@ def create_card(
         due=timezone.now(),
         priority=priority,
     )
+
+
+def get_or_create_deck(deck_name: str, user: User) -> Deck:
+    try:
+        return Deck.objects.get(name=deck_name, user=user)
+    except Deck.DoesNotExist:
+        return Deck.objects.create(name=deck_name, user=user)

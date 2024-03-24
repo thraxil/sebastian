@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
@@ -36,7 +35,12 @@ from .selectors import (
     user_percent_right,
     user_priority_stats,
 )
-from .service import create_card, usercard_test_correct, usercard_test_wrong
+from .service import (
+    create_card,
+    get_or_create_deck,
+    usercard_test_correct,
+    usercard_test_wrong,
+)
 
 
 class LoggedInMixin(object):
@@ -160,13 +164,6 @@ class CardView(LoggedInMixin, View):
     def get(self, request, id):
         card = get_object_or_404(UserCard, id=id)
         return render(request, self.template_name, dict(card=card))
-
-
-def get_or_create_deck(deck_name, user):
-    try:
-        return Deck.objects.get(name=deck_name, user=user)
-    except ObjectDoesNotExist:
-        return Deck.objects.create(name=deck_name, user=user)
 
 
 def get_deck_name(post) -> str:
