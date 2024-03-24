@@ -18,7 +18,6 @@ from .models import (
     Face,
     UserCard,
     UserCardTest,
-    ease_stats,
     first_deck_due,
     first_due,
     next_card,
@@ -31,12 +30,15 @@ from .models import (
     percent_right,
     priority_stats,
     recent_tests,
+    user_decks,
+)
+from .selectors import (
+    ease_stats,
     rungs_stats,
     total_deck_due,
     total_due,
     total_tested,
     total_untested,
-    user_decks,
 )
 
 
