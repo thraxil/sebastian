@@ -309,38 +309,6 @@ def due_dates(user: User) -> list[int]:
     ]
 
 
-def clumped_due_dates(user: User, num_clumps: int = 50) -> list[str]:
-    data = due_dates(user)
-    return clump(data, num_clumps)
-
-
-def clumped_overdue_dates(user: User, num_clumps: int = 10) -> list[str]:
-    data = overdue_dates(user)
-    return clump(data, num_clumps)
-
-
-def clump(data: list[int], num_clumps: int) -> list[str]:
-    if len(data) <= num_clumps:
-        return []
-    maxn = max(data)
-    minn = min(data)
-
-    r = maxn - minn
-    clumpsize = r / num_clumps
-
-    clumps = [
-        len([x for x in data if x >= clump and x < clump + clumpsize])
-        for clump in range(minn, maxn, int(clumpsize))
-    ]
-    maxclump = max(clumps)
-    return [
-        "%02x" % x
-        for x in [
-            int(255 - (255 * float(x) / float(maxclump))) for x in clumps
-        ]
-    ]
-
-
 class UserCardTest(models.Model):
     """represents an instance of a user being tested on a given card.
     basically here for logging/statistics/history purposes. might be possible
