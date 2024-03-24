@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 from random import randint, random
+from typing import Optional
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import QuerySet
 
 from sebastian.hashcolor import color, make_contrasting
 
@@ -25,7 +27,7 @@ INTERVALS = [
 class Face(models.Model):
     content = models.TextField(default="", blank=True)
 
-    def size(self):
+    def size(self) -> float:
         s = 800 / len(self.content)
         if s < 16:
             s = 16
@@ -38,35 +40,35 @@ class Deck(models.Model):
     name = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def cards(self):
+    def cards(self) -> QuerySet["Card"]:
         return self.card_set.all()
 
-    def num_cards(self):
+    def num_cards(self) -> int:
         return self.card_set.all().count()
 
-    def num_cards_due(self, user):
+    def num_cards_due(self, user: User) -> int:
         return UserCard.objects.filter(
             user=user, rung__gte=0, card__deck=self, due__lte=datetime.now()
         ).count()
 
-    def num_unlearned(self, user):
+    def num_unlearned(self, user: User) -> int:
         return UserCard.objects.filter(
             user=user, rung=-1, card__deck=self
         ).count()
 
-    def usercards(self, user):
+    def usercards(self, user: User) -> QuerySet["UserCard"]:
         return UserCard.objects.filter(user=user, card__deck=self)
 
-    def bgcolor(self):
+    def bgcolor(self) -> str:
         return color(self.name)
 
-    def fgcolor(self):
+    def fgcolor(self) -> str:
         return "%02x%02x%02x" % make_contrasting(self.bgcolor())
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return "/decks/%d/" % self.id
 
 
@@ -81,18 +83,18 @@ class Card(models.Model):
     modified = models.DateTimeField(auto_now=True)
     deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return "/cards/%d/" % self.id
 
-    def usercard(self, user):
+    def usercard(self, user: User) -> "UserCard":
         return UserCard.objects.get(card=self, user=user)
 
 
-def user_decks(user):
+def user_decks(user: User) -> QuerySet[Deck]:
     return Deck.objects.filter(user=user)
 
 
-def first_due_card(user):
+def first_due_card(user: User) -> Optional["UserCard"]:
     return (
         UserCard.objects.filter(
             user=user, due__lte=datetime.now(), rung__gte=0
@@ -102,7 +104,7 @@ def first_due_card(user):
     )
 
 
-def closest_due_card(user):
+def closest_due_card(user: User) -> Optional["UserCard"]:
     r = UserCard.objects.filter(
         user=user, due__lte=datetime.now(), rung__gte=0
     ).order_by("due")
@@ -115,7 +117,7 @@ def closest_due_card(user):
         return None
 
 
-def first_due_deck_card(user, deck):
+def first_due_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
     return (
         UserCard.objects.filter(
             user=user, card__deck=deck, due__lte=datetime.now(), rung__gte=0
@@ -125,7 +127,7 @@ def first_due_deck_card(user, deck):
     )
 
 
-def random_untested_card(user):
+def random_untested_card(user: User) -> Optional["UserCard"]:
     r = UserCard.objects.filter(user=user, rung=-1)
     c = r.count()
     if c > 0:
@@ -136,12 +138,11 @@ def random_untested_card(user):
             res = random_untested_from_priority(user, p)
             if res is not None:
                 return res
-    else:
-        # no untested cards
-        return None
+    # no untested cards
+    return None
 
 
-def random_untested_deck_card(user, deck):
+def random_untested_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
     r = UserCard.objects.filter(user=user, rung=-1, card__deck=deck)
     c = r.count()
     if c > 0:
@@ -152,54 +153,56 @@ def random_untested_deck_card(user, deck):
             res = random_untested_from_priority_in_deck(user, p, deck)
             if res is not None:
                 return res
-    else:
-        # no untested cards
-        return None
+    # no untested cards
+    return None
 
 
-def random_untested_from_priority(user, priority):
+def random_untested_from_priority(
+    user: User, priority: int
+) -> Optional["UserCard"]:
     r = UserCard.objects.filter(user=user, rung=-1, priority=priority)
     c = r.count()
     if c > 0:
         return r[randint(0, c - 1)]  # nosec
-    else:
-        # no untested cards
-        return None
+    # no untested cards
+    return None
 
 
-def random_untested_from_priority_in_deck(user, priority, deck):
+def random_untested_from_priority_in_deck(
+    user: User, priority: int, deck: Deck
+) -> Optional["UserCard"]:
     r = UserCard.objects.filter(
         user=user, rung=-1, priority=priority, card__deck=deck
     )
     c = r.count()
     if c > 0:
         return r[randint(0, c - 1)]  # nosec
-    else:
-        # no untested cards
-        return None
+    # no untested cards
+    return None
 
 
-def next_card(user):
+def next_card(user: User) -> Optional["UserCard"]:
     card = closest_due_card(user)
     if card is None:
         card = random_untested_card(user)
     return card
 
 
-def next_deck_card(user, deck):
+def next_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
     card = first_due_deck_card(user, deck)
     if card is None:
         card = random_untested_deck_card(user, deck)
     return card
 
 
-def first_due(user):
+def first_due(user: User) -> Optional["UserCard"]:
     r = UserCard.objects.filter(user=user, rung__gte=0).order_by("due")
     if r.count() > 0:
         return r[0]
+    return None
 
 
-def first_deck_due(user, deck):
+def first_deck_due(user: User, deck: Deck) -> Optional["UserCard"]:
     return (
         UserCard.objects.filter(user=user, rung__gte=0, card__deck=deck)
         .order_by("due")
@@ -207,7 +210,7 @@ def first_deck_due(user, deck):
     )
 
 
-def recent_tests(user, n=100):
+def recent_tests(user: User, n: int = 100) -> QuerySet["UserCardTest"]:
     return UserCardTest.objects.filter(usercard__user=user).order_by(
         "-timestamp"
     )[:n]
@@ -250,7 +253,7 @@ class UserCard(models.Model):
         self.due = now + d
         self.save()
 
-    def update_rung(self, interval):
+    def update_rung(self, interval: timedelta):
         intervals = INTERVALS[:]
         intervals.reverse()
         rung = 10
@@ -304,11 +307,11 @@ class UserCard(models.Model):
             self.ease = 0
         self.update_due()
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return "/cards/%d/" % self.id
 
 
-def percent_right(user):
+def percent_right(user: User) -> float:
     """returns percentage right for user"""
     total = UserCardTest.objects.filter(usercard__user=user).count()
     right = UserCardTest.objects.filter(
@@ -317,13 +320,13 @@ def percent_right(user):
     return float(right) / float(total) * 100.0
 
 
-def priority_stats(user):
+def priority_stats(user: User):
     """stats for cards of each priority"""
     for p in range(10, 0, -1):
         yield pstat(user, p)
 
 
-def pstat(user, p):
+def pstat(user: User, p: int):
     return dict(
         priority=p,
         tested=UserCard.objects.filter(
@@ -335,7 +338,7 @@ def pstat(user, p):
     )
 
 
-def rungs_stats(user):
+def rungs_stats(user: User):
     # TODO: convert to more efficient sql query
     d = dict()
     for x in range(-1, 11):
@@ -348,7 +351,7 @@ def rungs_stats(user):
         yield dict(rung=i, cards=d[i])
 
 
-def ease_stats(user):
+def ease_stats(user: User):
     # TODO: convert to more efficient sql query
     d = dict()
     for x in range(-1, 11):
@@ -361,27 +364,27 @@ def ease_stats(user):
         yield dict(ease=i, cards=d[i])
 
 
-def total_tested(user):
+def total_tested(user: User) -> int:
     return UserCard.objects.filter(user=user, rung__gte=0).count()
 
 
-def total_untested(user):
+def total_untested(user: User) -> int:
     return UserCard.objects.filter(user=user, rung=-1).count()
 
 
-def total_due(user):
+def total_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user, rung__gte=0, due__lte=datetime.now()
     ).count()
 
 
-def total_deck_due(user, deck):
+def total_deck_due(user: User, deck: Deck) -> int:
     return UserCard.objects.filter(
         user=user, rung__gte=0, card__deck=deck, due__lte=datetime.now()
     ).count()
 
 
-def next_hour_due(user):
+def next_hour_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
@@ -390,7 +393,7 @@ def next_hour_due(user):
     ).count()
 
 
-def next_day_due(user):
+def next_day_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
@@ -399,7 +402,7 @@ def next_day_due(user):
     ).count()
 
 
-def next_six_hours_due(user):
+def next_six_hours_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
@@ -408,7 +411,7 @@ def next_six_hours_due(user):
     ).count()
 
 
-def next_week_due(user):
+def next_week_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
@@ -417,7 +420,7 @@ def next_week_due(user):
     ).count()
 
 
-def next_month_due(user):
+def next_month_due(user: User) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
@@ -426,7 +429,7 @@ def next_month_due(user):
     ).count()
 
 
-def overdue_dates(user):
+def overdue_dates(user: User) -> list[int]:
     now = datetime.now()
     return [
         (now - u.due).seconds
@@ -437,7 +440,7 @@ def overdue_dates(user):
     ]
 
 
-def due_dates(user):
+def due_dates(user: User) -> list[int]:
     now = datetime.now()
     return [
         (u.due - now).seconds
@@ -448,17 +451,17 @@ def due_dates(user):
     ]
 
 
-def clumped_due_dates(user, num_clumps=50):
+def clumped_due_dates(user: User, num_clumps: int = 50) -> list[str]:
     data = due_dates(user)
     return clump(data, num_clumps)
 
 
-def clumped_overdue_dates(user, num_clumps=10):
+def clumped_overdue_dates(user: User, num_clumps: int = 10) -> list[str]:
     data = overdue_dates(user)
     return clump(data, num_clumps)
 
 
-def clump(data, num_clumps):
+def clump(data: list[int], num_clumps: int) -> list[str]:
     if len(data) <= num_clumps:
         return []
     maxn = max(data)
@@ -469,7 +472,7 @@ def clump(data, num_clumps):
 
     clumps = [
         len([x for x in data if x >= clump and x < clump + clumpsize])
-        for clump in range(minn, maxn, clumpsize)
+        for clump in range(minn, maxn, int(clumpsize))
     ]
     maxclump = max(clumps)
     return [
@@ -491,5 +494,5 @@ class UserCardTest(models.Model):
     old_rung = models.SmallIntegerField(default=0)
     new_rung = models.SmallIntegerField(default=0)
 
-    def rung_diff(self):
+    def rung_diff(self) -> int:
         return self.new_rung - self.old_rung
