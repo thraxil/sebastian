@@ -40,6 +40,7 @@ from .service import (
     get_or_create_deck,
     usercard_test_correct,
     usercard_test_wrong,
+    usercard_update,
 )
 
 
@@ -152,13 +153,11 @@ class CardView(LoggedInMixin, View):
     template_name = "card.html"
 
     def post(self, request, id):
+        front_content = request.POST.get("front", "")
+        back_content = request.POST.get("back", "")
+        priority = request.POST.get("priority", "5")
         card = get_object_or_404(UserCard, id=id)
-        card.card.front.content = request.POST.get("front", "")
-        card.card.front.save()
-        card.card.back.content = request.POST.get("back", "")
-        card.card.back.save()
-        card.priority = request.POST.get("priority", "5")
-        card.save()
+        usercard_update(card, front_content, back_content, priority)
         return HttpResponseRedirect(card.get_absolute_url())
 
     def get(self, request, id):

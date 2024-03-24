@@ -126,3 +126,14 @@ def get_or_create_deck(deck_name: str, user: User) -> Deck:
         return Deck.objects.get(name=deck_name, user=user)
     except Deck.DoesNotExist:
         return Deck.objects.create(name=deck_name, user=user)
+
+
+def usercard_update(
+    card: UserCard, front_content: str, back_content: str, priority: int
+) -> None:
+    card.card.front.content = front_content
+    card.card.front.save()
+    card.card.back.content = back_content
+    card.card.back.save()
+    card.priority = priority
+    card.save()
