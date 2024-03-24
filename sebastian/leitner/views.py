@@ -1,6 +1,3 @@
-# Create your views here.
-from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -13,7 +10,6 @@ from django.views.generic.list import ListView
 
 from .forms import AddFaceForm
 from .models import (
-    Card,
     Deck,
     Face,
     UserCard,
@@ -40,7 +36,7 @@ from .selectors import (
     user_percent_right,
     user_priority_stats,
 )
-from .service import usercard_test_correct, usercard_test_wrong
+from .service import create_card, usercard_test_correct, usercard_test_wrong
 
 
 class LoggedInMixin(object):
@@ -191,12 +187,12 @@ class AddCardView(LoggedInMixin, View):
         if front_form.is_valid() and back_form.is_valid():
             front = front_form.save()
             back = back_form.save()
-            card = Card.objects.create(front=front, back=back, deck=deck)
-            UserCard.objects.create(
-                card=card,
-                user=request.user,
-                due=datetime.now(),
-                priority=int(request.POST.get("priority", "1")),
+            create_card(
+                front,
+                back,
+                deck,
+                request.user,
+                int(request.POST.get("priority", "1")),
             )
             return HttpResponseRedirect("/add_card/")
         return render(
@@ -234,12 +230,12 @@ class AddMultipleCardsView(LoggedInMixin, View):
             back_content = "|".join(parts[1:])
             front = Face.objects.create(content=front_content)
             back = Face.objects.create(content=back_content)
-            card = Card.objects.create(front=front, back=back, deck=deck)
-            UserCard.objects.create(
-                card=card,
-                user=request.user,
-                due=datetime.now(),
-                priority=int(request.POST.get("priority", "1")),
+            create_card(
+                front,
+                back,
+                deck,
+                request.user,
+                int(request.POST.get("priority", "1")),
             )
         return HttpResponseRedirect("/add_card/")
 

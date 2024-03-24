@@ -3,7 +3,7 @@ from random import random
 
 from django.utils import timezone
 
-from .models import UserCard, UserCardTest
+from .models import Card, Deck, Face, User, UserCard, UserCardTest
 
 # Leitner's intervals
 INTERVALS = [
@@ -107,3 +107,15 @@ def usercard_update_due(usercard: UserCard) -> None:
     now = timezone.now()
     usercard.due = now + d
     usercard.save()
+
+
+def create_card(
+    front: Face, back: Face, deck: Deck, user: User, priority: int = 1
+) -> None:
+    card = Card.objects.create(front=front, back=back, deck=deck)
+    UserCard.objects.create(
+        card=card,
+        user=user,
+        due=timezone.now(),
+        priority=priority,
+    )
