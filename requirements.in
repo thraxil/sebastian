@@ -1,6 +1,6 @@
 Django==5.0.3
 psycopg2==2.9.9
-gunicorn==21.2.0
+gunicorn==22.0.0
 django-smoketest==1.2.1
 django-debug-toolbar==4.3.0
 django-waffle==4.1.0
