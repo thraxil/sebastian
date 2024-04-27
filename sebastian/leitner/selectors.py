@@ -58,6 +58,8 @@ def total_deck_due(user: User, deck: Deck) -> int:
 def user_percent_right(user: User) -> float:
     """returns percentage right for user"""
     total = UserCardTest.objects.filter(usercard__user=user).count()
+    if total == 0:
+        return 0.0
     right = UserCardTest.objects.filter(
         usercard__user=user, correct=True
     ).count()

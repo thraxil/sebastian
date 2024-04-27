@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -29,9 +30,11 @@ class Deck(models.Model):
     def num_cards(self) -> int:
         return self.card_set.all().count()
 
-    def num_cards_due(self, user: User) -> int:
+    def num_cards_due(self, user: User, now: Optional[datetime] = None) -> int:
+        if now is None:
+            now = datetime.now()
         return UserCard.objects.filter(
-            user=user, rung__gte=0, card__deck=self, due__lte=datetime.now()
+            user=user, rung__gte=0, card__deck=self, due__lte=now
         ).count()
 
     def num_unlearned(self, user: User) -> int:
