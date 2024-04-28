@@ -9,7 +9,7 @@ from django.utils import timezone
 from .models import Deck, UserCard, UserCardTest
 
 
-def rungs_stats(user: User) -> Generator[dict, None, None]:
+def rungs_stats(user: User) -> Generator[Dict[str, int], None, None]:
     # TODO: convert to more efficient sql query
     d = dict()
     for x in range(-1, 11):
@@ -22,7 +22,7 @@ def rungs_stats(user: User) -> Generator[dict, None, None]:
         yield dict(rung=i, cards=d[i])
 
 
-def ease_stats(user: User) -> Generator[dict, None, None]:
+def ease_stats(user: User) -> Generator[Dict[str, int], None, None]:
     # TODO: convert to more efficient sql query
     d = dict()
     for x in range(-1, 11):
