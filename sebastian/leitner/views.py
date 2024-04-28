@@ -1,8 +1,10 @@
-from django.contrib.auth.decorators import login_required
+from typing import Dict, Optional, cast
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -44,24 +46,18 @@ from .service import (
 )
 
 
-class LoggedInMixin(object):
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LoggedInMixin, self).dispatch(*args, **kwargs)
-
-
-class IndexView(LoggedInMixin, TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "index.html"
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs: object) -> Dict[str, object]:
         return dict(user=self.request.user)
 
 
 class DeckHandler(object):
-    def __init__(self, deck_id):
+    def __init__(self, deck_id: int) -> None:
         self.deck = get_object_or_404(Deck, id=deck_id)
 
-    def context_dict(self, user: User):
+    def context_dict(self, user: User) -> Dict[str, object]:
         return dict(
             card=next_deck_card(user, self.deck),
             total_due=total_deck_due(user, self.deck),
@@ -69,12 +65,15 @@ class DeckHandler(object):
             recent_tests=recent_tests(user, 100),
         )
 
-    def redirect(self):
+    def redirect(self) -> HttpResponse:
         return HttpResponseRedirect("/decks/%d/test/" % self.deck.id)
 
 
-class NullDeckHandler(object):
-    def context_dict(self, user: User):
+class NullDeckHandler(DeckHandler):
+    def __init__(self, deck_id: Optional[int]) -> None:
+        pass
+
+    def context_dict(self, user: User) -> Dict[str, object]:
         return dict(
             card=next_card(user),
             total_due=total_due(user),
@@ -82,28 +81,29 @@ class NullDeckHandler(object):
             recent_tests=recent_tests(user, 100),
         )
 
-    def redirect(self):
+    def redirect(self) -> HttpResponse:
         return HttpResponseRedirect("/test/")
 
 
-def make_deck_handler(deck_id=None):
+def make_deck_handler(deck_id: Optional[int] = None) -> DeckHandler:
     if deck_id is None:
-        return NullDeckHandler()
+        return NullDeckHandler(deck_id)
     return DeckHandler(deck_id)
 
 
-class TestView(LoggedInMixin, View):
+class TestView(LoginRequiredMixin, View):
     template_name = "test.html"
 
-    def get(self, request, id=None):
+    def get(self, request: HttpRequest, id: int) -> HttpResponse:
+        u = cast(User, request.user)
         deck_handler = make_deck_handler(id)
         return render(
             request,
             self.template_name,
-            deck_handler.context_dict(request.user),
+            deck_handler.context_dict(u),
         )
 
-    def post(self, request, id=None):
+    def post(self, request: HttpRequest, id: int) -> HttpResponse:
         deck_handler = make_deck_handler(id)
         uc = get_object_or_404(UserCard, id=request.POST.get("card"))
         if request.POST.get("right", "no") == "yes":
@@ -115,8 +115,8 @@ class TestView(LoggedInMixin, View):
         return deck_handler.redirect()
 
 
-class ExportDeckView(LoggedInMixin, View):
-    def get(self, request, id=None):
+class ExportDeckView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest, id: int) -> HttpResponse:
         deck = get_object_or_404(Deck, id=id)
         cards = [
             "{}|{}".format(c.front.content, c.back.content)
@@ -125,19 +125,19 @@ class ExportDeckView(LoggedInMixin, View):
         return HttpResponse("\n".join(cards), content_type="text/plain")
 
 
-class DecksView(LoggedInMixin, ListView):
+class DecksView(LoginRequiredMixin, ListView):
     template_name = "decks.html"
 
-    def get_queryset(self):
-        return user_decks(self.request.user)
+    def get_queryset(self) -> QuerySet[Deck]:
+        return user_decks(cast(User, self.request.user))
 
 
-class DeckView(LoggedInMixin, DetailView):
+class DeckView(LoginRequiredMixin, DetailView):
     template_name = "deck.html"
     model = Deck
     context_object_name = "deck"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: object) -> Dict[str, object]:
         context = super(DeckView, self).get_context_data(**kwargs)
         context["usercards"] = context["deck"].usercards(self.request.user)
         context["deck_total"] = len(
@@ -149,34 +149,34 @@ class DeckView(LoggedInMixin, DetailView):
         return context
 
 
-class CardView(LoggedInMixin, View):
+class CardView(LoginRequiredMixin, View):
     template_name = "card.html"
 
-    def post(self, request, id):
+    def post(self, request: HttpRequest, id: int) -> HttpResponse:
         front_content = request.POST.get("front", "")
         back_content = request.POST.get("back", "")
-        priority = request.POST.get("priority", "5")
+        priority = int(request.POST.get("priority", "5"))
         card = get_object_or_404(UserCard, id=id)
         usercard_update(card, front_content, back_content, priority)
         return HttpResponseRedirect(card.get_absolute_url())
 
-    def get(self, request, id):
+    def get(self, request: HttpRequest, id: str) -> HttpResponse:
         card = get_object_or_404(UserCard, id=id)
         return render(request, self.template_name, dict(card=card))
 
 
-def get_deck_name(post) -> str:
-    deck_name = post.get("deck", "")
+def get_deck_name(post: Dict[str, str]) -> str:
+    deck_name: str = post.get("deck", "")
     if deck_name == "":
-        return post.get("new_deck", "no deck")
+        return str(post.get("new_deck", "no deck"))
     return deck_name
 
 
-class AddCardView(LoggedInMixin, View):
+class AddCardView(LoginRequiredMixin, View):
     template_name = "add_card.html"
 
-    def post(self, request):
-        u = request.user
+    def post(self, request: HttpRequest) -> HttpResponse:
+        u = cast(User, request.user)
         deck = get_or_create_deck(get_deck_name(request.POST), u)
         front_form = AddFaceForm(request.POST, request.FILES, prefix="front")
         back_form = AddFaceForm(request.POST, request.FILES, prefix="back")
@@ -187,7 +187,7 @@ class AddCardView(LoggedInMixin, View):
                 front,
                 back,
                 deck,
-                request.user,
+                u,
                 int(request.POST.get("priority", "1")),
             )
             return HttpResponseRedirect("/add_card/")
@@ -195,29 +195,30 @@ class AddCardView(LoggedInMixin, View):
             request,
             self.template_name,
             dict(
-                decks=user_decks(request.user),
+                decks=user_decks(u),
                 front=front_form,
                 back=back_form,
             ),
         )
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
+        u = cast(User, request.user)
         front_form = AddFaceForm(prefix="front")
         back_form = AddFaceForm(prefix="back")
         return render(
             request,
             self.template_name,
             dict(
-                decks=user_decks(request.user),
+                decks=user_decks(u),
                 front=front_form,
                 back=back_form,
             ),
         )
 
 
-class AddMultipleCardsView(LoggedInMixin, View):
-    def post(self, request):
-        u = request.user
+class AddMultipleCardsView(LoginRequiredMixin, View):
+    def post(self, request: HttpRequest) -> HttpResponse:
+        u = cast(User, request.user)
         deck = get_or_create_deck(get_deck_name(request.POST), u)
         cards = request.POST.get("cards", "")
         for line in cards.split("\n"):
@@ -230,35 +231,36 @@ class AddMultipleCardsView(LoggedInMixin, View):
                 front,
                 back,
                 deck,
-                request.user,
+                u,
                 int(request.POST.get("priority", "1")),
             )
         return HttpResponseRedirect("/add_card/")
 
 
-class StatsView(LoggedInMixin, TemplateView):
+class StatsView(LoginRequiredMixin, TemplateView):
     template_name = "stats.html"
 
-    def get_context_data(self):
-        rungs = list(rungs_stats(self.request.user))
-        ease = list(ease_stats(self.request.user))
+    def get_context_data(self, **kwargs: object) -> Dict[str, object]:
+        u = cast(User, self.request.user)
+        rungs = list(rungs_stats(u))
+        ease = list(ease_stats(u))
         return dict(
             rungs=rungs,
             max_rung=max([r["cards"] for r in rungs]),
             ease=ease,
             max_ease=max([r["cards"] for r in ease]),
-            percent_right=user_percent_right(self.request.user),
-            priorities=user_priority_stats(self.request.user),
-            total_tested=total_tested(self.request.user),
-            total_untested=total_untested(self.request.user),
-            total_due=total_due(self.request.user),
-            first_due=first_due(self.request.user),
-            next_hour_due=next_hour_due(self.request.user),
-            next_six_hours_due=next_six_hours_due(self.request.user),
-            next_day_due=next_day_due(self.request.user),
-            next_week_due=next_week_due(self.request.user),
-            next_month_due=next_month_due(self.request.user),
+            percent_right=user_percent_right(u),
+            priorities=user_priority_stats(u),
+            total_tested=total_tested(u),
+            total_untested=total_untested(u),
+            total_due=total_due(u),
+            first_due=first_due(u),
+            next_hour_due=next_hour_due(u),
+            next_six_hours_due=next_six_hours_due(u),
+            next_day_due=next_day_due(u),
+            next_week_due=next_week_due(u),
+            next_month_due=next_month_due(u),
             recent_tests=UserCardTest.objects.filter(
-                usercard__user=self.request.user
+                usercard__user=u
             ).order_by("-timestamp")[:1000],
         )

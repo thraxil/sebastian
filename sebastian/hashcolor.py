@@ -12,8 +12,7 @@ def _adjust(v: int | float) -> float:
     v = float(v) / 255.0
     if v <= 0.0398:
         return v / 12.92
-    else:
-        return ((v + 0.055) / 1.055) ** 2.4
+    return float(((v + 0.055) / 1.055) ** 2.4)
 
 
 def luminosity(r: int | float, g: int | float, b: int | float) -> float:

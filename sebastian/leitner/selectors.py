@@ -1,6 +1,6 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from random import randint
-from typing import Generator, Optional
+from typing import Dict, Generator, Iterator, Optional
 
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
@@ -66,13 +66,13 @@ def user_percent_right(user: User) -> float:
     return float(right) / float(total) * 100.0
 
 
-def user_priority_stats(user: User):
+def user_priority_stats(user: User) -> Iterator[Dict[str, object]]:
     """stats for cards of each priority"""
     for p in range(10, 0, -1):
         yield pstat(user, p)
 
 
-def pstat(user: User, p: int):
+def pstat(user: User, p: int) -> Dict[str, object]:
     return dict(
         priority=p,
         tested=UserCard.objects.filter(
@@ -84,13 +84,27 @@ def pstat(user: User, p: int):
     )
 
 
-def next_hour_due(user: User) -> int:
+def due_range(user: User, lower: datetime, upper: datetime) -> int:
     return UserCard.objects.filter(
         user=user,
         rung__gte=0,
-        due__lte=timezone.now() + timedelta(hours=1),
-        due__gte=timezone.now(),
+        due__lte=upper,
+        due__gte=lower,
     ).count()
+
+
+def next_hour_due(user: User) -> int:
+    now = timezone.now()
+    return due_range(user=user, lower=now, upper=now + timedelta(hours=1))
+
+
+def next_six_hours_due(user: User) -> int:
+    now = timezone.now()
+    return due_range(
+        user=user,
+        lower=now + timedelta(hours=1),
+        upper=now + timedelta(hours=6),
+    )
 
 
 def next_day_due(user: User) -> int:
@@ -99,15 +113,6 @@ def next_day_due(user: User) -> int:
         rung__gte=0,
         due__lte=timezone.now() + timedelta(days=1),
         due__gte=timezone.now() + timedelta(hours=6),
-    ).count()
-
-
-def next_six_hours_due(user: User) -> int:
-    return UserCard.objects.filter(
-        user=user,
-        rung__gte=0,
-        due__lte=timezone.now() + timedelta(hours=6),
-        due__gte=timezone.now() + timedelta(hours=1),
     ).count()
 
 

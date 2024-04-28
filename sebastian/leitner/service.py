@@ -1,9 +1,10 @@
 from datetime import timedelta
 from random import random
 
+from django.contrib.auth.models import User
 from django.utils import timezone
 
-from .models import Card, Deck, Face, User, UserCard, UserCardTest
+from .models import Card, Deck, Face, UserCard, UserCardTest
 
 # Leitner's intervals
 INTERVALS = [
