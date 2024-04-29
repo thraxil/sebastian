@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from random import randint
-from typing import Dict, Generator, Iterator, Optional
+from typing import Dict, Generator, Iterator
 
 from django.contrib.auth.models import User
 from django.db.models import QuerySet
@@ -138,19 +138,19 @@ def user_decks(user: User) -> QuerySet[Deck]:
     return Deck.objects.filter(user=user)
 
 
-def next_card(user: User) -> Optional["UserCard"]:
+def next_card(user: User) -> UserCard | None:
     card = closest_due_card(user)
     if card is None:
         card = random_untested_card(user)
     return card
 
 
-def closest_due_card(user: User) -> Optional["UserCard"]:
-    r = UserCard.objects.filter(
-        user=user, due__lte=timezone.now(), rung__gte=0
-    ).order_by("due")
+def closest_due_card(user: User) -> UserCard | None:
+    now = timezone.now()
+    r = UserCard.objects.filter(user=user, due__lte=now, rung__gte=0).order_by(
+        "due"
+    )
     if r.count() > 0:
-        now = timezone.now()
         alldue = list(r)
         alldue.sort(key=lambda x: abs(x.due - now))
         return alldue[0]
@@ -158,7 +158,7 @@ def closest_due_card(user: User) -> Optional["UserCard"]:
         return None
 
 
-def random_untested_card(user: User) -> Optional["UserCard"]:
+def random_untested_card(user: User) -> UserCard | None:
     r = UserCard.objects.filter(user=user, rung=-1)
     c = r.count()
     if c > 0:
@@ -175,7 +175,7 @@ def random_untested_card(user: User) -> Optional["UserCard"]:
 
 def random_untested_from_priority(
     user: User, priority: int
-) -> Optional["UserCard"]:
+) -> UserCard | None:
     r = UserCard.objects.filter(user=user, rung=-1, priority=priority)
     c = r.count()
     if c > 0:
@@ -184,14 +184,14 @@ def random_untested_from_priority(
     return None
 
 
-def first_due(user: User) -> Optional["UserCard"]:
+def first_due(user: User) -> UserCard | None:
     r = UserCard.objects.filter(user=user, rung__gte=0).order_by("due")
     if r.count() > 0:
         return r[0]
     return None
 
 
-def first_deck_due(user: User, deck: Deck) -> Optional["UserCard"]:
+def first_deck_due(user: User, deck: Deck) -> UserCard | None:
     return (
         UserCard.objects.filter(user=user, rung__gte=0, card__deck=deck)
         .order_by("due")
@@ -199,20 +199,20 @@ def first_deck_due(user: User, deck: Deck) -> Optional["UserCard"]:
     )
 
 
-def recent_tests(user: User, n: int = 100) -> QuerySet["UserCardTest"]:
+def recent_tests(user: User, n: int = 100) -> QuerySet[UserCardTest]:
     return UserCardTest.objects.filter(usercard__user=user).order_by(
         "-timestamp"
     )[:n]
 
 
-def next_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
+def next_deck_card(user: User, deck: Deck) -> UserCard | None:
     card = first_due_deck_card(user, deck)
     if card is None:
         card = random_untested_deck_card(user, deck)
     return card
 
 
-def first_due_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
+def first_due_deck_card(user: User, deck: Deck) -> UserCard | None:
     return (
         UserCard.objects.filter(
             user=user, card__deck=deck, due__lte=timezone.now(), rung__gte=0
@@ -222,7 +222,7 @@ def first_due_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
     )
 
 
-def random_untested_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
+def random_untested_deck_card(user: User, deck: Deck) -> UserCard | None:
     r = UserCard.objects.filter(user=user, rung=-1, card__deck=deck)
     c = r.count()
     if c > 0:
@@ -239,7 +239,7 @@ def random_untested_deck_card(user: User, deck: Deck) -> Optional["UserCard"]:
 
 def random_untested_from_priority_in_deck(
     user: User, priority: int, deck: Deck
-) -> Optional["UserCard"]:
+) -> UserCard | None:
     r = UserCard.objects.filter(
         user=user, rung=-1, priority=priority, card__deck=deck
     )
