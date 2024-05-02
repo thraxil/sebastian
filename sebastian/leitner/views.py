@@ -103,7 +103,9 @@ class TestView(LoginRequiredMixin, View):
             deck_handler.context_dict(u),
         )
 
-    def post(self, request: HttpRequest, id: int) -> HttpResponse:
+    def post(
+        self, request: HttpRequest, id: int | None = None
+    ) -> HttpResponse:
         deck_handler = make_deck_handler(id)
         uc = get_object_or_404(UserCard, id=request.POST.get("card"))
         if request.POST.get("right", "no") == "yes":
