@@ -85,7 +85,7 @@ class NullDeckHandler(DeckHandler):
         return HttpResponseRedirect("/test/")
 
 
-def make_deck_handler(deck_id: Optional[int] = None) -> DeckHandler:
+def make_deck_handler(deck_id: int | None = None) -> DeckHandler:
     if deck_id is None:
         return NullDeckHandler(deck_id)
     return DeckHandler(deck_id)
@@ -94,7 +94,7 @@ def make_deck_handler(deck_id: Optional[int] = None) -> DeckHandler:
 class TestView(LoginRequiredMixin, View):
     template_name = "test.html"
 
-    def get(self, request: HttpRequest, id: int) -> HttpResponse:
+    def get(self, request: HttpRequest, id: int | None = None) -> HttpResponse:
         u = cast(User, request.user)
         deck_handler = make_deck_handler(id)
         return render(
