@@ -7,3 +7,8 @@ django-waffle==4.1.0
 sentry-sdk==2.8.0
 whitenoise==6.6.0
 factory_boy==3.3.0
+mypy==1.11.1
+mypy-extensions==1.0.0
+django-stubs[compatible-mypy]==5.0.4
+types-requests==2.31.0.20240311
+tomli==2.0.1
