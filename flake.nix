@@ -15,7 +15,8 @@
               pkgs.flyctl
 	      pkgs.postgresql
               pkgs.ruff
-              (pkgs.python310.withPackages (p: [
+              pkgs.uv
+              (pkgs.python311.withPackages (p: [
                 p.tox
                 p.pip-tools
                 p.psycopg2

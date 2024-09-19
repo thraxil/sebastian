@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 RUN apt-get update \
     && apt-get -y install libpq-dev gcc python3-dev
 

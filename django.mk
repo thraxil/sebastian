@@ -7,8 +7,8 @@ coverage: $(SENTINAL)
 	. $(VE)/bin/activate && $(VE)/bin/coverage run --source='$(APP)' $(MANAGE) test \
 	&& $(VE)/bin/coverage html -d reports --omit='*migrations*,*settings_*,*wsgi*'
 
-requirements.txt: requirements.in
-	pip-compile --generate-hashes --allow-unsafe --output-file requirements.txt requirements.in
+requirements.txt: requirements.in flake.lock
+	uv pip compile --generate-hashes --output-file requirements.txt requirements.in
 
 $(SENTINAL): $(REQUIREMENTS)
 	rm -rf $(VE)
