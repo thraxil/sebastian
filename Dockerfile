@@ -9,12 +9,14 @@ ENV PYTHONUNBUFFERED 1
 EXPOSE 8000
 ENV APP sebastian
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+RUN uv venv /app/.venv
 COPY requirements.txt .
-RUN pip install --no-deps --no-cache-dir -r requirements.txt
+RUN VIRTUAL_ENV=/app/.venv uv pip install --no-deps --no-cache-dir -r requirements.txt
 
 COPY . .
 ENV DJANGO_SETTINGS_MODULE sebastian.settings_docker
 ENV COMPRESS true
-RUN python manage.py collectstatic --verbosity 2 --noinput
+RUN /app/.venv/bin/python manage.py collectstatic --verbosity 2 --noinput
 ENTRYPOINT ["/usr/bin/env", "bash", "/app/entry-point.sh"]
 CMD ["run"]
