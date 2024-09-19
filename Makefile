@@ -7,7 +7,7 @@ all: test
 flake.lock: flake.nix
 	nix flake update
 
-VE ?= ./ve
+VE ?= ./.venv
 MANAGE ?= ./manage.py
 FLAKE8 ?= $(VE)/bin/flake8
 SYS_PYTHON ?= python3
@@ -25,10 +25,6 @@ jenkins: $(SENTINAL) check test
 test: $(REQUIREMENTS)
 	tox --parallel
 
-coverage: $(SENTINAL)
-	. $(VE)/bin/activate && $(VE)/bin/coverage run --source='$(APP)' $(MANAGE) test \
-	&& $(VE)/bin/coverage html -d reports --omit='*migrations*,*settings_*,*wsgi*'
-
 requirements.txt: requirements.in flake.lock
 	uv pip compile --generate-hashes --output-file requirements.txt requirements.in
 
@@ -40,19 +36,19 @@ $(SENTINAL): $(REQUIREMENTS)
 	touch $(SENTINAL)
 
 runserver: $(SENTINAL) check
-	$(MANAGE) runserver
+	$(VE)/bin/python $(MANAGE) runserver
 
 migrate: $(SENTINAL) check
-	$(MANAGE) migrate
+	$(VE)/bin/python $(MANAGE) migrate
 
 check: $(SENTINAL)
-	$(MANAGE) check
+	$(VE)/bin/python $(MANAGE) check
 
 shell: $(SENTINAL)
-	$(MANAGE) shell_plus
+	$(VE)/bin/python $(MANAGE) shell
 
 clean:
-	rm -rf ve
+	rm -rf .venv
 	rm -rf static/CACHE
 	rm -rf reports
 	rm celerybeat-schedule
@@ -72,10 +68,10 @@ rebase:
 	make migrate
 
 collectstatic: $(SENTINAL) check
-	$(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
+	$(VE)/bin/python $(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
 
 compress: $(SENTINAL) check
-	$(MANAGE) compress --settings=$(APP).settings_production
+	$(VE)/bin/python $(MANAGE) compress --settings=$(APP).settings_production
 
 # run this one the very first time you check
 # this out on a new machine to set up dev
@@ -83,9 +79,7 @@ compress: $(SENTINAL) check
 # to run it after that, though.
 install: $(SENTINAL) check test
 	createdb $(APP)
-	$(MANAGE) syncdb --noinput
+	$(VE)/bin/python $(MANAGE) syncdb --noinput
 	make migrate
 
 .PHONY: clean collectstatic compress install pull rebase shell check migrate runserver test jenkins
-ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-

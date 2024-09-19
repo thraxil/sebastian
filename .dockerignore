@@ -8,3 +8,4 @@ deploy
 shell.nix
 .envrc
 .tox
+.venv
