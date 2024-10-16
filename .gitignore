@@ -10,3 +10,5 @@ wheelhouse
 .direnv
 staticfiles
 .venv
+build
+*.egg-info/
