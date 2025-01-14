@@ -10,9 +10,9 @@ certifi==2024.7.4 \
     --hash=sha256:5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b \
     --hash=sha256:c198e21b1289c2ab85ee4e67bb4b4ef3ead0892059901a8d5b622f24a1101e90
     # via sentry-sdk
-django==5.0.10 \
-    --hash=sha256:0f6cbc56cc298b0451d20a5120c6a8731e9073330fb5d84295c23c151a1eb300 \
-    --hash=sha256:c8fab2c553750933c8e7f5f95e5507e138e6acf6c2b4581cb691e70fe3ed747b
+django==5.0.11 \
+    --hash=sha256:09e8128f717266bf382d82ffa4933f13da05d82579abf008ede86acb15dec88b \
+    --hash=sha256:e7d98fa05ce09cb3e8d5ad6472fb602322acd1740bfdadc29c8404182d664f65
     # via
     #   -r requirements.in
     #   django-debug-toolbar
