@@ -56,7 +56,7 @@
       };
       tox-uv = pkgs.python312Packages.buildPythonPackage {
         pname = "tox-uv";
-        version = "1.11.0";
+        version = "1.25.0";
         format = "pyproject";
         src = pkgs.fetchPypi {
           pname = "tox_uv";
@@ -76,23 +76,23 @@
               pkgs.ruff
               pkgs.uv
               (pkgs.python312.withPackages (p: [
-	        p.django
-		p.django-debug-toolbar
-		django-smoketest
-		p.django-stubs
-		django-waffle
-		p.factory-boy
-		p.gunicorn
-		p.mypy
-		p.mypy-extensions
+                p.django
+                p.django-debug-toolbar
+                django-smoketest
+                p.django-stubs
+                django-waffle
+                p.factory-boy
+                p.gunicorn
+                p.mypy
+                p.mypy-extensions
                 p.pip-tools
                 p.psycopg2
-		sentry-sdk
-		p.tomli
+                sentry-sdk
+                p.tomli
                 p.tox
-		tox-uv
-		p.types-requests
-		whitenoise
+                tox-uv
+                p.types-requests
+                whitenoise
               ]))
             ];
           };
