@@ -3,7 +3,7 @@ from typing import Tuple
 
 
 def color(phrase: str) -> str:
-    m = hashlib.md5()  # nosec
+    m = hashlib.md5()  # noqa: S324
     m.update(phrase.encode("utf-8"))
     return m.hexdigest()[:6]
 
@@ -42,15 +42,7 @@ if __name__ == "__main__":
     words = [line for line in open("/usr/share/dict/words")]
     random.shuffle(words)
 
-    print("<table>")
     for word in words[:1000]:
         word = word.strip()
         hex = color(word)
-        print("<tr>")
         bghex = "%02x%02x%02x" % make_contrasting(hex)
-        print(
-            """<td bgcolor="#%s"><font color="#%s">%s</font></td>"""
-            % (hex, bghex, word)
-        )
-        print("</tr>")
-    print("</table>")

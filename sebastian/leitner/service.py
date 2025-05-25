@@ -102,7 +102,7 @@ def usercard_update_due(usercard: UserCard) -> None:
     n *= 1.0 + (usercard.ease / 10.0)
 
     # add a 10% plus or minus to smoothe things out a bit
-    n = ((n * 0.2) * random()) + (n * 0.9)  # nosec
+    n = ((n * 0.2) * random()) + (n * 0.9)  # noqa: S311
 
     d = timedelta(**{u: n})
     now = timezone.now()

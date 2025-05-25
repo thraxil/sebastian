@@ -44,7 +44,7 @@ SITE_ID = 1
 USE_I18N = False
 MEDIA_ROOT = "/var/www/" + app + "/uploads/"
 MEDIA_URL = "/uploads/"
-SECRET_KEY = "you must override this"  # nosec
+SECRET_KEY = "you must override this"  # noqa: S105
 
 ROOT_URLCONF = app + ".urls"
 
