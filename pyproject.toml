@@ -3,6 +3,7 @@ name = "sebastian"
 version = "0.1.0"
 description = "SRS app"
 readme = "README.markdown"
+requires-python = ">=3.11"
 dependencies = [
 "Django==5.1.9",
 "psycopg2==2.9.10",
