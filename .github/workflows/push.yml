@@ -8,7 +8,6 @@ jobs:
         python-version: ["3.11"]
         tox-env:
           - py3
-          - bandit
           - ruff-format
           - ruff-check
           - mypy

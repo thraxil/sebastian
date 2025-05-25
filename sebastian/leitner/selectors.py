@@ -179,7 +179,7 @@ def random_untested_from_priority(
     r = UserCard.objects.filter(user=user, rung=-1, priority=priority)
     c = r.count()
     if c > 0:
-        return r[randint(0, c - 1)]  # nosec
+        return r[randint(0, c - 1)]  # noqa: S311
     # no untested cards
     return None
 
@@ -245,6 +245,6 @@ def random_untested_from_priority_in_deck(
     )
     c = r.count()
     if c > 0:
-        return r[randint(0, c - 1)]  # nosec
+        return r[randint(0, c - 1)]  # noqa: S311
     # no untested cards
     return None

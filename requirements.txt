@@ -28,7 +28,7 @@ django-smoketest==1.2.1 \
     --hash=sha256:6fc0b6603dd69ce20f341b0498ca25c39251a0380d0cf1f115eeba834a2330fe \
     --hash=sha256:708f75c9855af737b3fe5403cb83107cf3d0d3511bb7f816cb8753ce63f0a87b
     # via -r requirements.in
-django-stubs[compatible-mypy]==5.0.4 \
+django-stubs==5.0.4 \
     --hash=sha256:78e3764488fdfd2695f12502136548ec22f8d4b1780541a835042b8238d11514 \
     --hash=sha256:c2502f5ecbae50c68f9a86d52b5b2447d8648fd205036dad0ccb41e19a445927
     # via -r requirements.in
