@@ -22,10 +22,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .tox
-          # requirements.txt, tox.ini, and setup.cfg have
+          # uv.lock, tox.ini, and setup.cfg have
           # versioning info that would impact the tox environment. hashFiles
           # only takes a single file path or pattern at the moment.
-          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('setup.cfg') }}-${{ hashFiles('requirements.txt') }}-${{ hashFiles('tox.ini') }}
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('setup.cfg') }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('tox.ini') }}
       - id: tox
         name: Test with tox
         run: |

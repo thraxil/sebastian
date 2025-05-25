@@ -1,0 +1,21 @@
+[project]
+name = "sebastian"
+version = "0.1.0"
+description = "SRS app"
+readme = "README.markdown"
+dependencies = [
+"Django==5.1.9",
+"psycopg2==2.9.10",
+"gunicorn==23.0.0",
+"django-smoketest==1.2.1",
+"django-debug-toolbar==5.2.0",
+"django-waffle==4.2.0",
+"sentry-sdk==2.29.1",
+"whitenoise==6.9.0",
+"factory_boy==3.3.3",
+"mypy==1.11.1",
+"mypy-extensions==1.1.0",
+"django-stubs[compatible-mypy]==5.0.4",
+"types-requests==2.32.0.20250515",
+"tomli==2.2.1",
+]

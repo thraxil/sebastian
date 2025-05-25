@@ -6,19 +6,18 @@ flake.lock: flake.nix
 
 MANAGE ?= ./manage.py
 SENTINAL ?= .venv/bin/activate
-REQUIREMENTS ?= requirements.txt
 
 jenkins: $(SENTINAL) check test
 
-test: $(REQUIREMENTS)
+test: uv.lock
 	tox --parallel
 
-requirements.txt: requirements.in flake.lock
-	uv pip compile --generate-hashes --output-file requirements.txt requirements.in
+uv.lock: pyproject.toml
+	uv lock
 
-$(SENTINAL): $(REQUIREMENTS)
+$(SENTINAL): uv.lock
 	test -d .venv || uv venv .venv
-	VIRTUAL_ENV=.venv uv pip install --requirement $(REQUIREMENTS)
+	VIRTUAL_ENV=.venv uv pip install -r pyproject.toml
 
 runserver: $(SENTINAL) check
 	.venv/bin/python $(MANAGE) runserver
