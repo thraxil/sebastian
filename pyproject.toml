@@ -6,7 +6,7 @@ readme = "README.markdown"
 requires-python = ">=3.11"
 dependencies = [
 "Django==5.1.9",
-"psycopg2==2.9.10",
+"psycopg2-binary==2.9.10",
 "gunicorn==23.0.0",
 "django-smoketest==1.2.1",
 "django-debug-toolbar==5.2.0",
@@ -14,9 +14,42 @@ dependencies = [
 "sentry-sdk==2.29.1",
 "whitenoise==6.9.0",
 "factory_boy==3.3.3",
-"mypy==1.11.1",
-"mypy-extensions==1.1.0",
-"django-stubs[compatible-mypy]==5.0.4",
-"types-requests==2.32.0.20250515",
 "tomli==2.2.1",
 ]
+[dependency-groups]
+dev = [
+"mypy==1.11.1",
+"typing-extensions==4.12.2",
+"mypy-extensions==1.0.0",
+"django-stubs[compatible-mypy]==5.0.4",
+"ruff==0.9.10",
+]
+
+[tool.mypy]
+plugins = [
+    "mypy_django_plugin.main",
+    ]
+ignore_missing_imports = true
+namespace_packages = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict_equality = true
+strict_concatenate = true
+check_untyped_defs = true
+# disallow_subclassing_any = true
+disallow_untyped_decorators = true
+# disallow_any_generics = true
+
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+
+no_implicit_reexport = true
+warn_return_any = true
+exclude = [
+    'tests',
+]
+
+[tool.django-stubs]
+django_settings_module = "sebastian.settings"

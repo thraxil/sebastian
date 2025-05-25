@@ -4,32 +4,23 @@ all: test
 flake.lock: flake.nix
 	nix flake update
 
-MANAGE ?= ./manage.py
-SENTINAL ?= .venv/bin/activate
-
-jenkins: $(SENTINAL) check test
-
 test: uv.lock
 	tox --parallel
 
 uv.lock: pyproject.toml
 	uv lock
 
-$(SENTINAL): uv.lock
-	test -d .venv || uv venv .venv
-	VIRTUAL_ENV=.venv uv pip install -r pyproject.toml
+runserver: check
+	uv run manage.py runserver
 
-runserver: $(SENTINAL) check
-	.venv/bin/python $(MANAGE) runserver
+migrate: check
+	uv run manage.py migrate
 
-migrate: $(SENTINAL) check
-	.venv/bin/python $(MANAGE) migrate
+check: uv.lock
+	uv run -- manage.py check
 
-check: $(SENTINAL)
-	.venv/bin/python $(MANAGE) check
-
-shell: $(SENTINAL)
-	.venv/bin/python $(MANAGE) shell
+shell: check
+	uv run manage.py shell
 
 clean:
 	rm -rf .venv
@@ -51,19 +42,16 @@ rebase:
 	make test
 	make migrate
 
-collectstatic: $(SENTINAL) check
-	.venv/bin/python $(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
-
-compress: $(SENTINAL) check
-	.venv/bin/python $(MANAGE) compress --settings=$(APP).settings_production
+collectstatic: check
+	uv run manage.py collectstatic --noinput --settings=$(APP).settings_production
 
 # run this one the very first time you check
 # this out on a new machine to set up dev
 # database, etc. You probably *DON'T* want
 # to run it after that, though.
-install: $(SENTINAL) check test
+install: check test
 	createdb $(APP)
-	.venv/bin/python $(MANAGE) syncdb --noinput
+	uv run manage.py syncdb --noinput
 	make migrate
 
 .PHONY: clean collectstatic compress install pull rebase shell check migrate runserver test jenkins
