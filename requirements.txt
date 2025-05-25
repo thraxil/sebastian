@@ -36,9 +36,9 @@ django-stubs-ext==5.0.4 \
     --hash=sha256:85da065224204774208be29c7d02b4482d5a69218a728465c2fbe41725fdc819 \
     --hash=sha256:910cbaff3d1e8e806a5c27d5ddd4088535aae8371ea921b7fd680fdfa5f14e30
     # via django-stubs
-django-waffle==4.1.0 \
-    --hash=sha256:5979a2f3dd674ef7086480525b39651fc2045427f6d8e6a614192656d3402c5b \
-    --hash=sha256:e49d7d461d89f3bd8e53f20efe39310acca8f275c9888495e68e195345bf18b1
+django-waffle==4.2.0 \
+    --hash=sha256:774f45b929627c9d303620c85419ce1da54066f2082d741af014f5bbd747e372 \
+    --hash=sha256:97709550f4e75ce2a20b13e29f39777e1439a968569f2ee89398ca368afd586c
     # via -r requirements.in
 factory-boy==3.3.3 \
     --hash=sha256:1c39e3289f7e667c4285433f305f8d506efc2fe9c73aaea4151ebd5cdea394fc \
