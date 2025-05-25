@@ -11,4 +11,4 @@ mypy==1.11.1
 mypy-extensions==1.1.0
 django-stubs[compatible-mypy]==5.0.4
 types-requests==2.32.0.20250515
-tomli==2.0.1
+tomli==2.2.1
