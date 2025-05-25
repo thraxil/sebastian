@@ -11,7 +11,8 @@ ENV APP sebastian
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 RUN uv venv /app/.venv
-COPY requirements.txt .
+COPY pyproject.toml .
+COPY uv.lock .
 RUN VIRTUAL_ENV=/app/.venv uv pip install --no-cache-dir -r pyproject.toml
 
 COPY . .
