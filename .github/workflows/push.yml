@@ -5,11 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.12"]
         tox-env:
-          - py3
-          - ruff-format
-          - ruff-check
+          - test
+          - ruff
           - mypy
     steps:
       - uses: actions/checkout@v4.2.2
@@ -29,5 +28,5 @@ jobs:
       - id: tox
         name: Test with tox
         run: |
-          pip install tox-uv==1.11.4
-          tox -e ${{ matrix.tox-env }}   
+          pip install uv==0.7.7
+          make ${{ matrix.tox-env }}

@@ -4,10 +4,10 @@ all: test
 flake.lock: flake.nix
 	nix flake update
 
-test: uv.lock
-	tox --parallel
+test: uv.lock check ruff mypy
+	uv run -- manage.py test
 
-uv.lock: pyproject.toml
+uv.lock: pyproject.toml flake.lock
 	uv lock
 
 runserver: check
@@ -24,6 +24,13 @@ check: uv.lock
 
 shell: check
 	uv run -- manage.py shell
+
+ruff:
+	uv run -- ruff check --select I --fix sebastian
+	uv run -- ruff format sebastian
+
+mypy:
+	uv run -- mypy sebastian
 
 clean:
 	rm -rf .venv
