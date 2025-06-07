@@ -6,9 +6,10 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12"]
-        tox-env:
+        test-action:
           - test
-          - ruff
+          - check
+          - ruff-check
           - mypy
     steps:
       - uses: actions/checkout@v4.2.2
@@ -16,17 +17,17 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Cache tox environments
-        id: cache-tox
+      - name: Cache venv
+        id: cache-venv
         uses: actions/cache@v4
         with:
-          path: .tox
-          # uv.lock, pyproject.toml, and tox.ini have
-          # versioning info that would impact the tox environment. hashFiles
+          path: .venv
+          # uv.lock, pyproject.toml, and Makefile have
+          # versioning info that would impact the environment. hashFiles
           # only takes a single file path or pattern at the moment.
-          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('tox.ini') }}
-      - id: tox
-        name: Test with tox
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('Makefile') }}
+      - id: test
+        name: Test
         run: |
           pip install uv==0.7.7
-          make ${{ matrix.tox-env }}
+          make ${{ matrix.test-action }}

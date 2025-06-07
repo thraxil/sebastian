@@ -1,10 +1,13 @@
 APP=sebastian
-all: test
+all: fulltest
 
 flake.lock: flake.nix
 	nix flake update
 
-test: uv.lock check ruff mypy
+test: uv.lock
+	uv run -- manage.py test
+
+fulltest: uv.lock check ruff-format mypy
 	uv run -- manage.py test
 
 uv.lock: pyproject.toml flake.lock
@@ -25,9 +28,11 @@ check: uv.lock
 shell: check
 	uv run -- manage.py shell
 
-ruff:
-	uv run -- ruff check --select I --fix sebastian
+ruff-format: ruff-check
 	uv run -- ruff format sebastian
+
+ruff-check:
+	uv run -- ruff check --select I --fix sebastian
 
 mypy:
 	uv run -- mypy sebastian
