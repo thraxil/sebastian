@@ -22,10 +22,10 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          # uv.lock, pyproject.toml, and Makefile have
+          # uv.lock and pyproject.toml have
           # versioning info that would impact the environment. hashFiles
           # only takes a single file path or pattern at the moment.
-          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.tox-env }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('Makefile') }}
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('uv.lock') }}
       - id: test
         name: Test
         run: |

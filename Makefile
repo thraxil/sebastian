@@ -1,4 +1,5 @@
 APP=sebastian
+
 all: fulltest
 
 flake.lock: flake.nix
@@ -29,13 +30,13 @@ shell: check
 	uv run -- manage.py shell
 
 ruff-format: ruff-check
-	uv run -- ruff format sebastian
+	uv run -- ruff format $(APP)
 
 ruff-check:
-	uv run -- ruff check --select I --fix sebastian
+	uv run -- ruff check --select I --fix $(APP)
 
 mypy:
-	uv run -- mypy sebastian
+	uv run -- mypy $(APP)
 
 clean:
 	rm -rf .venv
