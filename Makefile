@@ -11,7 +11,7 @@ test: uv.lock
 fulltest: uv.lock check ruff-format mypy
 	uv run -- manage.py test
 
-uv.lock: pyproject.toml flake.lock
+uv.lock: pyproject.toml
 	uv lock
 
 runserver: check
