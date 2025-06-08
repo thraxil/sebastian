@@ -18,7 +18,6 @@
               pkgs.uv
               (pkgs.python312.withPackages (p: [
                 p.psycopg2
-		p.tox
               ]))
             ];
           };
