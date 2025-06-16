@@ -95,14 +95,14 @@ wheels = [
 
 [[package]]
 name = "django-waffle"
-version = "4.2.0"
+version = "5.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e9/4b/3189241d51f582f1447ad528ed11fffad138d7d9ca3f931220a0da387e3e/django_waffle-4.2.0.tar.gz", hash = "sha256:97709550f4e75ce2a20b13e29f39777e1439a968569f2ee89398ca368afd586c", size = 36538, upload-time = "2024-11-15T17:33:31.816Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/22/e1/6f533da0d4ac89f427dfd9410e39bfc14ae3a23335ecd549d76be4b2a834/django_waffle-5.0.0.tar.gz", hash = "sha256:62f9d00eedf68dafb82657beab56e601bddedc1ea1ccfef91d83df8658708509", size = 37761, upload-time = "2025-06-12T07:38:54.895Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/61/64/d9d77ae9fdf00e16cd75199a28c40937e5584992cd6c7763b4f2c1bceadd/django_waffle-4.2.0-py3-none-any.whl", hash = "sha256:774f45b929627c9d303620c85419ce1da54066f2082d741af014f5bbd747e372", size = 46785, upload-time = "2024-11-15T17:33:30.094Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/d2/6f0d664bd35a3fdd0403655c7c32ec290704923f11541ef356b180cd8fbf/django_waffle-5.0.0-py3-none-any.whl", hash = "sha256:3312851d9d926b76b9e90712355781700a383b82b5bf2b61e1f1be97532c0f3d", size = 48137, upload-time = "2025-06-12T07:38:53.698Z" },
 ]
 
 [[package]]
@@ -264,7 +264,7 @@ requires-dist = [
     { name = "django", specifier = "==5.1.10" },
     { name = "django-debug-toolbar", specifier = "==5.2.0" },
     { name = "django-smoketest", specifier = "==1.2.1" },
-    { name = "django-waffle", specifier = "==4.2.0" },
+    { name = "django-waffle", specifier = "==5.0.0" },
     { name = "factory-boy", specifier = "==3.3.3" },
     { name = "gunicorn", specifier = "==23.0.0" },
     { name = "psycopg2-binary", specifier = "==2.9.10" },
