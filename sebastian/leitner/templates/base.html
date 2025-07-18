@@ -20,10 +20,10 @@
     <div class="navbar navbar-default">
         <div class="container-fluid">
             <ul class="nav navbar-nav">
-							<li><a href="/test/">test</a></li>
-							<li><a href="/add_card/">add</a></li>
-							<li><a href="/stats/">stats</a></li>
-							<li><a href="/decks/">decks</a></li>
+							<li><a href="{% url 'test' %}">test</a></li>
+							<li><a href="{% url 'add-card' %}">add</a></li>
+							<li><a href="{% url 'stats' %}">stats</a></li>
+							<li><a href="{% url 'decks-list' %}">decks</a></li>
             </ul>
         </div>
     </div>
