@@ -11,7 +11,7 @@ dependencies = [
 "django-smoketest==1.2.1",
 "django-debug-toolbar==5.2.0",
 "django-waffle==5.0.0",
-"sentry-sdk==2.32.0",
+"sentry-sdk==2.33.0",
 "whitenoise==6.9.0",
 "factory_boy==3.3.3",
 "tomli==2.2.1",
