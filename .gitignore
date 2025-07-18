@@ -12,3 +12,4 @@ staticfiles
 .venv
 build
 *.egg-info/
+.aider*
