@@ -22,7 +22,7 @@ dev = [
 "typing-extensions==4.14.1",
 "mypy-extensions==1.1.0",
 "django-stubs[compatible-mypy]==5.0.4",
-"ruff==0.9.10",
+"ruff==0.12.7",
 ]
 
 [tool.mypy]
