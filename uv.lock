@@ -250,7 +250,7 @@ requires-dist = [
     { name = "factory-boy", specifier = "==3.3.3" },
     { name = "gunicorn", specifier = "==23.0.0" },
     { name = "psycopg", specifier = "==3.2.9" },
-    { name = "sentry-sdk", specifier = "==2.33.0" },
+    { name = "sentry-sdk", specifier = "==2.34.1" },
     { name = "tomli", specifier = "==2.2.1" },
     { name = "whitenoise", specifier = "==6.9.0" },
 ]
@@ -266,15 +266,15 @@ dev = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.33.0"
+version = "2.34.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/09/0b/6139f589436c278b33359845ed77019cd093c41371f898283bbc14d26c02/sentry_sdk-2.33.0.tar.gz", hash = "sha256:cdceed05e186846fdf80ceea261fe0a11ebc93aab2f228ed73d076a07804152e", size = 335233, upload-time = "2025-07-15T12:07:42.413Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/38/10d6bfe23df1bfc65ac2262ed10b45823f47f810b0057d3feeea1ca5c7ed/sentry_sdk-2.34.1.tar.gz", hash = "sha256:69274eb8c5c38562a544c3e9f68b5be0a43be4b697f5fd385bf98e4fbe672687", size = 336969, upload-time = "2025-07-30T11:13:37.93Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/e5/f24e9f81c9822a24a2627cfcb44c10a3971382e67e5015c6e068421f5787/sentry_sdk-2.33.0-py2.py3-none-any.whl", hash = "sha256:a762d3f19a1c240e16c98796f2a5023f6e58872997d5ae2147ac3ed378b23ec2", size = 356397, upload-time = "2025-07-15T12:07:40.729Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/3e/bb34de65a5787f76848a533afbb6610e01fbcdd59e76d8679c254e02255c/sentry_sdk-2.34.1-py2.py3-none-any.whl", hash = "sha256:b7a072e1cdc5abc48101d5146e1ae680fa81fe886d8d95aaa25a0b450c818d32", size = 357743, upload-time = "2025-07-30T11:13:36.145Z" },
 ]
 
 [[package]]
