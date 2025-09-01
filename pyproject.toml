@@ -19,7 +19,7 @@ dependencies = [
 [dependency-groups]
 dev = [
 "mypy==1.11.1",
-"typing-extensions==4.14.1",
+"typing-extensions==4.15.0",
 "mypy-extensions==1.1.0",
 "django-stubs[compatible-mypy]==5.0.4",
 "ruff==0.12.11",
