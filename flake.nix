@@ -16,7 +16,6 @@
               pkgs.postgresql
               pkgs.uv
               (pkgs.python312.withPackages (p: [
-                p.psycopg2
               ]))
             ];
           };
