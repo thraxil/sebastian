@@ -1,5 +1,0 @@
-exclude = ["migrations"]
-line-length = 79
-
-[lint.mccabe]
-max-complexity = 5

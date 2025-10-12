@@ -52,3 +52,10 @@ exclude = [
 
 [tool.django-stubs]
 django_settings_module = "sebastian.settings"
+
+[tool.ruff]
+exclude = ["migrations"]
+line-length = 79
+
+[tool.ruff.lint.mccabe]
+max-complexity = 5
