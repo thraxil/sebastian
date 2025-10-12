@@ -14,7 +14,6 @@
             buildInputs = [
               pkgs.flyctl
               pkgs.postgresql
-	      pkgs.ruff
               pkgs.uv
               (pkgs.python312.withPackages (p: [
                 p.psycopg2
