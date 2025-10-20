@@ -15,7 +15,7 @@ processes = []
   AWS_STORAGE_BUCKET_NAME="thraxil-sebastian-static-prod"
 
 [deploy]
-  release_command = "/run.sh migrate"
+  release_command = "migrate"
 
 [[statics]]
   guest_path = "/app/staticfiles"
