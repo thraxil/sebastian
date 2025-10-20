@@ -87,6 +87,5 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "waffle.middleware.WaffleMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
