@@ -6,7 +6,7 @@ readme = "README.markdown"
 requires-python = ">=3.12"
 dependencies = [
 "Django==5.1.13",
-"psycopg==3.2.11",
+"psycopg==3.2.12",
 "gunicorn==23.0.0",
 "django-smoketest==1.2.1",
 "django-debug-toolbar==6.0.0",
