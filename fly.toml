@@ -8,9 +8,9 @@ processes = []
 
 [env]
   ALLOWED_HOSTS="cards.thraxil.org,sebastian.fly.dev"
-  DB_USER="sebastian_350gjxv754xer9ql"
+  DB_USER="sebastian"
   DB_PORT="5432"
-  DB_HOST="thraxil-postgres.internal"
+  DB_HOST="pgbouncer.z7y24odj642ogqd1.flympg.net"
   AWS_S3_CUSTOM_DOMAIN="d1txj5n8ebgwx3.cloudfront.net"
   AWS_STORAGE_BUCKET_NAME="thraxil-sebastian-static-prod"
 
