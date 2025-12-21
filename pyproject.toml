@@ -10,7 +10,7 @@ dependencies = [
 "gunicorn==23.0.0",
 "django-smoketest==1.2.1",
 "django-debug-toolbar==6.1.0",
-"sentry-sdk==2.47.0",
+"sentry-sdk==2.48.0",
 "whitenoise==6.11.0",
 "factory_boy==3.3.3",
 ]
