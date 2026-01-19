@@ -21,6 +21,8 @@ This file provides a summary of useful commands for this project, derived from t
 
 **Important on tests**: Do not use `pytest` or `freezegun`. Stick to plain Django tests (i.e. `django.test.TestCase`).
 
+**Note on types**: Always add type hints and check with `make mypy` before finishing. Use the newer style `dict`, `list`, etc. not the older `Dict`, `List`, etc.
+
 ## Database
 
 *   `make migrate`: Apply database migrations.
