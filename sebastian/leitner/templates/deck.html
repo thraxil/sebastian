@@ -42,7 +42,7 @@
 </td>
 <td>{{ card.rung }}</td>
 <td>{{ card.ease }}</td>
-<td>{% ifnotequal card.rung -1 %}{{ card.due|date:"D, F j G:i:s" }}{% endifnotequal %}</td>
+<td>{% if card.rung != -1 %}{{ card.due|date:"D, F j G:i:s" }}{% endif %}</td>
 </tr>
 {% endfor %}
 </tbody>

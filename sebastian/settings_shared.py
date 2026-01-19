@@ -157,3 +157,12 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+if "test" in sys.argv:
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+    INSTALLED_APPS.remove("debug_toolbar")
+    MIDDLEWARE.remove("debug_toolbar.middleware.DebugToolbarMiddleware")

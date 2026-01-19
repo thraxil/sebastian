@@ -1,5 +1,6 @@
 import factory
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from sebastian.leitner.models import Card, Deck, Face, UserCard
 
@@ -42,3 +43,4 @@ class UserCardFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     card = factory.SubFactory(CardFactory)
+    due = factory.LazyFunction(timezone.now)

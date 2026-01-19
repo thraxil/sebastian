@@ -17,6 +17,8 @@ This file provides a summary of useful commands for this project, derived from t
 *   `make mypy`: Run MyPy for type checking.
 *   `make check`: Run Django's system check.
 
+**Note on tests**: Avoid using `setUp()` methods in test classes; prefer to set up necessary components directly within each test function.
+
 ## Database
 
 *   `make migrate`: Apply database migrations.
