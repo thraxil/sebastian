@@ -16,7 +16,7 @@ from .factories import (
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestIndexView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         client = Client()
         client.force_login(user)
@@ -29,7 +29,7 @@ class TestIndexView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestDecksView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         deck = DeckFactory(user=user)
         client = Client()
@@ -45,7 +45,7 @@ class TestDecksView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestDeckView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         deck = DeckFactory(user=user)
         client = Client()
@@ -60,7 +60,7 @@ class TestDeckView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestStatsView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         client = Client()
         client.force_login(user)
@@ -74,7 +74,7 @@ class TestStatsView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestCardView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         user_card = UserCardFactory(user=user)
         client = Client()
@@ -85,7 +85,7 @@ class TestCardView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "card.html")
 
-    def test_post_update(self):
+    def test_post_update(self) -> None:
         user = UserFactory()
         user_card = UserCardFactory(user=user)
         client = Client()
@@ -109,7 +109,7 @@ class TestCardView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestAddCardView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         client = Client()
         client.force_login(user)
@@ -117,7 +117,7 @@ class TestAddCardView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "add_card.html")
 
-    def test_post_new_card(self):
+    def test_post_new_card(self) -> None:
         user = UserFactory()
         deck = DeckFactory(user=user)
         client = Client()
@@ -133,7 +133,7 @@ class TestAddCardView(TestCase):
         self.assertEqual(Card.objects.count(), 1)
         self.assertEqual(UserCard.objects.count(), 1)
 
-    def test_post_new_card_new_deck(self):
+    def test_post_new_card_new_deck(self) -> None:
         user = UserFactory()
         client = Client()
         client.force_login(user)
@@ -153,7 +153,7 @@ class TestAddCardView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestAddMultipleCardsView(TestCase):
-    def test_post(self):
+    def test_post(self) -> None:
         user = UserFactory()
         deck = DeckFactory(user=user)
         client = Client()
@@ -173,7 +173,7 @@ class TestAddMultipleCardsView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestTestView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         UserCardFactory(user=user)
         client = Client()
@@ -182,7 +182,7 @@ class TestTestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "test.html")
 
-    def test_post_right(self):
+    def test_post_right(self) -> None:
         user = UserFactory()
         user_card = UserCardFactory(user=user)
         client = Client()
@@ -194,7 +194,7 @@ class TestTestView(TestCase):
         user_card.refresh_from_db()
         self.assertEqual(user_card.rung, 1)
 
-    def test_post_wrong(self):
+    def test_post_wrong(self) -> None:
         user = UserFactory()
         user_card = UserCardFactory(user=user)
         client = Client()
@@ -211,7 +211,7 @@ class TestTestView(TestCase):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage"
 )
 class TestExportDeckView(TestCase):
-    def test_get(self):
+    def test_get(self) -> None:
         user = UserFactory()
         client = Client()
         client.force_login(user)
