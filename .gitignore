@@ -13,3 +13,4 @@ staticfiles
 build
 *.egg-info/
 .aider*
+.env
