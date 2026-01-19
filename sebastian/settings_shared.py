@@ -108,7 +108,7 @@ INSTALLED_APPS = [
 
 ALLOWED_HOSTS = ["localhost", "cards.thraxil.org"]
 
-USE_TZ = False
+USE_TZ = True
 
 TEMPLATES = [
     {

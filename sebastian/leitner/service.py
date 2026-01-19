@@ -1,5 +1,6 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from random import random
+from typing import Optional
 
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -22,8 +23,12 @@ INTERVALS = [
 ]
 
 
-def usercard_test_correct(usercard: UserCard) -> None:
+def usercard_test_correct(
+    usercard: UserCard, now: Optional[datetime] = None
+) -> None:
     """user got it right, so we update accordingly"""
+    if now is None:
+        now = timezone.now()
     old_rung = usercard.rung
     q = usercard.usercardtest_set.all().order_by("-timestamp")
     if usercard.ease < 10:
@@ -33,7 +38,6 @@ def usercard_test_correct(usercard: UserCard) -> None:
         # never tested before. find the interval between now and
         # when the card was added which self.due should be set to
         # currently and calculate rung based on that
-        now = timezone.now()
         interval = now - usercard.due
         usercard_update_rung(usercard, interval)
     else:
@@ -41,7 +45,6 @@ def usercard_test_correct(usercard: UserCard) -> None:
         # one of the intervals, make sure that it gets bumped up
         # to at least that rung
         last_correct = q[0].timestamp
-        now = timezone.now()
         interval = now - last_correct
         usercard_update_rung(usercard, interval)
     UserCardTest.objects.create(
@@ -50,10 +53,14 @@ def usercard_test_correct(usercard: UserCard) -> None:
         old_rung=old_rung,
         new_rung=usercard.rung,
     )
-    usercard_update_due(usercard)
+    usercard_update_due(usercard, now=now)
 
 
-def usercard_test_wrong(usercard: UserCard) -> None:
+def usercard_test_wrong(
+    usercard: UserCard, now: Optional[datetime] = None
+) -> None:
+    if now is None:
+        now = timezone.now()
     UserCardTest.objects.create(
         usercard=usercard, correct=False, old_rung=usercard.rung, new_rung=0
     )
@@ -61,7 +68,7 @@ def usercard_test_wrong(usercard: UserCard) -> None:
     usercard.ease -= 1
     if usercard.ease < 0:
         usercard.ease = 0
-    usercard_update_due(usercard)
+    usercard_update_due(usercard, now=now)
 
 
 def usercard_update_rung(usercard: UserCard, interval: timedelta) -> None:
@@ -82,9 +89,14 @@ def usercard_update_rung(usercard: UserCard, interval: timedelta) -> None:
             usercard.rung = 1
 
 
-def usercard_update_due(usercard: UserCard) -> None:
+def usercard_update_due(
+    usercard: UserCard, now: Optional[datetime] = None
+) -> None:
     """figure out the next due date for this card based on rung,
     difficulty, and current datetime"""
+
+    if now is None:
+        now = timezone.now()
 
     # if rung == -1, the user has never been presented with this card,
     # so we should never be here
@@ -105,19 +117,25 @@ def usercard_update_due(usercard: UserCard) -> None:
     n = ((n * 0.2) * random()) + (n * 0.9)  # noqa: S311
 
     d = timedelta(**{u: n})
-    now = timezone.now()
     usercard.due = now + d
     usercard.save()
 
 
 def create_card(
-    front: Face, back: Face, deck: Deck, user: User, priority: int = 1
+    front: Face,
+    back: Face,
+    deck: Deck,
+    user: User,
+    priority: int = 1,
+    now: Optional[datetime] = None,
 ) -> None:
+    if now is None:
+        now = timezone.now()
     card = Card.objects.create(front=front, back=back, deck=deck)
     UserCard.objects.create(
         card=card,
         user=user,
-        due=timezone.now(),
+        due=now,
         priority=priority,
     )
 

@@ -19,12 +19,16 @@ This file provides a summary of useful commands for this project, derived from t
 
 **Note on tests**: Avoid using `setUp()` methods in test classes; prefer to set up necessary components directly within each test function.
 
+**Important on tests**: Do not use `pytest` or `freezegun`. Stick to plain Django tests (i.e. `django.test.TestCase`).
+
 ## Database
 
 *   `make migrate`: Apply database migrations.
 *   `make makemigrations`: Create new database migrations.
 
 ## Dependencies
+
+**Note on dependencies**: Never add third-party libraries without explicit permission.
 
 *   `make uv.lock`: Lock Python dependencies using `uv`.
 *   `make flake.lock`: Update the Nix flake lock file.
