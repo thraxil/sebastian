@@ -5,7 +5,7 @@ description = "SRS app"
 readme = "README.markdown"
 requires-python = ">=3.12"
 dependencies = [
-"Django==6.0.0",
+"Django==6.0.1",
 "psycopg==3.3.2",
 "gunicorn==24.1.1",
 "django-smoketest==1.2.1",
