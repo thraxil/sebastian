@@ -13,6 +13,7 @@
           {
             buildInputs = [
               pkgs.flyctl
+              pkgs.nodejs
               pkgs.postgresql
               pkgs.uv
               (pkgs.python312.withPackages (p: [
