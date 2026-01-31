@@ -52,8 +52,37 @@ exclude = [
 django_settings_module = "sebastian.settings"
 
 [tool.ruff]
-exclude = ["migrations"]
+exclude = [
+    "migrations",
+]
+
 line-length = 79
+
+[tool.ruff.format]
+line-ending = "lf"
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+  "E",  # pycodestyle
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "C901", # McCabe complexity
+  "I",
+  "T201",
+  "C90",
+  "S",
+  "UP",
+  "BLE",
+  "B",
+  "R",
+  "YTT",
+  "FBT",
+  "DJ",
+]
+fixable = ["ALL"]
+unfixable = []
 
 [tool.ruff.lint.mccabe]
 max-complexity = 5
