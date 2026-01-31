@@ -1,9 +1,12 @@
 # flake8: noqa
+import logging
 import os
 import os.path
 
 import sentry_sdk
+from django.core.exceptions import DisallowedHost
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.types import Event
 
 from .settings_shared import INSTALLED_APPS, MIDDLEWARE, STATIC_ROOT
 
@@ -66,6 +69,20 @@ LOGGING = {
 SENTRY_DSN: str = os.getenv("RAVEN_DSN", "")
 if SENTRY_DSN != "":
     ENVIRONMENT = "production"
+
+    def before_send(event: Event, hint: dict) -> Event | None:
+        if "exc_info" in hint:
+            exc_type, exc_value, tb = hint["exc_info"]
+            if isinstance(exc_value, DisallowedHost):
+                logging.getLogger("django.security.DisallowedHost").error(
+                    "Disallowed host",
+                    extra={
+                        "stack": True,
+                    },
+                )
+                return None
+        return event
+
     sentry_sdk.init(
         dsn=SENTRY_DSN,
         integrations=[
@@ -78,6 +95,7 @@ if SENTRY_DSN != "":
         traces_sample_rate=1.0,
         send_default_pii=False,
         environment=ENVIRONMENT,
+        before_send=before_send,
     )
 
 MIDDLEWARE = [
