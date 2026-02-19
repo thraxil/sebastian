@@ -74,3 +74,7 @@ install: check test
 	make migrate
 
 .PHONY: clean collectstatic compress install pull rebase shell check migrate runserver test jenkins
+
+.PHONY: libyear
+libyear:
+	uvx --from pylibyear==0.3.4 --with typing-extensions libyear toml pyproject.toml
