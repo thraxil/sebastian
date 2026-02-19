@@ -4,6 +4,7 @@ from typing import Optional
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
+from django.utils import timezone
 
 from sebastian.hashcolor import color, make_contrasting
 
@@ -32,7 +33,7 @@ class Deck(models.Model):
 
     def num_cards_due(self, user: User, now: Optional[datetime] = None) -> int:
         if now is None:
-            now = datetime.now()
+            now = timezone.now()
         return UserCard.objects.filter(
             user=user, rung__gte=0, card__deck=self, due__lte=now
         ).count()
