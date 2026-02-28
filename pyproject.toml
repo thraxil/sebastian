@@ -21,6 +21,7 @@ dev = [
 "mypy-extensions==1.1.0",
 "django-stubs[compatible-mypy]==5.0.4",
 "ruff==0.15.2",
+"hypothesis==6.151.9",
 ]
 
 [tool.mypy]

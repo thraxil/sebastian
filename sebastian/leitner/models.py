@@ -15,9 +15,9 @@ class Face(models.Model):
     def size(self) -> float:
         s = 800 / len(self.content)
         if s < 16:
-            s = 16
+            s = 16.0
         if s > 200:
-            s = 200
+            s = 200.0
         return s
 
 
