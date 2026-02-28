@@ -38,9 +38,6 @@ ruff-check:
 mypy:
 	uv run -- mypy $(APP)
 
-libyear:
-	uvx --from pylibyear libyear toml pyproject.toml
-
 clean:
 	rm -rf .venv
 	rm -rf static/CACHE
