@@ -1,0 +1,62 @@
+name: CI/CD
+on:
+  push:
+    branches: ["**"]
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Warm up environment
+        run: |
+          nix develop --command true
+          nix build .#container --no-link
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-action: [test, check, ruff-check, mypy]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Run ${{ matrix.test-action }}
+        run: nix develop --command make ${{ matrix.test-action }} RUNNER=""
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: Build image with Nix
+        run: nix build .#container
+      - name: Load image into Docker
+        run: docker load < result
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy to Fly.io
+        run: |
+          flyctl auth docker
+          docker tag sebastian:latest registry.fly.io/sebastian:${{ github.sha }}
+          docker push registry.fly.io/sebastian:${{ github.sha }}
+          flyctl deploy --image registry.fly.io/sebastian:${{ github.sha }}
+      - name: sentry release
+        uses: getsentry/action-release@v3
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: thraxil
+          SENTRY_PROJECT: sebastian
+        with:
+          environment: production
