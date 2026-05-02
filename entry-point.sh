@@ -11,26 +11,35 @@ else
     export DJANGO_SETTINGS_MODULE="$APP.settings_docker"
 fi
 
+# Use uv if available, otherwise use python/gunicorn directly
+if command -v uv &> /dev/null; then
+    RUN="uv run"
+    GUNICORN="uv run gunicorn"
+else
+    RUN="python"
+    GUNICORN="gunicorn"
+fi
+
 if [ "$1" == "migrate" ]; then
-    exec uv run manage.py migrate
+    exec $RUN manage.py migrate
 fi
 
 if [ "$1" == "collectstatic" ]; then
-    exec uv run manage.py collectstatic --verbosity 2 --noinput
+    exec $RUN manage.py collectstatic --verbosity 2 --noinput
 fi
 
 if [ "$1" == "shell" ]; then
-    exec uv run manage.py shell
+    exec $RUN manage.py shell
 fi
 
 if [ "$1" == "manage" ]; then
     # run arbitrary manage.py commands
     shift
-    exec uv run manage.py "$@"
+    exec $RUN manage.py "$@"
 fi
 
 if [ "$1" == "run" ]; then
-    exec uv run gunicorn --env DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE $APP.wsgi:application -b 0.0.0.0:8000 -w 3 --max-requests=1000 --max-requests-jitter=50 \
+    exec $GUNICORN --env DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE $APP.wsgi:application -b 0.0.0.0:8000 -w 3 --max-requests=1000 --max-requests-jitter=50 \
 	--access-logfile=- --error-logfile=-
 
 fi

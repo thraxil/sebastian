@@ -1,4 +1,5 @@
 APP=sebastian
+RUNNER ?= uv run --
 
 all: fulltest
 
@@ -6,37 +7,37 @@ flake.lock: flake.nix
 	nix flake update
 
 test: uv.lock
-	uv run -- manage.py test
+	$(RUNNER) python manage.py test
 
 fulltest: uv.lock check ruff-format mypy
-	uv run -- manage.py test
+	$(RUNNER) python manage.py test
 
 uv.lock: pyproject.toml
 	uv lock
 
 runserver: check
-	uv run -- manage.py runserver
+	$(RUNNER) python manage.py runserver
 
 migrate: check
-	uv run -- manage.py migrate
+	$(RUNNER) python manage.py migrate
 
 makemigrations: check
-	uv run -- manage.py makemigrations
+	$(RUNNER) python manage.py makemigrations
 
 check: uv.lock
-	uv run -- manage.py check
+	$(RUNNER) python manage.py check
 
 shell: check
-	uv run -- manage.py shell
+	$(RUNNER) python manage.py shell
 
 ruff-format: ruff-check
-	uv run -- ruff format $(APP)
+	$(RUNNER) ruff format $(APP)
 
 ruff-check:
-	uv run -- ruff check --select I --fix $(APP)
+	$(RUNNER) ruff check --select I --fix $(APP)
 
 mypy:
-	uv run -- mypy $(APP)
+	$(RUNNER) mypy $(APP)
 
 clean:
 	rm -rf .venv
