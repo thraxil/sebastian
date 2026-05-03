@@ -9,6 +9,9 @@ env:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/determinate-nix-action@v3
@@ -21,6 +24,9 @@ jobs:
   test:
     needs: setup
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     strategy:
       matrix:
         test-action: [test, check, ruff-check, mypy]
@@ -35,6 +41,9 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     concurrency:
       group: deploy
     steps:
