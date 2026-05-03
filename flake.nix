@@ -77,9 +77,6 @@
             doCheck = false;
             pythonImportsCheck = [ "psycopg" "psycopg_c" ];
           });
-          psycopg-pool = super.psycopg-pool.overridePythonAttrs (old: {
-            pythonImportsCheck = [ ];
-          });
         };
       };
 
@@ -88,7 +85,6 @@
         ps.django-smoketest
         ps.django-debug-toolbar
         ps.psycopg
-        ps.psycopg-pool
         ps.gunicorn
         ps.sentry-sdk
         ps.whitenoise
@@ -100,7 +96,6 @@
         ps.django-smoketest
         ps.django-debug-toolbar
         ps.psycopg
-        ps.psycopg-pool
         ps.gunicorn
         ps.sentry-sdk
         ps.whitenoise
@@ -134,6 +129,7 @@
         mkdir -p $out/app
         cp -r ${pkgs.lib.cleanSource ./.}/* $out/app/
         chmod -R +w $out/app
+        chmod +x $out/app/entry-point.sh
         rm -rf $out/app/staticfiles
         cp -r ${staticfiles} $out/app/staticfiles
       '';
@@ -148,8 +144,13 @@
           pkgs.coreutils
           appDir
         ];
+        fakeRootCommands = ''
+          mkdir -p usr/bin
+          ln -s ${pkgs.coreutils}/bin/env usr/bin/env
+        '';
         config = {
-          Cmd = [ "/app/entry-point.sh" "run" ];
+          Entrypoint = [ "/app/entry-point.sh" ];
+          Cmd = [ "run" ];
           WorkingDir = "/app";
           ExposedPorts = {
             "8000/tcp" = {};
