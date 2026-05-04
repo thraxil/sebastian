@@ -37,7 +37,7 @@ ruff-check:
 	$(RUNNER) ruff check --select I --fix $(APP)
 
 mypy:
-	$(RUNNER) mypy $(APP)
+	PYTHONPATH=. $(RUNNER) mypy $(APP)
 
 clean:
 	rm -rf .venv
