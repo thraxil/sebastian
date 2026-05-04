@@ -2,18 +2,23 @@
 name = "sebastian"
 version = "0.1.0"
 description = "SRS app"
-readme = "README.markdown"
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-"Django==6.0.3",
-"psycopg==3.3.3",
-"gunicorn==25.3.0",
-"django-smoketest==1.2.1",
-"django-debug-toolbar==6.3.0",
-"sentry-sdk==2.58.0",
-"whitenoise==6.12.0",
-"factory_boy==3.3.3",
+    "Django==6.0.3",
+    "gunicorn==25.3.0",
+    "django-smoketest==1.2.1",
+    "django-debug-toolbar==6.3.0",
+    "sentry-sdk==2.58.0",
+    "whitenoise==6.12.0",
+    "factory_boy==3.3.3",
+    "psycopg-binary>=3.3.4",
+    "psycopg>=3.3.4",
 ]
+
+[tool.setuptools]
+packages = ["sebastian"]
+
 [dependency-groups]
 dev = [
 "mypy==1.11.1",
