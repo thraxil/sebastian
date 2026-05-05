@@ -13,7 +13,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - uses: DeterminateSystems/determinate-nix-action@v3
       - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Warm up environment
@@ -31,7 +31,7 @@ jobs:
       matrix:
         test-action: [test, check, ruff-check, mypy]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - uses: DeterminateSystems/determinate-nix-action@v3
       - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Run ${{ matrix.test-action }}
@@ -47,7 +47,7 @@ jobs:
     concurrency:
       group: deploy
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - uses: DeterminateSystems/determinate-nix-action@v3
       - uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Build image with Nix
