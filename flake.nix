@@ -34,7 +34,7 @@
 
         # Create the package set builder
         packageSet = pkgs.callPackage pyproject-nix.build.packages {
-          python = pkgs.python312;
+          python = pkgs.python313;
         };
 
         # Render the workspace to an overlay
