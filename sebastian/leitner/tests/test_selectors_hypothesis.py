@@ -66,3 +66,60 @@ class TestDueRange(TestCase):
             due__gte=lower,
         ).count()
         self.assertEqual(count, expected_count)
+
+
+from sebastian.leitner.models import UserCard
+from sebastian.leitner.selectors import (
+    ease_stats,
+    total_deck_due,
+    total_due,
+    total_tested,
+    total_untested,
+)
+
+from .factories import DeckFactory
+
+
+class TestSelectorsProperties(TestCase):
+    @given(
+        st.lists(
+            st.tuples(
+                st.integers(min_value=-1, max_value=10),
+                st.integers(min_value=0, max_value=10),
+                st.datetimes(
+                    min_value=datetime(2000, 1, 1),
+                    max_value=datetime(2030, 12, 31),
+                    timezones=st.timezones(),
+                ),
+            ),
+            max_size=20,
+        )
+    )
+    def test_selector_invariants(
+        self, card_data: list[tuple[int, int, datetime]]
+    ) -> None:
+        user = User.objects.create(username="testuser_selectors")
+        deck = DeckFactory.create(user=user)
+
+        for rung, ease, due in card_data:
+            UserCardFactory.create(
+                user=user,
+                card__deck=deck,
+                rung=rung,
+                ease=ease,
+                due=due,
+            )
+
+        # Invariant 1: total_tested + total_untested == total cards
+        assert (
+            total_tested(user) + total_untested(user)
+            == UserCard.objects.filter(user=user).count()
+        )
+
+        # Invariant 2: The sum of the `cards` count in `ease_stats(u)` must equal `total_tested(u)`.
+        stats = ease_stats(user)
+        sum_ease_cards = sum(item["cards"] for item in stats)
+        assert sum_ease_cards == total_tested(user)
+
+        # Invariant 3: total_deck_due <= total_due
+        assert total_deck_due(user, deck) <= total_due(user)
