@@ -13,7 +13,7 @@ dependencies = [
     "whitenoise==6.12.0",
     "factory_boy==3.3.3",
     "psycopg-binary>=3.3.4",
-    "psycopg>=3.3.4",
+    "psycopg>=3.3.5",
 ]
 
 [tool.setuptools]
