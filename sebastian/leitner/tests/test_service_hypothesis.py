@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
-from hypothesis import given
+from hypothesis import example, given
 from hypothesis import strategies as st
 from hypothesis.extra.django import TestCase
 
@@ -58,11 +59,19 @@ class TestUserCardUpdateDue(TestCase):
             timezones=st.timezones(),
         ),
     )
+    # inside a DST gap, just before it ends: wall-clock arithmetic lands due an
+    # hour earlier than now
+    @example(
+        0,
+        0,
+        datetime(2028, 3, 12, 2, 59, 58, tzinfo=ZoneInfo("America/New_York")),
+    )
     def test_usercard_update_due_properties(
         self, rung: int, ease: int, now: datetime
     ) -> None:
         user_card = UserCardFactory.create(rung=rung, ease=ease)
         usercard_update_due(user_card, now=now)
+        user_card.refresh_from_db()
 
         # Property 1: Due date is in the future
         self.assertGreater(user_card.due, now)

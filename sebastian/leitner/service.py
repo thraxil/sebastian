@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from random import random
 from typing import Optional
 
@@ -117,7 +117,9 @@ def usercard_update_due(
     n = ((n * 0.2) * random()) + (n * 0.9)  # noqa: S311
 
     d = timedelta(**{u: n})
-    usercard.due = now + d
+    # do the arithmetic in UTC so DST transitions in now's timezone
+    # can't push due before now
+    usercard.due = now.astimezone(UTC) + d
     usercard.save()
 
 
