@@ -49,14 +49,14 @@ wheels = [
 
 [[package]]
 name = "django-smoketest"
-version = "1.2.1"
+version = "1.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/28/44/bc26e5932b1de0f2563495e3e8a31da4a5485780bd8db005b7936fbbe854/django-smoketest-1.2.1.tar.gz", hash = "sha256:708f75c9855af737b3fe5403cb83107cf3d0d3511bb7f816cb8753ce63f0a87b", size = 12905, upload-time = "2023-08-10T13:15:14.837Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f6/a7/32096de6bff368e366b92d47d73abe3ad66021dca6221d4a24abe1d6e341/django_smoketest-1.2.2.tar.gz", hash = "sha256:a5456eee34aa47519214a8cf4d99c3983b629054cbd6c2d602bf57a9de3f6a69", size = 8791, upload-time = "2026-10-16T15:01:06.809Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a4/46/ed23d6912d211e6bc6b9c76bbb41198027d659fade8570668513f044509b/django_smoketest-1.2.1-py2.py3-none-any.whl", hash = "sha256:6fc0b6603dd69ce20f341b0498ca25c39251a0380d0cf1f115eeba834a2330fe", size = 14042, upload-time = "2023-08-10T13:15:12.004Z" },
+    { url = "https://files.pythonhosted.org/packages/c5/ba/36b7ab35b67a49ba475b0593f8e9b02a1a6a57b1b1717790108097f3dbd9/django_smoketest-1.2.2-py3-none-any.whl", hash = "sha256:dfe74f2014651f837b8ae8ca1d9d4f24162a02394c5129499e5b27b14bb273d1", size = 8465, upload-time = "2026-10-16T15:01:05.758Z" },
 ]
 
 [[package]]
@@ -324,7 +324,7 @@ dev = [
 requires-dist = [
     { name = "django", specifier = "==6.1.2" },
     { name = "django-debug-toolbar", specifier = "==8.0.0" },
-    { name = "django-smoketest", specifier = "==1.2.1" },
+    { name = "django-smoketest", specifier = "==1.2.2" },
     { name = "factory-boy", specifier = "==3.3.3" },
     { name = "gunicorn", specifier = "==26.2.0" },
     { name = "psycopg", specifier = ">=3.3.6" },
